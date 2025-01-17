@@ -59,6 +59,9 @@ const theme = defineConfig({
           90: { value: "#030203" },
           95: { value: "#1F1D22" },
         },
+        orange: {
+          DEFAULT: { value: "#B35500" },
+        },
       },
     },
   },

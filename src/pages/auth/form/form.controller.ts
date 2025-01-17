@@ -3,6 +3,10 @@ import { useForm, SubmitHandler } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { useAuth } from "hooks/useAuth";
 import useAuthStore from "stores/auth.store";
+import { useMutation } from "@tanstack/react-query";
+import { signin } from "services/auth.services";
+import { useNavigate } from "react-router-dom";
+import { toaster } from "components/ui/toaster";
 
 export const loginSchema = z.object({
   email: z
@@ -30,9 +34,10 @@ type ServerErrorResponse = {
 };
 
 export const useLoginController = () => {
-  const { login } = useAuth();
   const { email, password, setEmail, setPassword, rememberMe, setRememberMe } =
     useAuthStore();
+  const navigate = useNavigate();
+  const { auth } = useAuth();
 
   const {
     control,
@@ -46,6 +51,26 @@ export const useLoginController = () => {
     defaultValues: {
       email: email ?? "",
       password: password ?? "",
+    },
+  });
+
+  const { mutate: login } = useMutation({
+    mutationFn: (params: Sigin) => signin(params),
+    onSuccess: (data) => {
+      if (data?.token) {
+        auth(data?.token);
+        navigate("/");
+      }
+      toaster.create({
+        title: "Login feito com sucesso!",
+        type: "success",
+      });
+    },
+    onError: () => {
+      toaster.create({
+        title: "Erro de login!",
+        type: "error",
+      });
     },
   });
 
