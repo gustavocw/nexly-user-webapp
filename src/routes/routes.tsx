@@ -3,15 +3,15 @@ import { BrowserRouter, Routes } from "react-router-dom";
 import { Route } from "react-router-dom";
 import Auth from "pages/auth";
 import { AuthGuard } from "./auth/authGuard";
-import { Box } from "@chakra-ui/react";
+import Home from "pages/home/home";
 
 const AppRoutes: React.FC = () => {
   return (
     <BrowserRouter>
       <Routes>
-        <Route element={<AuthGuard isPrivate={false} />}>
-          <Route path="/login" element={<Auth />} />
-            <Route path="/" element={<Box />} />
+        <Route path="/login" element={<Auth />} />
+        <Route element={<AuthGuard isPrivate={true} />}>
+          <Route path="/" element={<Home />} />
         </Route>
       </Routes>
     </BrowserRouter>

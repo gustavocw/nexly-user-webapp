@@ -1,15 +1,7 @@
 import { persist, createJSONStorage } from "zustand/middleware";
 import { create } from "zustand";
 
-interface ProducerProps {
-  id: string;
-  success: boolean;
-  token: string;
-  plan: string;
-}
-
 interface AuthState {
-  producerStore: ProducerProps | null;
   stepLogin: boolean;
   email: string | null;
   password: string | null;
@@ -17,7 +9,6 @@ interface AuthState {
 }
 
 interface AuthActions {
-  setProducerStore: (producer: AuthState["producerStore"]) => void;
   setStepLogin: (stepLogin: AuthState["stepLogin"]) => void;
   setEmail: (email: AuthState["email"]) => void;
   setPassword: (password: AuthState["password"]) => void;
@@ -27,12 +18,11 @@ interface AuthActions {
 const useAuthStore = create<AuthState & AuthActions>()(
   persist(
     (set) => ({
-      producerStore: null,
+      userStore: null,
       stepLogin: false,
       email: null,
       password: null,
       rememberMe: "false",
-      setProducerStore: (producerStore) => set({ producerStore }),
       setStepLogin: (stepLogin) => set({ stepLogin }),
       setEmail: (email) => set({ email }),
       setPassword: (password) => set({ password }),
@@ -42,7 +32,6 @@ const useAuthStore = create<AuthState & AuthActions>()(
       name: "auth-storage",
       storage: createJSONStorage(() => localStorage),
       partialize: (state) => ({
-        producerStore: state.producerStore,
         stepLogin: state.stepLogin,
         email: state.rememberMe === "true" ? state.email : null,
         password: state.rememberMe === "true" ? state.password : null,
