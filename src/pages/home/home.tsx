@@ -7,11 +7,29 @@ import {
   ProgressValueText,
 } from "components/ui/progress";
 import Btn from "components/button/button";
-import { RxSpeakerLoud } from "react-icons/rx";
 import CardProduct from "./cards/cards";
 import { dummyProducts } from "./cards/dummy";
+import { useState, useEffect } from "react";
 
 const Home = () => {
+  const [boxWidth, setBoxWidth] = useState("40%");
+
+  useEffect(() => {
+    const handleResize = () => {
+      const { innerWidth } = window;
+      const calculatedWidth = Math.min(
+        40 + (100 - (innerWidth / 1920) * 100),
+        100
+      );
+      setBoxWidth(`${calculatedWidth}%`);
+    };
+    window.addEventListener("resize", handleResize);
+    handleResize();
+    return () => {
+      window.removeEventListener("resize", handleResize);
+    };
+  }, []);
+
   return (
     <Box h="100vh" w="100%">
       <VideoBackground videoUrl="https://www.youtube.com/watch?v=Ttl8Gg-P-Ao">
@@ -23,10 +41,10 @@ const Home = () => {
           <VStack
             gap="16px"
             align="flex-start"
-            maxW={{ base: "100%", md: "40%" }}
+            maxW={{ base: "100%", md: "100%", lg: boxWidth }}
             p={{ base: 4, md: 20 }}
           >
-            <Flex gap={2} w="100%">
+            <Flex gap={2} w="60%">
               <Icon color="orange">
                 <FaCircleExclamation />
               </Icon>
@@ -34,13 +52,13 @@ const Home = () => {
                 Receba seu certificado após a conclusão das aulas
               </Text>
             </Flex>
-            <Flex gap={2} w="100%">
+            <Flex gap={2} w="60%">
               <ProgressRoot
                 colorPalette="orange"
                 display="flex"
                 gap={2}
                 alignItems="center"
-                w="80%"
+                w="100%"
                 defaultValue={40}
                 min={0}
                 max={100}
@@ -50,7 +68,9 @@ const Home = () => {
                 <ProgressBar bg="#00000066" borderRadius="50px" w="100%" />
               </ProgressRoot>
             </Flex>
-            <Text fontSize="32px">Nome da área</Text>
+            <Text fontSize={{ base: "16px", md: "20px", lg: "32px" }}>
+              Nome da área
+            </Text>
             <Text fontSize="16px">
               Descubra o cosmos com 'Exploração Espacial 101'. Este curso
               envolvente abrange astronomia, exoplanetas e muito mais. Perfeito
@@ -65,22 +85,12 @@ const Home = () => {
               borderRadius="50px"
             />
           </VStack>
-          <Icon
-            m={10}
-            alignSelf="flex-end"
-            justifySelf="flex-end"
-            color="#fff"
-            fontSize="34px"
-          >
-            <RxSpeakerLoud />
-          </Icon>
         </Flex>
       </VideoBackground>
-      <HStack align="flex-start" gap={4} w="100%">
+      <HStack overflowX="auto" px={{ base: "10px", md: "32px"  }} align="flex-start" gap={4} w="100%">
         {dummyProducts.map((item) => (
-          <VStack px="32px" h="400px">
+          <VStack h="400px" key={item._id}>
             <CardProduct
-              key={item._id}
               productName={item.name}
               productImage={item.thumbnail}
             />

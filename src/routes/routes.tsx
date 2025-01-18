@@ -5,6 +5,7 @@ import Auth from "pages/auth";
 import { AuthGuard } from "./auth/authGuard";
 import Home from "pages/home/home";
 import { Root } from "components/root/root";
+import Profile from "pages/profile";
 
 const LayoutWithRoot: React.FC = () => (
   <Root>
@@ -20,6 +21,7 @@ const AppRoutes: React.FC = () => {
         <Route element={<AuthGuard isPrivate={true} />}>
           <Route element={<LayoutWithRoot />}>
             <Route path="/" element={<Home />} />
+            <Route path="/profile" element={<Profile />} />
           </Route>
         </Route>
       </Routes>

@@ -9,7 +9,10 @@ import { Field } from "components/ui/field";
 import { withMask } from "use-mask-input";
 
 interface InputProps {
+  bg?: string;
+  border?: any;
   control: any;
+  boxShadow?: any;
   name: string;
   label?: string;
   placeholder?: string;
@@ -22,13 +25,17 @@ interface InputProps {
   isReadOnly?: boolean;
   isDisabled?: boolean;
   autoComplete?: string;
+  mx?: any;
   maxLength?: number;
   mask?: string;
   helperText?: string;
+  onBlurSubmit?: (value?: string) => void;
+  onEnterSubmit?: (value?: string) => void;
 }
 
 const InputBase: React.FC<InputProps> = ({
   control,
+  mx,
   name,
   label,
   placeholder,
@@ -43,6 +50,8 @@ const InputBase: React.FC<InputProps> = ({
   autoComplete,
   maxLength,
   mask,
+  onBlurSubmit,
+  onEnterSubmit,
 }) => (
   <Field
     helperText={helperText}
@@ -59,8 +68,21 @@ const InputBase: React.FC<InputProps> = ({
           <ChakraInput
             {...field}
             type={type}
+            mx={mx}
             placeholder={placeholder}
             onChange={(e) => field.onChange(e.target.value)}
+            onBlur={(e) => {
+              field.onBlur();
+              if (onBlurSubmit) {
+                onBlurSubmit(e.target.value);
+              }
+            }}
+            onKeyDown={(e) => {
+              if (e.key === "Enter" && onEnterSubmit) {
+                e.preventDefault();
+                onEnterSubmit(field.value);
+              }
+            }}
             ref={mask ? withMask(mask) : undefined}
             readOnly={isReadOnly}
             disabled={isDisabled}
@@ -85,15 +107,21 @@ const InputText: React.FC<InputProps> = ({
   name,
   label,
   placeholder,
+  border,
   isRequired,
   errorText,
+  mx,
   width,
   height,
+  boxShadow,
+  bg,
   isReadOnly,
   isDisabled,
   helperText,
   maxLength,
   mask,
+  onBlurSubmit,
+  onEnterSubmit,
 }) => (
   <Field
     color="white"
@@ -102,7 +130,12 @@ const InputText: React.FC<InputProps> = ({
     required={isRequired}
     helperText={helperText}
   >
-    <Box width={width || "100%"} height={height || "200px"}>
+    <Box
+      bg={bg ?? "neutral.50"}
+      boxShadow={boxShadow}
+      width={width || "100%"}
+      height={height || "200px"}
+    >
       <Controller
         name={name}
         control={control}
@@ -111,12 +144,26 @@ const InputText: React.FC<InputProps> = ({
             {...field}
             placeholder={placeholder}
             onChange={(e) => field.onChange(e.target.value)}
+            onBlur={(e) => {
+              field.onBlur();
+              if (onBlurSubmit) {
+                onBlurSubmit(e.target.value);
+              }
+            }}
+            onKeyDown={(e) => {
+              if (e.key === "Enter" && onEnterSubmit) {
+                e.preventDefault();
+                onEnterSubmit(field.value);
+              }
+            }}
             ref={mask ? withMask(mask) : undefined}
             readOnly={isReadOnly}
             maxH="200px"
             minH="200px"
             p={2}
+            mx={mx}
             disabled={isDisabled}
+            border={border}
             maxLength={maxLength}
             borderColor="neutral.30"
             _active={{

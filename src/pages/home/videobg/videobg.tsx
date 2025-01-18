@@ -1,55 +1,97 @@
-import { VStack } from "@chakra-ui/react";
+import React, { useState, useEffect } from "react";
+import ReactPlayer from "react-player";
+import { Icon, VStack } from "@chakra-ui/react";
+import { RxSpeakerOff, RxSpeakerLoud } from "react-icons/rx";
 
 interface VideoBackgroundProps {
   videoUrl: string;
-  children?: React.ReactNode;
+  children: React.ReactNode;
 }
 
-const VideoBackground: React.FC<VideoBackgroundProps> = ({ videoUrl, children }) => {
-  const videoId = extractVideoId(videoUrl);
+const VideoBackground: React.FC<VideoBackgroundProps> = ({
+  videoUrl,
+  children,
+}) => {
+  const [isMuted, setIsMuted] = useState(true);
+  const [dimensions, setDimensions] = useState({
+    width: window.innerWidth,
+    height: window.innerHeight,
+  });
+
+  const toggleMute = () => {
+    setIsMuted(!isMuted);
+  };
+
+  useEffect(() => {
+    const handleResize = () => {
+      const { innerWidth, innerHeight } = window;
+      const proportionalHeight = Math.max(
+        innerHeight * (innerWidth / 1920),
+        200
+      );
+      setDimensions({
+        width: innerWidth,
+        height: proportionalHeight,
+      });
+    };
+
+    window.addEventListener("resize", handleResize);
+    handleResize();
+
+    return () => {
+      window.removeEventListener("resize", handleResize);
+    };
+  }, []);
 
   return (
     <VStack
       w="100%"
-      h={{ base: "35vh", md: "100vh" }}
+      h={`${dimensions.height}px`}
       position="relative"
       overflow="hidden"
     >
-      {videoId && (
-        <iframe
-          src={`https://www.youtube.com/embed/${videoId}?autoplay=1&mute=1&loop=1&playlist=${videoId}&controls=0&showinfo=0&modestbranding=1`}
-          style={{
-            position: "absolute",
-            top: "-10%",
-            left: "-10%",
-            width: "120%",
-            height: "120%",
-            pointerEvents: "none",
-            border: "none",
-          }}
-          allow="autoplay; fullscreen; loop"
-          allowFullScreen
-        ></iframe>
-      )}
+      <ReactPlayer
+        url={videoUrl}
+        volume={0.1}
+        playing={true}
+        muted={isMuted}
+        loop={true}
+        width="120%"
+        height="120%"
+        style={{
+          position: "absolute",
+          top: "-10%",
+          left: "-10%",
+          pointerEvents: "none",
+        }}
+      />
       <VStack
         position="relative"
         zIndex="1"
         w="100%"
         h="100%"
-        display={{ base: "none", md: "flex" }}
+        display={{ base: "none", md: "none", lg: "flex" }}
         justifyContent="flex-end"
         alignItems="flex-start"
         color="white"
       >
         {children}
+        <Icon
+          mx={10}
+          my={20}
+          alignSelf="flex-end"
+          justifySelf="flex-end"
+          color="#fff"
+          position="absolute"
+          fontSize="34px"
+          cursor="pointer"
+          onClick={toggleMute}
+        >
+          {isMuted ? <RxSpeakerOff /> : <RxSpeakerLoud />}
+        </Icon>
       </VStack>
     </VStack>
   );
-};
-
-const extractVideoId = (url: string) => {
-  const match = url.match(/(?:v=|\/)([0-9A-Za-z_-]{11})/);
-  return match ? match[1] : null;
 };
 
 export default VideoBackground;
