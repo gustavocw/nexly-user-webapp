@@ -6,6 +6,7 @@ import { AuthGuard } from "./auth/authGuard";
 import Home from "pages/home/home";
 import { Root } from "components/root/root";
 import Profile from "pages/profile";
+import Course from "pages/course/modules";
 
 const LayoutWithRoot: React.FC = () => (
   <Root>
@@ -22,6 +23,7 @@ const AppRoutes: React.FC = () => {
           <Route element={<LayoutWithRoot />}>
             <Route path="/" element={<Home />} />
             <Route path="/profile" element={<Profile />} />
+            <Route path="/course/:id" element={<Course />} />
           </Route>
         </Route>
       </Routes>

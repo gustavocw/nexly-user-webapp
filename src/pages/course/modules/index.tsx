@@ -1,5 +1,4 @@
 import { Text, VStack, Icon, Flex, Box, HStack } from "@chakra-ui/react";
-import VideoBackground from "components/videobg/videobg";
 import { FaCircleExclamation } from "react-icons/fa6";
 import {
   ProgressBar,
@@ -7,12 +6,15 @@ import {
   ProgressValueText,
 } from "components/ui/progress";
 import Btn from "components/button/button";
-import CardProduct from "./cards/cards";
-import { dummyProducts } from "./cards/dummy";
 import { useState, useEffect } from "react";
+import VideoBackground from "components/videobg/videobg";
+import { useLocation } from "react-router-dom";
+import CardModules from "./cards/cards";
 
-const Home = () => {
+const Course = () => {
   const [boxWidth, setBoxWidth] = useState("40%");
+  const location = useLocation();
+  const { course } = location.state || {};
 
   useEffect(() => {
     const handleResize = () => {
@@ -87,12 +89,10 @@ const Home = () => {
           </VStack>
         </Flex>
       </VideoBackground>
-      <HStack overflowX="auto" px={{ base: "10px", md: "32px"  }} align="flex-start" gap={4} w="100%">
-        {dummyProducts.map((item) => (
-          <VStack h="400px" key={item._id}>
-            <CardProduct
-              course={item}
-            />
+      <HStack overflowX="auto" px={{ base: "10px", md: "32px" }} align="flex-start" gap={4} w="100%">
+        {course?.modules?.map((module: any) => (
+          <VStack h="400px" key={module._id}>
+            <CardModules module={module} />
           </VStack>
         ))}
       </HStack>
@@ -100,4 +100,4 @@ const Home = () => {
   );
 };
 
-export default Home;
+export default Course;

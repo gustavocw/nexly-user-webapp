@@ -1,23 +1,22 @@
 import { Box, Text, VStack } from "@chakra-ui/react";
 import Gestures from "components/motion/gesture";
-import { useNavigate } from "react-router-dom";
 
-interface CardProductProps {
-  course: Course | any;
+interface CardModulesProps {
+  module: Module | any
 }
 
 const defaultStyle = { width: "208px", height: "310px" };
 
-const CardProduct: React.FC<CardProductProps> = ({ course }) => {
-  const navigate = useNavigate();
-
+const CardModules: React.FC<CardModulesProps> = ({
+  module,
+}) => {
   return (
     <VStack py={10} align="flex-start" w="100%">
       <Gestures>
         <Box
           {...defaultStyle}
           borderRadius="4px"
-          bgImage={`url(${course.thumbnail})`}
+          bgImage={`url(${module.thumbnail})`}
           bgSize="contain"
           bgRepeat="no-repeat"
           bgPos="center"
@@ -25,11 +24,6 @@ const CardProduct: React.FC<CardProductProps> = ({ course }) => {
           cursor="pointer"
           w={{ base: "188px", md: defaultStyle.width }}
           h={{ base: "280px", md: defaultStyle.height }}
-          onClick={() =>
-            navigate(`/course/${course?._id}`, {
-              state: { course: course },
-            })
-          }
           mx={2}
         >
           <Box
@@ -41,7 +35,7 @@ const CardProduct: React.FC<CardProductProps> = ({ course }) => {
             color="white"
             p={2}
           >
-            <Text fontSize="sm">{course.name}</Text>
+            <Text fontSize="sm">{module.name}</Text>
           </Box>
         </Box>
       </Gestures>
@@ -49,4 +43,4 @@ const CardProduct: React.FC<CardProductProps> = ({ course }) => {
   );
 };
 
-export default CardProduct;
+export default CardModules;

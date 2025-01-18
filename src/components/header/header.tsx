@@ -19,7 +19,7 @@ const Header = () => {
       <Image
         cursor="pointer"
         onClick={() => navigate("/")}
-        src="images/logo.png"
+        src="/images/logo.png"
         objectFit="contain"
         w="100px"
         h="25px"
