@@ -6,10 +6,12 @@ import {
   MenuRoot,
   MenuTrigger,
 } from "components/ui/menu";
+import { useAuth } from "hooks/useAuth";
 import { useNavigate } from "react-router-dom";
 
 const AvatarUser = () => {
   const navigate = useNavigate();
+  const {signout} = useAuth();
   return (
     <MenuRoot>
       <MenuTrigger asChild>
@@ -82,6 +84,19 @@ const AvatarUser = () => {
           onClick={() => navigate("/certificates")}
         >
           Certificado
+        </MenuItem>
+        <MenuItem
+          fontSize="18px"
+          _hover={{ bg: "orange" }}
+          color="neutral"
+          borderRadius="8px"
+          cursor="pointer"
+          px="12px"
+          py="6px"
+          value="export"
+          onClick={() => signout()}
+        >
+          Sair
         </MenuItem>
       </MenuContent>
     </MenuRoot>

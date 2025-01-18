@@ -39,6 +39,9 @@ export const useLoginController = () => {
   const navigate = useNavigate();
   const { auth } = useAuth();
 
+  console.log(email, password);
+  
+
   const {
     control,
     handleSubmit,
@@ -49,8 +52,12 @@ export const useLoginController = () => {
     resolver: zodResolver(loginSchema),
     mode: "onBlur",
     defaultValues: {
-      email: email ?? "",
-      password: password ?? "",
+      // email: email ?? "",
+      // password: password ?? "",
+      
+      email: "sas2@gmail.com",
+      password: "asasadfsfsdfdgfhfghda",
+
     },
   });
 
