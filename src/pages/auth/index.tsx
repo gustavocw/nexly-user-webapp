@@ -18,7 +18,7 @@ const Auth = () => {
         width="50%"
       >
         <Box>
-          <Image m="auto" objectFit="autoy" src={ stepLogin ? "images/detailLogin2.png" : "images/detailLogin.png" } />
+          <Image m="auto" objectFit="autoy" src="images/bglogin.png" />
         </Box>
       </Stack>
     </HStack>
