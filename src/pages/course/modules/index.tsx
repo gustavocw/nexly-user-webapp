@@ -9,7 +9,7 @@ import Btn from "components/button/button";
 import { useState, useEffect } from "react";
 import VideoBackground from "components/videobg/videobg";
 import { useLocation } from "react-router-dom";
-import CardModules from "./cards/cards";
+import CardLessons from "./cards/cards";
 
 const Course = () => {
   const [boxWidth, setBoxWidth] = useState("40%");
@@ -51,7 +51,7 @@ const Course = () => {
                 <FaCircleExclamation />
               </Icon>
               <Text whiteSpace="nowrap" fontSize="14px" fontWeight="bold">
-                Receba seu certificado após a conclusão das aulas
+                {course.name}
               </Text>
             </Flex>
             <Flex gap={2} w="60%">
@@ -70,15 +70,8 @@ const Course = () => {
                 <ProgressBar bg="#00000066" borderRadius="50px" w="100%" />
               </ProgressRoot>
             </Flex>
-            <Text fontSize={{ base: "16px", md: "20px", lg: "32px" }}>
-              Nome da área
-            </Text>
-            <Text fontSize="16px">
-              Descubra o cosmos com 'Exploração Espacial 101'. Este curso
-              envolvente abrange astronomia, exoplanetas e muito mais. Perfeito
-              para iniciantes e amantes do espaço, oferece uma experiência única
-              através de imagens estelares, telescópios e naves espaciais.
-            </Text>
+            <Text fontSize={{ base: "16px", md: "20px", lg: "32px" }}></Text>
+            <Text fontSize="16px">{course.description}</Text>
             <Btn
               label="Continuar de onde eu parei"
               bg="orange"
@@ -89,13 +82,23 @@ const Course = () => {
           </VStack>
         </Flex>
       </VideoBackground>
-      <HStack overflowX="auto" px={{ base: "10px", md: "32px" }} align="flex-start" gap={4} w="100%">
-        {course?.modules?.map((module: any) => (
-          <VStack h="400px" key={module._id}>
-            <CardModules module={module} />
-          </VStack>
-        ))}
-      </HStack>
+      {course?.modules?.map((module: any) => (
+        <VStack
+          px={{ base: "10px", md: "32px" }}
+          h="400px"
+          key={module._id}
+          align="flex-start"
+        >
+          <Text color="neutral" fontSize="20px" fontWeight="bold">
+            {module.name}
+          </Text>
+          <HStack overflowX="auto" align="flex-start" gap={4} w="100%">
+            {module?.lessons?.map((lesson: any) => (
+              <CardLessons format={module.format} lesson={lesson} />
+            ))}
+          </HStack>
+        </VStack>
+      ))}
     </Box>
   );
 };

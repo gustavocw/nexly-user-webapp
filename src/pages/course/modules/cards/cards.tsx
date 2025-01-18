@@ -1,29 +1,40 @@
 import { Box, Text, VStack } from "@chakra-ui/react";
 import Gestures from "components/motion/gesture";
 
-interface CardModulesProps {
-  module: Module | any
+interface CardLessonsProps {
+  lesson: Lesson | any;
+  format: "VERTICAL_RECT" | "HORIZONTAL_RECT" | "SQUARE" | "VERTICAL_RECT_MAX";
 }
 
-const defaultStyle = { width: "208px", height: "310px" };
+const formatStyles: Record<
+  CardLessonsProps["format"],
+  { width: string; height: string }
+> = {
+  VERTICAL_RECT: { width: "208px", height: "210px" },
+  HORIZONTAL_RECT: { width: "130px", height: "50px" },
+  SQUARE: { width: "100px", height: "100px" },
+  VERTICAL_RECT_MAX: { width: "50px", height: "100px" },
+};
 
-const CardModules: React.FC<CardModulesProps> = ({
-  module,
-}) => {
+const defaultStyle = formatStyles.VERTICAL_RECT;
+
+const CardLessons: React.FC<CardLessonsProps> = ({ lesson, format }) => {
+  const style = formatStyles[format] || defaultStyle;
+
   return (
     <VStack py={10} align="flex-start" w="100%">
       <Gestures>
         <Box
-          {...defaultStyle}
+          {...style}
           borderRadius="4px"
-          bgImage={`url(${module.thumbnail})`}
+          bgImage={`url(${lesson.thumbnail})`}
           bgSize="contain"
           bgRepeat="no-repeat"
           bgPos="center"
           position="relative"
           cursor="pointer"
-          w={{ base: "188px", md: defaultStyle.width }}
-          h={{ base: "280px", md: defaultStyle.height }}
+          w={{ base: "188px", md: style.width }}
+          h={{ base: "280px", md: style.height }}
           mx={2}
         >
           <Box
@@ -35,7 +46,7 @@ const CardModules: React.FC<CardModulesProps> = ({
             color="white"
             p={2}
           >
-            <Text fontSize="sm">{module.name}</Text>
+            <Text fontSize="sm">{lesson.nameLesson}</Text>
           </Box>
         </Box>
       </Gestures>
@@ -43,4 +54,4 @@ const CardModules: React.FC<CardModulesProps> = ({
   );
 };
 
-export default CardModules;
+export default CardLessons;
