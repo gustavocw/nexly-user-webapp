@@ -36,7 +36,7 @@ const Course = () => {
     <Box h="100vh" w="100%">
       <VideoBackground videoUrl="https://www.youtube.com/watch?v=Ttl8Gg-P-Ao">
         <Flex
-          bg="linear-gradient(0deg, #1F1D22 0%, rgba(16, 18, 26, 0) 100%)"
+          background="linear-gradient(0deg, #10121A 0%, rgba(16, 18, 26, 0) 100%)"
           justify="space-between"
           w="100%"
         >
@@ -82,23 +82,33 @@ const Course = () => {
           </VStack>
         </Flex>
       </VideoBackground>
-      {course?.modules?.map((module: any) => (
-        <VStack
-          px={{ base: "10px", md: "32px" }}
-          h="400px"
-          key={module._id}
-          align="flex-start"
-        >
-          <Text color="neutral" fontSize="20px" fontWeight="bold">
-            {module.name}
-          </Text>
-          <HStack overflowX="auto" align="flex-start" gap={4} w="100%">
-            {module?.lessons?.map((lesson: any) => (
-              <CardLessons format={module.format} lesson={lesson} />
-            ))}
-          </HStack>
-        </VStack>
-      ))}
+      <Box
+        w="100%"
+        background="linear-gradient(180deg, #10121A 0%, rgba(16, 18, 26, 0) 100%)"
+      >
+        {course?.modules?.map((module: any) => (
+          <VStack
+            px={{ base: "10px", md: "30px" }}
+            h="100%"
+            key={module._id}
+            align="flex-start"
+          >
+            <Text
+              pl={3}
+              position="relative"
+              top={6}
+              color="neutral"
+              fontSize="20px"
+              fontWeight="bold"
+            >
+              {module.name}
+            </Text>
+            <HStack align="flex-start" gap={4} w="100%">
+              <CardLessons format={module.format} lessons={module.lessons} />
+            </HStack>
+          </VStack>
+        ))}
+      </Box>
     </Box>
   );
 };

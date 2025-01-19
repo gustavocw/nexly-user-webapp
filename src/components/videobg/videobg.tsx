@@ -27,7 +27,7 @@ const VideoBackground: React.FC<VideoBackgroundProps> = ({
       const { innerWidth, innerHeight } = window;
       const proportionalHeight = Math.max(
         innerHeight * (innerWidth / 1920),
-        200
+        300
       );
       setDimensions({
         width: innerWidth,

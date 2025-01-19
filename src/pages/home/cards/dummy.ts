@@ -11,7 +11,7 @@ const dummyLessons: Lesson[] = [
     nameLesson: "Introdução ao Curso",
     stateLesson: "active",
     urlVideo: "https://www.youtube.com/watch?v=6X5krhF4RdA",
-    thumbnail: "images/bg2.png",
+    thumbnail: "/images/rocket.webp",
   },
   {
     _id: generateId(2),
@@ -21,7 +21,7 @@ const dummyLessons: Lesson[] = [
     nameLesson: "Conceitos Básicos",
     stateLesson: "active",
     urlVideo: "https://www.youtube.com/watch?v=6X5krhF4RdA",
-    thumbnail: "images/bg2.png",
+    thumbnail: "/images/rocket.webp",
   },
   {
     _id: generateId(3),
@@ -31,7 +31,7 @@ const dummyLessons: Lesson[] = [
     nameLesson: "Entendendo a Interface",
     stateLesson: "active",
     urlVideo: "https://www.youtube.com/watch?v=6X5krhF4RdA",
-    thumbnail: "images/bg2.png",
+    thumbnail: "/images/rocket.webp",
   },
   {
     _id: generateId(4),
@@ -41,7 +41,7 @@ const dummyLessons: Lesson[] = [
     nameLesson: "Primeiros Passos",
     stateLesson: "active",
     urlVideo: "https://www.youtube.com/watch?v=6X5krhF4RdA",
-    thumbnail: "images/bg2.png",
+    thumbnail: "/images/rocket.webp",
   },
   {
     _id: generateId(5),
@@ -51,7 +51,7 @@ const dummyLessons: Lesson[] = [
     nameLesson: "Trabalhando com Recursos",
     stateLesson: "active",
     urlVideo: "https://www.youtube.com/watch?v=6X5krhF4RdA",
-    thumbnail: "images/bg2.png",
+    thumbnail: "/images/rocket.webp",
   },
   {
     _id: generateId(6),
@@ -61,7 +61,7 @@ const dummyLessons: Lesson[] = [
     nameLesson: "Criando Componentes",
     stateLesson: "active",
     urlVideo: "https://www.youtube.com/watch?v=6X5krhF4RdA",
-    thumbnail: "images/bg2.png",
+    thumbnail: "/images/rocket.webp",
   },
   {
     _id: generateId(7),
@@ -71,7 +71,7 @@ const dummyLessons: Lesson[] = [
     nameLesson: "Gerenciando Estados",
     stateLesson: "active",
     urlVideo: "https://www.youtube.com/watch?v=6X5krhF4RdA",
-    thumbnail: "images/bg2.png",
+    thumbnail: "/images/rocket.webp",
   },
   {
     _id: generateId(8),
@@ -81,7 +81,7 @@ const dummyLessons: Lesson[] = [
     nameLesson: "Conexão com APIs",
     stateLesson: "active",
     urlVideo: "https://www.youtube.com/watch?v=6X5krhF4RdA",
-    thumbnail: "images/bg2.png",
+    thumbnail: "/images/rocket.webp",
   },
   {
     _id: generateId(9),
@@ -91,7 +91,7 @@ const dummyLessons: Lesson[] = [
     nameLesson: "Melhorando a Performance",
     stateLesson: "active",
     urlVideo: "https://www.youtube.com/watch?v=6X5krhF4RdA",
-    thumbnail: "images/bg2.png",
+    thumbnail: "/images/rocket.webp",
   },
   {
     _id: generateId(10),
@@ -101,7 +101,7 @@ const dummyLessons: Lesson[] = [
     nameLesson: "Conclusão e Próximos Passos",
     stateLesson: "active",
     urlVideo: "https://www.youtube.com/watch?v=6X5krhF4RdA",
-    thumbnail: "images/bg2.png",
+    thumbnail: "/images/rocket.webp",
   },
 ];
 
@@ -116,7 +116,7 @@ export const dummyProducts = [
     format: "SQUARE",
     lessons: dummyLessons,
     name: "Curso de Programação",
-    thumbnail: "images/bg2.png",
+    thumbnail: "/images/bg2.png",
     description:
       "Aprenda os fundamentos de programação com este curso abrangente.",
     category: "Tecnologia",
@@ -177,7 +177,7 @@ export const dummyProducts = [
     count_lesson: 40,
     count_members: 200,
     name: "Design Gráfico Completo",
-    thumbnail: "images/bg2.png",
+    thumbnail: "/images/bg2.png",
     description:
       "Aprenda as principais ferramentas e técnicas de design gráfico.",
     category: "Design",
@@ -238,7 +238,7 @@ export const dummyProducts = [
     count_lesson: 15,
     count_members: 50,
     name: "Marketing Digital Básico",
-    thumbnail: "images/bg2.png",
+    thumbnail: "/images/bg2.png",
     description:
       "Entenda os fundamentos do marketing digital e como aplicá-los.",
     category: "Marketing",
@@ -299,7 +299,7 @@ export const dummyProducts = [
     count_lesson: 15,
     count_members: 50,
     name: "E-commerce Avançado",
-    thumbnail: "images/bg2.png",
+    thumbnail: "/images/bg2.png",
     description:
       "Aprenda técnicas avançadas para gerir e otimizar sua loja online.",
     category: "E-commerce",
