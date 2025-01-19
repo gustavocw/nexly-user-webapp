@@ -6,14 +6,15 @@ import { IoIosArrowBack } from "react-icons/io";
 interface TitlePageProps {
   title?: string;
   description?: string;
+  py?: string;
   onClick?: () => void;
 }
 
-const TitlePage = ({ title, description, onClick }: TitlePageProps) => {
+const TitlePage = ({ title, description, onClick, py }: TitlePageProps) => {
   const navigate = useNavigate();
 
   return (
-    <Box py={4}>
+    <Box py={py ?? 4}>
       <HStack w="100%" align="flex-start">
         <VStack mx={0} gap="10px">
           <HStack

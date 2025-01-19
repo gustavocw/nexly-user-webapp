@@ -7,6 +7,7 @@ import Home from "pages/home/home";
 import { Root } from "components/root/root";
 import Profile from "pages/profile";
 import Course from "pages/course/modules";
+import Watch from "pages/course/watch/watch";
 
 const LayoutWithRoot: React.FC = () => (
   <Root>
@@ -24,6 +25,7 @@ const AppRoutes: React.FC = () => {
             <Route path="/" element={<Home />} />
             <Route path="/profile" element={<Profile />} />
             <Route path="/course/:id" element={<Course />} />
+            <Route path="/watch/:id" element={<Watch />} />
           </Route>
         </Route>
       </Routes>

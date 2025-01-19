@@ -8,6 +8,7 @@ import {
   ButtonNext,
 } from "pure-react-carousel";
 import "pure-react-carousel/dist/react-carousel.es.css";
+import { useNavigate } from "react-router-dom";
 
 interface CardLessonsProps {
   lessons: any[];
@@ -28,6 +29,7 @@ const defaultStyle = formatStyles.VERTICAL_RECT;
 
 const CardLessons: React.FC<CardLessonsProps> = ({ lessons, format }) => {
   const style = formatStyles[format] || defaultStyle;
+  const navigate = useNavigate();
 
   return (
     <CarouselProvider
@@ -45,7 +47,7 @@ const CardLessons: React.FC<CardLessonsProps> = ({ lessons, format }) => {
           Next
         </ButtonNext>
       </Flex>
-      <Slider style={{ width: "100vw" }}>
+      <Slider style={{ width: "95vw" }}>
         {lessons.map((lesson: any, index: number) => (
           <Slide key={lesson.id || index} index={index}>
             <Flex px={2} py="30px" align="flex-start" w="100%">
@@ -61,8 +63,7 @@ const CardLessons: React.FC<CardLessonsProps> = ({ lessons, format }) => {
                   cursor="pointer"
                   w={{ base: "188px", md: style.width }}
                   h={{ base: "280px", md: style.height }}
-                  mx={2}
-                  onClick={() => console.log("opa")}
+                  onClick={() => navigate(`/watch/${lesson._id}`)}
                 >
                   <Box
                     position="absolute"

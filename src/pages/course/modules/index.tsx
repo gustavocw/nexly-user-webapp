@@ -1,4 +1,4 @@
-import { Text, VStack, Icon, Flex, Box, HStack } from "@chakra-ui/react";
+import { Text, VStack, Icon, Flex, Box } from "@chakra-ui/react";
 import { FaCircleExclamation } from "react-icons/fa6";
 import {
   ProgressBar,
@@ -88,24 +88,25 @@ const Course = () => {
       >
         {course?.modules?.map((module: any) => (
           <VStack
-            px={{ base: "10px", md: "30px" }}
-            h="100%"
+            h="95%"
             key={module._id}
             align="flex-start"
           >
-            <Text
-              pl={3}
-              position="relative"
-              top={6}
-              color="neutral"
-              fontSize="20px"
-              fontWeight="bold"
-            >
-              {module.name}
-            </Text>
-            <HStack align="flex-start" gap={4} w="100%">
+            <Flex mx="auto" w="95%">
+              <Text
+                pl={3}
+                position="relative"
+                top={6}
+                color="neutral"
+                fontSize="20px"
+                fontWeight="bold"
+              >
+                {module.name}
+              </Text>
+            </Flex>
+            <Flex justify="center" align="flex-start" w="100%">
               <CardLessons format={module.format} lessons={module.lessons} />
-            </HStack>
+            </Flex>
           </VStack>
         ))}
       </Box>
