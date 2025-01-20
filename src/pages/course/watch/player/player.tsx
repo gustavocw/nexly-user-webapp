@@ -14,6 +14,12 @@ import {
   IoVolumeLowOutline,
   IoVolumeMuteOutline,
 } from "react-icons/io5";
+import {
+  MenuContent,
+  MenuItem,
+  MenuRoot,
+  MenuTrigger,
+} from "components/ui/menu";
 
 interface VideoPlayerViewProps {
   videoUrl: string;
@@ -51,7 +57,6 @@ const VideoPlayerView: React.FC<VideoPlayerViewProps> = ({ videoUrl }) => {
 
   return (
     <Box
-      ref={playerContainerRef}
       position="relative"
       bg="black"
       maxW="100%"
@@ -60,6 +65,7 @@ const VideoPlayerView: React.FC<VideoPlayerViewProps> = ({ videoUrl }) => {
       overflow="hidden"
     >
       <VStack
+        ref={playerContainerRef}
         align="center"
         position="absolute"
         alignItems="center"
@@ -75,15 +81,19 @@ const VideoPlayerView: React.FC<VideoPlayerViewProps> = ({ videoUrl }) => {
         onClick={togglePlayPause}
       >
         {showControls && (
-        <Icon
-          fontSize="100px"
-          color="neutral"
-          m="auto"
-          cursor="pointer"
-          onClick={togglePlayPause}
-        >
-          {isPlaying ? <TbPlayerPauseFilled onClick={togglePlayPause} /> : <TbPlayerPlayFilled onClick={togglePlayPause} />}
-        </Icon>
+          <Icon
+            fontSize="100px"
+            color="neutral"
+            m="auto"
+            cursor="pointer"
+            onClick={togglePlayPause}
+          >
+            {isPlaying ? (
+              <TbPlayerPauseFilled onClick={togglePlayPause} />
+            ) : (
+              <TbPlayerPlayFilled onClick={togglePlayPause} />
+            )}
+          </Icon>
         )}
       </VStack>
 
@@ -148,6 +158,7 @@ const VideoPlayerView: React.FC<VideoPlayerViewProps> = ({ videoUrl }) => {
                       defaultValue={[volume * 100]}
                       onValueChange={(value) => setVolume(value.value[0] / 100)}
                       colorPalette="orange"
+                      cursor="pointer"
                     />
                     <Text color="neutral">{Math.round(volume * 100)}</Text>
                   </>
@@ -167,9 +178,60 @@ const VideoPlayerView: React.FC<VideoPlayerViewProps> = ({ videoUrl }) => {
 
             <Flex gap={5} align="center">
               <Tooltip content="Settings">
-                <Icon fontSize="32px" color="neutral">
-                  <FaCog />
-                </Icon>
+                <MenuRoot positioning={{ placement: "top-end" }}>
+                  <MenuTrigger cursor="pointer" asChild>
+                    <Icon fontSize="32px" color="neutral">
+                      <FaCog />
+                    </Icon>
+                  </MenuTrigger>
+                  <MenuContent bg="neutral.60">
+                    <MenuItem
+                      color="neutral"
+                      p={2}
+                      cursor="pointer"
+                      _hover={{ bg: "orange" }}
+                      value="new-txt"
+                    >
+                      1080p
+                    </MenuItem>
+                    <MenuItem
+                      color="neutral"
+                      p={2}
+                      cursor="pointer"
+                      _hover={{ bg: "orange" }}
+                      value="new-file"
+                    >
+                      720p
+                    </MenuItem>
+                    <MenuItem
+                      color="neutral"
+                      p={2}
+                      cursor="pointer"
+                      _hover={{ bg: "orange" }}
+                      value="new-win"
+                    >
+                      480p
+                    </MenuItem>
+                    <MenuItem
+                      color="neutral"
+                      p={2}
+                      cursor="pointer"
+                      _hover={{ bg: "orange" }}
+                      value="open-file"
+                    >
+                      240p
+                    </MenuItem>
+                    <MenuItem
+                      color="neutral"
+                      p={2}
+                      cursor="pointer"
+                      _hover={{ bg: "orange" }}
+                      value="export"
+                    >
+                      144p
+                    </MenuItem>
+                  </MenuContent>
+                </MenuRoot>
               </Tooltip>
               <Tooltip
                 content={isFullscreen ? "Exit Fullscreen" : "Fullscreen"}
