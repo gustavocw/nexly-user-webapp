@@ -25,10 +25,10 @@ const Header = () => {
         h="25px"
       />
       <Flex alignItems="center" gap="24px">
-        <Icon fontSize="24px" color="neutral">
+        <Icon cursor="pointer" fontSize="24px" color="neutral">
           <FiSearch />
         </Icon>
-        <Icon fontSize="24px" color="neutral">
+        <Icon cursor="pointer" fontSize="24px" color="neutral">
           <IoNotificationsOutline />
         </Icon>
         <AvatarUser />

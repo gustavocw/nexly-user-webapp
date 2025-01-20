@@ -1,6 +1,6 @@
 import { Box, VStack } from "@chakra-ui/react";
 
-interface CardModulesProps {
+interface CardProductProps {
   productName: string;
   productImage: string;
   format: "VERTICAL_RECT" | "HORIZONTAL_RECT" | "SQUARE" | "VERTICAL_RECT_MAX";
@@ -16,7 +16,7 @@ const formatStyles: Record<
   VERTICAL_RECT_MAX: { width: "180px", height: "270px" },
 };
 
-const CardModules: React.FC<CardModulesProps> = ({ productImage, format }) => {
+const CardProduct: React.FC<CardProductProps> = ({ productImage, format }) => {
   const currentStyle = formatStyles[format] || { width: "0px", height: "0px" };
 
   return (
@@ -35,4 +35,4 @@ const CardModules: React.FC<CardModulesProps> = ({ productImage, format }) => {
   );
 };
 
-export default CardModules;
+export default CardProduct;

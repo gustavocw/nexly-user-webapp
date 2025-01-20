@@ -8,6 +8,10 @@ import { Root } from "components/root/root";
 import Profile from "pages/profile";
 import Course from "pages/course/modules";
 import Watch from "pages/course/watch/watch";
+import Favorites from "pages/favorites";
+import Certificates from "pages/certificates";
+import Certificate from "pages/certificates/unique";
+import Tickets from "pages/tickets";
 
 const LayoutWithRoot: React.FC = () => (
   <Root>
@@ -26,6 +30,10 @@ const AppRoutes: React.FC = () => {
             <Route path="/profile" element={<Profile />} />
             <Route path="/course/:id" element={<Course />} />
             <Route path="/watch/:id" element={<Watch />} />
+            <Route path="/favorites" element={<Favorites />} />
+            <Route path="/tickets" element={<Tickets />} />
+            <Route path="/certificates" element={<Certificates />} />
+            <Route path="/certificate/:id" element={<Certificate />} />
           </Route>
         </Route>
       </Routes>

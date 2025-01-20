@@ -24,7 +24,7 @@ interface SelectProps {
   errorText?: string;
   placeholder?: string;
   isRequired?: boolean;
-  onOptionSelect?: (value?: string | number) => void;
+  onOptionSelect?: (value?: any) => void;
 }
 
 const Select: React.FC<SelectProps> = ({

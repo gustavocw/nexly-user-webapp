@@ -28,12 +28,12 @@ const AvatarUser = () => {
           cursor="pointer"
           px="12px"
           py="6px"
-          value="new-txt"
+          value="perfil"
           onClick={() => navigate("/profile")}
         >
           Perfil
         </MenuItem>
-        <MenuItem
+        {/* <MenuItem
           fontSize="18px"
           _hover={{ bg: "orange" }}
           color="neutral"
@@ -45,7 +45,7 @@ const AvatarUser = () => {
           onClick={() => navigate("/comunity")}
         >
           Comunidade
-        </MenuItem>
+        </MenuItem> */}
         <MenuItem
           fontSize="18px"
           _hover={{ bg: "orange" }}
@@ -54,7 +54,7 @@ const AvatarUser = () => {
           cursor="pointer"
           px="12px"
           py="6px"
-          value="new-win"
+          value="favorites"
           onClick={() => navigate("/favorites")}
         >
           Favoritos
@@ -67,7 +67,7 @@ const AvatarUser = () => {
           cursor="pointer"
           px="12px"
           py="6px"
-          value="open-file"
+          value="tickets"
           onClick={() => navigate("/tickets")}
         >
           Tickets
@@ -80,7 +80,7 @@ const AvatarUser = () => {
           cursor="pointer"
           px="12px"
           py="6px"
-          value="export"
+          value="certificates"
           onClick={() => navigate("/certificates")}
         >
           Certificado
@@ -93,7 +93,7 @@ const AvatarUser = () => {
           cursor="pointer"
           px="12px"
           py="6px"
-          value="export"
+          value="logou"
           onClick={() => signout()}
         >
           Sair
