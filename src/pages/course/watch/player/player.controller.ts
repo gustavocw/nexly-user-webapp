@@ -29,8 +29,18 @@ const useVideoController = ({ videoUrl }: UseVideoControllerProps) => {
     } else if (document.fullscreenElement) {
       document.exitFullscreen();
     }
-    setIsFullscreen((prev) => !prev);
   };
+  
+  useEffect(() => {
+    const handleFullscreenChange = () => {
+      setIsFullscreen(!!document.fullscreenElement);
+    };
+  
+    document.addEventListener("fullscreenchange", handleFullscreenChange);
+    return () => {
+      document.removeEventListener("fullscreenchange", handleFullscreenChange);
+    };
+  }, []);
 
   const handleProgress = (state: { played: number }) => {
     setPlayed(state.played * 100);
@@ -56,9 +66,12 @@ const useVideoController = ({ videoUrl }: UseVideoControllerProps) => {
     }
     timeoutRef.current = setTimeout(() => {
       setShowControls(false);
-      document.body.style.cursor = "none";
+      if (isFullscreen) {
+        document.body.style.cursor = "none";
+      }
     }, 2000);
   };
+  
 
   useEffect(() => {
     return () => {

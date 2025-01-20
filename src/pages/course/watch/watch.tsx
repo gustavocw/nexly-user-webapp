@@ -5,6 +5,7 @@ import VideoPlayer from "./player/player";
 import PrevNext from "./player/prevnext/prevnext";
 import { useState } from "react";
 import CommentsVideo from "./comments/comments";
+import LessonList from "./lessonlist/lessonlist";
 
 const Watch = () => {
   const [isOpen, setIsOpen] = useState(false);
@@ -53,6 +54,9 @@ const Watch = () => {
             </Collapsible.Root>
           </Box>
           <CommentsVideo />
+        </VStack>
+        <VStack align="flex-start" w="30%">
+        <LessonList />
         </VStack>
       </HStack>
     </VStack>

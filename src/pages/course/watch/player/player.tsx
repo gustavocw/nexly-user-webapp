@@ -63,9 +63,9 @@ const VideoPlayerView: React.FC<VideoPlayerViewProps> = ({ videoUrl }) => {
       mx="auto"
       rounded="md"
       overflow="hidden"
+      ref={playerContainerRef}
     >
       <VStack
-        ref={playerContainerRef}
         align="center"
         position="absolute"
         alignItems="center"
@@ -74,10 +74,9 @@ const VideoPlayerView: React.FC<VideoPlayerViewProps> = ({ videoUrl }) => {
         bottom={0}
         left={0}
         right={0}
-        width="95%"
-        height={isFullscreen ? "100vh" : "80vh"}
+        width="100%"
+        height="100vh"
         onMouseMove={onMouseMoveCapture}
-        onMouseMoveCapture={onMouseMoveCapture}
         onClick={togglePlayPause}
       >
         {showControls && (
