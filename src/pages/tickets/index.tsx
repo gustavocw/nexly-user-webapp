@@ -18,7 +18,7 @@ const Tickets = () => {
         <ListIssues />
         <Separator borderColor="neutral.40" />
       </VStack>
-      <VStack py={3} align="flex-start" px={20} w="100%">
+      <VStack py={3} align="flex-start" px={20} w={{ md: "100%", lg: "75%" }}>
         <Text color="neutral" fontSize="20px">
           Meus tickets
         </Text>

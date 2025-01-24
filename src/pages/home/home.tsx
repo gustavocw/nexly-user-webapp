@@ -10,8 +10,17 @@ import Btn from "components/button/button";
 import CardProduct from "./cards/cards";
 import { dummyProducts } from "./cards/dummy";
 import { useState, useEffect } from "react";
+import { useQuery } from "@tanstack/react-query";
+import { getArea } from "services/area.services";
 
 const Home = () => {
+  const { data: area } = useQuery({
+    queryKey: ["area"],
+    queryFn: async () =>
+      await getArea("optimum.com.br")
+  });
+  console.log(area);
+  
   const [boxWidth, setBoxWidth] = useState("40%");
 
   useEffect(() => {
@@ -87,12 +96,16 @@ const Home = () => {
           </VStack>
         </Flex>
       </VideoBackground>
-      <HStack overflowX="auto" px={{ base: "10px", md: "32px"  }} align="flex-start" gap={4} w="100%">
+      <HStack
+        overflowX="auto"
+        px={{ base: "10px", md: "32px" }}
+        align="flex-start"
+        gap={4}
+        w="100%"
+      >
         {dummyProducts.map((item) => (
           <VStack h="400px" key={item._id}>
-            <CardProduct
-              course={item}
-            />
+            <CardProduct course={item} />
           </VStack>
         ))}
       </HStack>

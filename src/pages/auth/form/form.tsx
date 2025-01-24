@@ -2,17 +2,31 @@ import { Stack, VStack, Image, Flex, Link, HStack } from "@chakra-ui/react";
 import Input from "components/input/input";
 import Text from "components/text/text";
 import { useLoginController } from "./form.controller";
-import { Radio, RadioGroup } from "components/ui/radio";
+import { CheckboxCard } from "components/ui/checkbox-card";
 import Btn from "components/button/button";
 import useAuthStore from "stores/auth.store";
 
 const Form = () => {
-  const { control, errors, handleSubmit, onSubmit, rememberMe, setRememberMe } = useLoginController();
+  const {
+    control,
+    setEmail,
+    setPassword,
+    errors,
+    handleSubmit,
+    onSubmit,
+    rememberMe,
+    setRememberMe,
+  } = useLoginController();
   const { setStepLogin } = useAuthStore();
 
   return (
     <Stack justify="space-between" alignItems="center" h="100%" width="100%">
-      <Image objectFit="contain" width="130px" h="100px" src="images/logo.png" />
+      <Image
+        objectFit="contain"
+        width="130px"
+        h="100px"
+        src="images/logo.png"
+      />
       <VStack
         mb={40}
         spaceY={10}
@@ -53,21 +67,24 @@ const Form = () => {
             <Link textDecoration="none" color="primary.50">
               Esqueceu a senha?
             </Link>
-            <RadioGroup
-              defaultValue={rememberMe || "false"}
-              color="#fff"
-              borderColor="white"
-              size="sm"
-            >
-              <Radio
-                onChange={(e: React.ChangeEvent<HTMLInputElement>) => {
-                  setRememberMe(e.target.value);
+            <Flex>
+              <CheckboxCard
+                color="#fff"
+                onCheckedChange={(e) => {
+                  if (e.checked === true) {
+                    setRememberMe("true");
+                  } else {
+                    setRememberMe("false");
+                    setEmail("");
+                    setPassword("");
+                  }
                 }}
-                value="true"
-              >
-                Lembrar de mim
-              </Radio>
-            </RadioGroup>
+                checked={rememberMe === "true"}
+                indicatorPlacement="start"
+                border="none"
+                label="Lembrar de mim"
+              />
+            </Flex>
           </HStack>
           <Btn label="Entrar" onClick={handleSubmit(onSubmit)} />
         </VStack>

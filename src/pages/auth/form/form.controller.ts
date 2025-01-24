@@ -38,9 +38,7 @@ export const useLoginController = () => {
     useAuthStore();
   const navigate = useNavigate();
   const { auth } = useAuth();
-
   console.log(email, password);
-  
 
   const {
     control,
@@ -54,10 +52,9 @@ export const useLoginController = () => {
     defaultValues: {
       // email: email ?? "",
       // password: password ?? "",
-      
+
       email: "sas2@gmail.com",
       password: "asasadfsfsdfdgfhfghda",
-
     },
   });
 
@@ -113,6 +110,8 @@ export const useLoginController = () => {
     rememberMe,
     handleSubmit,
     control,
+    setEmail,
+    setPassword,
     errors,
     onSubmit,
     reset,
