@@ -18,7 +18,7 @@ const CardProduct: React.FC<CardProductProps> = ({ course }) => {
           {...defaultStyle}
           borderRadius="4px"
           bgImage={`url(${course.thumbnail})`}
-          bgSize="contain"
+          bgSize="cover"
           bgRepeat="no-repeat"
           bgPos="center"
           position="relative"

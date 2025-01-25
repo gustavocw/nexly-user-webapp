@@ -7,14 +7,26 @@ import {
 } from "components/ui/progress";
 import Btn from "components/button/button";
 import { useState, useEffect } from "react";
+import { useParams } from "react-router-dom";
 import VideoBackground from "components/videobg/videobg";
-import { useLocation } from "react-router-dom";
-import CardLessons from "./cards/cards";
+import { useArea } from "hooks/useArea";
+import { useQuery } from "@tanstack/react-query";
+import { getCourse } from "services/course.services";
 
 const Course = () => {
   const [boxWidth, setBoxWidth] = useState("40%");
-  const location = useLocation();
-  const { course } = location.state || {};
+  const {id} = useParams();
+  const { area } = useArea();
+
+  const { data: course } = useQuery({
+    queryKey: ["course"],
+    queryFn: () => {
+      return getCourse(id)
+    }
+  })
+
+  console.log(course);
+  
 
   useEffect(() => {
     const handleResize = () => {
@@ -40,75 +52,76 @@ const Course = () => {
           justify="space-between"
           w="100%"
         >
-          <VStack
-            gap="16px"
-            align="flex-start"
-            maxW={{ base: "100%", md: "100%", lg: boxWidth }}
-            p={{ base: 4, md: 20 }}
-          >
-            <Flex gap={2} w="60%">
-              <Icon color="orange">
-                <FaCircleExclamation />
-              </Icon>
-              <Text whiteSpace="nowrap" fontSize="14px" fontWeight="bold">
-                {course.name}
-              </Text>
-            </Flex>
-            <Flex gap={2} w="60%">
-              <ProgressRoot
-                colorPalette="orange"
-                display="flex"
-                gap={2}
-                alignItems="center"
-                w="100%"
-                defaultValue={40}
-                min={0}
-                max={100}
-                orientation="horizontal"
-              >
-                <ProgressValueText>40%</ProgressValueText>
-                <ProgressBar bg="#00000066" borderRadius="50px" w="100%" />
-              </ProgressRoot>
-            </Flex>
-            <Text fontSize={{ base: "16px", md: "20px", lg: "32px" }}></Text>
-            <Text fontSize="16px">{course.description}</Text>
-            <Btn
-              label="Continuar de onde eu parei"
-              bg="orange"
-              w="260px"
-              bgHover="orange.700"
-              borderRadius="50px"
-            />
-          </VStack>
+          {course?.map((course: Course) => (
+            <VStack
+              key={course._id}
+              gap="16px"
+              align="flex-start"
+              maxW={{ base: "100%", md: "100%", lg: boxWidth }}
+              p={{ base: 4, md: 20 }}
+            >
+              <Flex gap={2} w="60%">
+                <Icon color={area?.color}>
+                  <FaCircleExclamation />
+                </Icon>
+                <Text whiteSpace="nowrap" fontSize="14px" fontWeight="bold">
+                  {course.name}
+                </Text>
+              </Flex>
+              <Flex gap={2} w="60%">
+                <ProgressRoot
+                  colorPalette={area?.color}
+                  display="flex"
+                  gap={2}
+                  alignItems="center"
+                  w="100%"
+                  defaultValue={40}
+                  min={0}
+                  max={100}
+                  orientation="horizontal"
+                >
+                  <ProgressValueText>40%</ProgressValueText>
+                  <ProgressBar bg="#00000066" borderRadius="50px" w="100%" />
+                </ProgressRoot>
+              </Flex>
+              <Text fontSize={{ base: "16px", md: "20px", lg: "32px" }}></Text>
+              <Text fontSize="16px">{course.description}</Text>
+              <Btn
+                label="Continuar de onde eu parei"
+                bg={area?.color}
+                w="260px"
+                bgHover="orange.700"
+                borderRadius="50px"
+              />
+            </VStack>
+          ))}
         </Flex>
       </VideoBackground>
       <Box
         w="100%"
         background="linear-gradient(180deg, #10121A 0%, rgba(16, 18, 26, 0) 100%)"
       >
-        {course?.modules?.map((module: any) => (
-          <VStack
-            h="95%"
-            key={module._id}
-            align="flex-start"
-          >
-            <Flex mx="auto" w="95%">
-              <Text
-                pl={3}
-                position="relative"
-                top={6}
-                color="neutral"
-                fontSize="20px"
-                fontWeight="bold"
-              >
-                {module.name}
-              </Text>
-            </Flex>
-            <Flex justify="center" align="flex-start" w="100%">
-              <CardLessons format={module.format} lessons={module.lessons} />
-            </Flex>
-          </VStack>
-        ))}
+        {course?.map((course: any) =>
+          course.modules?.map((module: any) => (
+            <VStack h="95%" key={module._id} align="flex-start">
+              <Flex mx="auto" w="95%">
+                <Text
+                  pl={3}
+                  position="relative"
+                  top={6}
+                  color="neutral"
+                  fontSize="20px"
+                  fontWeight="bold"
+                >
+                  {module.name} - {module?.lessons_count} aulas
+                </Text>
+              </Flex>
+              <Flex justify="center" align="flex-start" w="100%">
+                {/* <CardLessons format={module.format} lessons={module.lessons} /> */}
+              </Flex>
+            </VStack>
+          ))
+        )}
       </Box>
     </Box>
   );

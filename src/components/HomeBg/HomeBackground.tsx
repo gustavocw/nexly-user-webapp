@@ -1,15 +1,15 @@
 import React, { useState, useEffect } from "react";
 import ReactPlayer from "react-player";
-import { Icon, VStack } from "@chakra-ui/react";
+import { Icon, VStack, Box } from "@chakra-ui/react";
 import { RxSpeakerOff, RxSpeakerLoud } from "react-icons/rx";
 
-interface VideoBackgroundProps {
-  videoUrl: string;
+interface BackgroundHomeProps {
+  backgroundUrl?: string;
   children: React.ReactNode;
 }
 
-const VideoBackground: React.FC<VideoBackgroundProps> = ({
-  videoUrl,
+const BackgroundHome: React.FC<BackgroundHomeProps> = ({
+  backgroundUrl,
   children,
 }) => {
   const [isMuted, setIsMuted] = useState(true);
@@ -43,7 +43,11 @@ const VideoBackground: React.FC<VideoBackgroundProps> = ({
     };
   }, []);
 
-  return (
+  const isVideo = (url?: string) => {
+    return url?.match(/\.(mp4|webm|ogg)$/i);
+  };
+
+  return isVideo(backgroundUrl) ? (
     <VStack
       w="100%"
       h={`${dimensions.height}px`}
@@ -51,7 +55,7 @@ const VideoBackground: React.FC<VideoBackgroundProps> = ({
       overflow="hidden"
     >
       <ReactPlayer
-        url={videoUrl}
+        url={backgroundUrl}
         volume={0.1}
         playing={true}
         muted={isMuted}
@@ -91,7 +95,19 @@ const VideoBackground: React.FC<VideoBackgroundProps> = ({
         </Icon>
       </VStack>
     </VStack>
+  ) : (
+    <Box
+      bgImage={`url(${backgroundUrl})`}
+      bgSize="cover"
+      bgPos="center"
+      bgRepeat="no-repeat"
+      h={`${dimensions.height}px`}
+      w="100%"
+      position="relative"
+    >
+      {children}
+    </Box>
   );
 };
 
-export default VideoBackground;
+export default BackgroundHome;

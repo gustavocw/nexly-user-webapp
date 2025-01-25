@@ -3,9 +3,11 @@ import { FiSearch } from "react-icons/fi";
 import { IoNotificationsOutline } from "react-icons/io5";
 import AvatarUser from "./avatar/avatar";
 import { useNavigate } from "react-router-dom";
+import { useArea } from "hooks/useArea";
 
 const Header = () => {
   const navigate = useNavigate();
+  const { area } = useArea();
   return (
     <HStack
       w="100%"
@@ -19,10 +21,10 @@ const Header = () => {
       <Image
         cursor="pointer"
         onClick={() => navigate("/")}
-        src="/images/logo.png"
+        src={area?.logo ?? "/images/logo.png"}
         objectFit="contain"
-        w="100px"
-        h="25px"
+        w={area?.logo ? "200px" : "100px"}
+        h={area?.logo ? "50px" : "25px"}
       />
       <Flex alignItems="center" gap="24px">
         <Icon cursor="pointer" fontSize="24px" color="neutral">

@@ -1,5 +1,5 @@
 import { Text, VStack, Icon, Flex, Box, HStack } from "@chakra-ui/react";
-import VideoBackground from "components/videobg/videobg";
+import BackgroundHome from "components/HomeBg/HomeBackground";
 import { FaCircleExclamation } from "react-icons/fa6";
 import {
   ProgressBar,
@@ -8,20 +8,14 @@ import {
 } from "components/ui/progress";
 import Btn from "components/button/button";
 import CardProduct from "./cards/cards";
-import { dummyProducts } from "./cards/dummy";
 import { useState, useEffect } from "react";
-import { useQuery } from "@tanstack/react-query";
-import { getArea } from "services/area.services";
+import { useArea } from "hooks/useArea";
 
 const Home = () => {
-  const { data: area } = useQuery({
-    queryKey: ["area"],
-    queryFn: async () =>
-      await getArea("optimum.com.br")
-  });
-  console.log(area);
-  
+  const { area } = useArea();
   const [boxWidth, setBoxWidth] = useState("40%");
+
+  console.log(area);
 
   useEffect(() => {
     const handleResize = () => {
@@ -41,20 +35,23 @@ const Home = () => {
 
   return (
     <Box h="100vh" w="100%">
-      <VideoBackground videoUrl="https://www.youtube.com/watch?v=Ttl8Gg-P-Ao">
+      <BackgroundHome backgroundUrl={area?.background}>
         <Flex
           bg="linear-gradient(0deg, #1F1D22 0%, rgba(16, 18, 26, 0) 100%)"
           justify="space-between"
+          alignItems="flex-end"
           w="100%"
+          h="100%"
         >
           <VStack
             gap="16px"
             align="flex-start"
             maxW={{ base: "100%", md: "100%", lg: boxWidth }}
             p={{ base: 4, md: 20 }}
+            color="#fff"
           >
             <Flex gap={2} w="60%">
-              <Icon color="orange">
+              <Icon color={area?.color}>
                 <FaCircleExclamation />
               </Icon>
               <Text whiteSpace="nowrap" fontSize="14px" fontWeight="bold">
@@ -63,7 +60,6 @@ const Home = () => {
             </Flex>
             <Flex gap={2} w="60%">
               <ProgressRoot
-                colorPalette="orange"
                 display="flex"
                 gap={2}
                 alignItems="center"
@@ -74,11 +70,11 @@ const Home = () => {
                 orientation="horizontal"
               >
                 <ProgressValueText>40%</ProgressValueText>
-                <ProgressBar bg="#00000066" borderRadius="50px" w="100%" />
+                <ProgressBar bg={area?.color} borderRadius="50px" w="100%" />
               </ProgressRoot>
             </Flex>
             <Text fontSize={{ base: "16px", md: "20px", lg: "32px" }}>
-              Nome da área
+              {area?.title}
             </Text>
             <Text fontSize="16px">
               Descubra o cosmos com 'Exploração Espacial 101'. Este curso
@@ -88,14 +84,14 @@ const Home = () => {
             </Text>
             <Btn
               label="Continuar de onde eu parei"
-              bg="orange"
+              bg={area?.color}
               w="260px"
-              bgHover="orange.700"
+              bgHover={area?.color}
               borderRadius="50px"
             />
           </VStack>
         </Flex>
-      </VideoBackground>
+      </BackgroundHome>
       <HStack
         overflowX="auto"
         px={{ base: "10px", md: "32px" }}
@@ -103,9 +99,9 @@ const Home = () => {
         gap={4}
         w="100%"
       >
-        {dummyProducts.map((item) => (
-          <VStack h="400px" key={item._id}>
-            <CardProduct course={item} />
+        {area?.courses.map((course) => (
+          <VStack h="400px" key={course._id}>
+            <CardProduct course={course} />
           </VStack>
         ))}
       </HStack>

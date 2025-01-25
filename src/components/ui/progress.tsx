@@ -4,11 +4,12 @@ import * as React from "react"
 
 export const ProgressBar = React.forwardRef<
   HTMLDivElement,
-  ChakraProgress.TrackProps
+  ChakraProgress.TrackProps & { bg?: string }
 >(function ProgressBar(props, ref) {
+  const { bg = "orange", ...rest } = props
   return (
-    <ChakraProgress.Track {...props} ref={ref}>
-      <ChakraProgress.Range borderEndRadius="10px" bg="orange" />
+    <ChakraProgress.Track bg="#00000060" {...rest} ref={ref}>
+      <ChakraProgress.Range borderEndRadius="10px" bg={bg} />
     </ChakraProgress.Track>
   )
 })

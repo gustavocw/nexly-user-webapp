@@ -1,5 +1,5 @@
 interface Course {
-  _id: string;
+  _id?: string;
   name: string;
   description: string;
   thumbnail: string;

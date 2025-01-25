@@ -10,7 +10,6 @@ interface AuthContextValue {
 }
 
 export const AuthContext = createContext({} as AuthContextValue);
-
 export function AuthProvider({ children }: { children: React.ReactNode }) {
   const { setEmail, setPassword, email, password, rememberMe } = useAuthStore();
 

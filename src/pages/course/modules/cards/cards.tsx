@@ -35,7 +35,7 @@ const CardLessons: React.FC<CardLessonsProps> = ({ lessons, format }) => {
     <CarouselProvider
       naturalSlideWidth={16}
       naturalSlideHeight={18}
-      totalSlides={lessons.length}
+      totalSlides={lessons?.length}
       visibleSlides={5}
       infinite
     >
