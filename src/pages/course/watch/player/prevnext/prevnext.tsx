@@ -6,7 +6,24 @@ import { GoStar } from "react-icons/go";
 import { CiCircleChevRight } from "react-icons/ci";
 import { CiCircleChevLeft } from "react-icons/ci";
 
-const PrevNext = () => {
+interface PrevNextProps {
+  onNext: () => void;
+  onPrev: () => void;
+  hasNext: boolean;
+  hasPrev: boolean;
+  currentLessonName: string;
+  nextLessonName?: string;
+  prevLessonName?: string;
+}
+
+const PrevNext: React.FC<PrevNextProps> = ({
+  onNext,
+  onPrev,
+  hasNext,
+  hasPrev,
+  nextLessonName,
+  prevLessonName,
+}) => {
   return (
     <HStack
       w="100%"
@@ -31,33 +48,37 @@ const PrevNext = () => {
         </Flex>
       </Flex>
       <Flex gap="32px" w="500px">
-        <Flex cursor="pointer" alignItems="center" gap="16px">
-          <Icon cursor="pointer" color="orange" fontSize="48px">
-            <CiCircleChevLeft />
-          </Icon>
-          <VStack gap={0} align="flex-start">
-            <Text color="neutral.10" fontSize="12px">
-              Anterior
-            </Text>
-            <Text color="neutral" fontSize="16px">
-              Nome do video
-            </Text>
-          </VStack>
-        </Flex>
-        <Separator orientation="vertical" h="40px" my="auto" />
-        <Flex cursor="pointer" alignItems="center" gap="16px">
-          <VStack gap={0} align="flex-end">
-            <Text color="neutral.10" fontSize="12px">
-              Próximo
-            </Text>
-            <Text color="neutral" fontSize="16px">
-              Nome do video
-            </Text>
-          </VStack>
-          <Icon cursor="pointer" color="orange" fontSize="48px">
-            <CiCircleChevRight />
-          </Icon>
-        </Flex>
+        {hasPrev && (
+          <Flex cursor="pointer" alignItems="center" gap="16px" onClick={onPrev}>
+            <Icon cursor="pointer" color="orange" fontSize="48px">
+              <CiCircleChevLeft />
+            </Icon>
+            <VStack gap={0} align="flex-start">
+              <Text color="neutral.10" fontSize="12px">
+                Anterior
+              </Text>
+              <Text color="neutral" fontSize="16px">
+                {prevLessonName || "Nome do video"}
+              </Text>
+            </VStack>
+          </Flex>
+        )}
+        {hasPrev && <Separator orientation="vertical" h="40px" my="auto" />}
+        {hasNext && (
+          <Flex cursor="pointer" alignItems="center" gap="16px" onClick={onNext}>
+            <VStack gap={0} align="flex-end">
+              <Text color="neutral.10" fontSize="12px">
+                Próximo
+              </Text>
+              <Text color="neutral" fontSize="16px">
+                {nextLessonName || "Nome do video"}
+              </Text>
+            </VStack>
+            <Icon cursor="pointer" color="orange" fontSize="48px">
+              <CiCircleChevRight />
+            </Icon>
+          </Flex>
+        )}
       </Flex>
     </HStack>
   );

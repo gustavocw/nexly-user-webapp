@@ -27,12 +27,22 @@ interface Module {
 }
 
 interface Lesson {
-  _id?: string;
-  createdAt: string;
+  _id: string;
+  nameLesson: string;
+  description: string;
   duration: string;
   moduleId: string;
-  nameLesson: string;
-  stateLesson: string;
+  stateLesson: PRIVADO | PÚBLICO;
   urlVideo: string;
   thumbnail: string;
+  comments: Comment[];
+}
+
+interface Comment {
+  _id: string;
+  comment: string;
+  userPhoto: string;
+  name: string;
+  userId: string;
+  replies?: any;
 }

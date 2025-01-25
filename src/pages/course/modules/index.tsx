@@ -12,21 +12,19 @@ import VideoBackground from "components/videobg/videobg";
 import { useArea } from "hooks/useArea";
 import { useQuery } from "@tanstack/react-query";
 import { getCourse } from "services/course.services";
+import CardModule from "./card/card";
 
 const Course = () => {
   const [boxWidth, setBoxWidth] = useState("40%");
   const {id} = useParams();
   const { area } = useArea();
 
-  const { data: course } = useQuery({
-    queryKey: ["course"],
+  const { data: courses } = useQuery({
+    queryKey: ["courses"],
     queryFn: () => {
       return getCourse(id)
     }
   })
-
-  console.log(course);
-  
 
   useEffect(() => {
     const handleResize = () => {
@@ -46,21 +44,21 @@ const Course = () => {
 
   return (
     <Box h="100vh" w="100%">
-      <VideoBackground videoUrl="https://www.youtube.com/watch?v=Ttl8Gg-P-Ao">
+      <VideoBackground videoUrl={"https://www.youtube.com/watch?v=Ttl8Gg-P-Ao"}>
         <Flex
           background="linear-gradient(0deg, #10121A 0%, rgba(16, 18, 26, 0) 100%)"
           justify="space-between"
           w="100%"
         >
-          {course?.map((course: Course) => (
+          {courses?.map((course: any) => (
             <VStack
-              key={course._id}
+              key={course.id}
               gap="16px"
               align="flex-start"
               maxW={{ base: "100%", md: "100%", lg: boxWidth }}
-              p={{ base: 4, md: 20 }}
+              p={{ base: 4, md: 10 }}
             >
-              <Flex gap={2} w="60%">
+              <Flex gap={2} w="100%">
                 <Icon color={area?.color}>
                   <FaCircleExclamation />
                 </Icon>
@@ -68,7 +66,7 @@ const Course = () => {
                   {course.name}
                 </Text>
               </Flex>
-              <Flex gap={2} w="60%">
+              <Flex gap={2} w="100%">
                 <ProgressRoot
                   colorPalette={area?.color}
                   display="flex"
@@ -99,27 +97,12 @@ const Course = () => {
       </VideoBackground>
       <Box
         w="100%"
+        px={10}
         background="linear-gradient(180deg, #10121A 0%, rgba(16, 18, 26, 0) 100%)"
       >
-        {course?.map((course: any) =>
+        {courses?.map((course: any) =>
           course.modules?.map((module: any) => (
-            <VStack h="95%" key={module._id} align="flex-start">
-              <Flex mx="auto" w="95%">
-                <Text
-                  pl={3}
-                  position="relative"
-                  top={6}
-                  color="neutral"
-                  fontSize="20px"
-                  fontWeight="bold"
-                >
-                  {module.name} - {module?.lessons_count} aulas
-                </Text>
-              </Flex>
-              <Flex justify="center" align="flex-start" w="100%">
-                {/* <CardLessons format={module.format} lessons={module.lessons} /> */}
-              </Flex>
-            </VStack>
+            <CardModule key={module._id} format={module.format} module={module} />
           ))
         )}
       </Box>

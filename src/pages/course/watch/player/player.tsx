@@ -98,7 +98,7 @@ const VideoPlayerView: React.FC<VideoPlayerViewProps> = ({ videoUrl }) => {
 
       <ReactPlayer
         ref={playerRef}
-        url={videoUrl}
+        url={videoUrl || ""}
         playing={isPlaying}
         muted={isMuted}
         volume={volume}
