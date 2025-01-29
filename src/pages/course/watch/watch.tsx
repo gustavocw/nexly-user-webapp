@@ -111,7 +111,7 @@ const Watch = () => {
           <CommentsVideo lessonId={currentLesson?._id} lesson={lesson} refetchLesson={refetchLesson} />
         </VStack>
 
-        <VStack align="flex-start" w="30%">
+        <VStack maxH="700px" overflowY="auto" align="flex-start" w="30%">
           <LessonList
             lessons={lessons}
             currentLessonIndex={currentLessonIndex}
