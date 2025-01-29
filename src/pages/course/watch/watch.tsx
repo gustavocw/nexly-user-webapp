@@ -33,7 +33,7 @@ const Watch = () => {
     queryFn: () => getUniqueLesson(currentLesson?._id),
     enabled: !!currentLesson,
   });
-
+  
   const handleShow = () => {
     setIsOpen((prev) => !prev);
   };
@@ -67,7 +67,7 @@ const Watch = () => {
       <VStack py={5} gap={0} mx="auto" align="flex-start" w="90%">
         <TitlePage title={currentLesson?.nameLesson || "Aula"} />
         <Flex w="100%" pl={10}>
-          <Breadcrumb lessonId={currentLesson?._id} lesson={lesson} />
+          <Breadcrumb lessonId={currentLesson?._id} lesson={lessons} onSelectLesson={setCurrentLessonIndex} />
         </Flex>
       </VStack>
       <VideoPlayer videoUrl={currentLesson?.urlVideo || ""} />
@@ -82,7 +82,6 @@ const Watch = () => {
       />
 
       <HStack align="flex-start" px={20} py={10} gap="64px" w="100%">
-        {/* Informações e Comentários */}
         <VStack gap="32px" w="70%">
           <Box
             w="100%"
@@ -109,7 +108,7 @@ const Watch = () => {
               {isOpen ? "Mostrar Menos" : "Mostrar Mais"}
             </Text>
           </Box>
-          <CommentsVideo lessonId={currentLesson?._id} lesson={lessons} refetchLesson={refetchLesson} />
+          <CommentsVideo lessonId={currentLesson?._id} lesson={lesson} refetchLesson={refetchLesson} />
         </VStack>
 
         <VStack align="flex-start" w="30%">
