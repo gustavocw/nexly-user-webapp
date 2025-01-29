@@ -13,6 +13,9 @@ import { useArea } from "hooks/useArea";
 import { useQuery } from "@tanstack/react-query";
 import { getCourse } from "services/course.services";
 import CardModule from "./card/card";
+import { Swiper, SwiperSlide } from "swiper/react";
+import "swiper/swiper-bundle.css";
+import { Pagination } from "swiper/modules";
 
 const Course = () => {
   const [boxWidth, setBoxWidth] = useState("40%");
@@ -102,7 +105,22 @@ const Course = () => {
       >
         {courses?.map((course: any) =>
           course.modules?.map((module: any) => (
+            <Swiper
+            slidesPerView={4}
+            centeredSlides={true}
+            spaceBetween={30}
+            grabCursor={true}
+            pagination={{
+              clickable: true,
+            }}
+            modules={[Pagination]}
+            width={100}
+            height={100}
+          >
+            <SwiperSlide key={course._id}>
             <CardModule key={module._id} format={module.format} module={module} />
+            </SwiperSlide>
+          </Swiper>
           ))
         )}
       </Box>

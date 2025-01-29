@@ -1,4 +1,4 @@
-import { Text, VStack, Icon, Flex, Box, HStack } from "@chakra-ui/react";
+import { Text, VStack, Icon, Flex, Box } from "@chakra-ui/react";
 import BackgroundHome from "components/HomeBg/HomeBackground";
 import { FaCircleExclamation } from "react-icons/fa6";
 import {
@@ -10,12 +10,14 @@ import Btn from "components/button/button";
 import CardProduct from "./cards/cards";
 import { useState, useEffect } from "react";
 import { useArea } from "hooks/useArea";
+import { Swiper, SwiperSlide } from "swiper/react";
+import "swiper/swiper-bundle.css";
+import { Pagination } from "swiper/modules";
+
 
 const Home = () => {
   const { area } = useArea();
   const [boxWidth, setBoxWidth] = useState("40%");
-
-  console.log(area);
 
   useEffect(() => {
     const handleResize = () => {
@@ -92,19 +94,24 @@ const Home = () => {
           </VStack>
         </Flex>
       </BackgroundHome>
-      <HStack
-        overflowX="auto"
-        px={{ base: "10px", md: "32px" }}
-        align="flex-start"
-        gap={4}
-        w="100%"
-      >
-        {area?.courses.map((course) => (
-          <VStack h="400px" key={course._id}>
+      {area?.courses.map((course) => (
+        <Swiper
+          slidesPerView={4}
+          centeredSlides={true}
+          spaceBetween={30}
+          grabCursor={true}
+          pagination={{
+            clickable: true,
+          }}
+          modules={[Pagination]}
+          width={100}
+          height={100}
+        >
+          <SwiperSlide key={course._id}>
             <CardProduct course={course} />
-          </VStack>
-        ))}
-      </HStack>
+          </SwiperSlide>
+        </Swiper>
+      ))}
     </Box>
   );
 };

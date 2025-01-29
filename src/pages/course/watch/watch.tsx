@@ -16,27 +16,23 @@ import { useQuery } from "@tanstack/react-query";
 import { getLessons, getUniqueLesson } from "services/course.services";
 import { useParams } from "react-router-dom";
 
-interface WatchProps {
-  lessonId: string;
-}
-
-const Watch: React.FC<WatchProps> = ({ lessonId }) => {
-  const { data: lesson, refetch: refetchLesson } = useQuery({
-    queryKey: ["uniqueLesson"],
-    queryFn: () => getUniqueLesson(lessonId),
-  });
-
-  console.log(lesson);
-  
-
+const Watch = () => {
   const { id } = useParams<{ id: string }>();
   const { data: lessons } = useQuery({
     queryKey: ["lessons"],
     queryFn: () => getLessons(id!),
   });
-
+  
   const [currentLessonIndex, setCurrentLessonIndex] = useState(0);
   const [isOpen, setIsOpen] = useState(false);
+
+  const currentLesson = lessons ? lessons[currentLessonIndex] : null;
+
+  const { data: lesson, refetch: refetchLesson } = useQuery({
+    queryKey: ["uniqueLesson", currentLesson?._id],
+    queryFn: () => getUniqueLesson(currentLesson?._id),
+    enabled: !!currentLesson,
+  });
 
   const handleShow = () => {
     setIsOpen((prev) => !prev);
@@ -54,7 +50,6 @@ const Watch: React.FC<WatchProps> = ({ lessonId }) => {
     }
   };
 
-  const currentLesson = lessons ? lessons[currentLessonIndex] : null;
   const nextLesson =
     lessons && currentLessonIndex < lessons.length - 1
       ? lessons[currentLessonIndex + 1]
@@ -72,7 +67,7 @@ const Watch: React.FC<WatchProps> = ({ lessonId }) => {
       <VStack py={5} gap={0} mx="auto" align="flex-start" w="90%">
         <TitlePage title={currentLesson?.nameLesson || "Aula"} />
         <Flex w="100%" pl={10}>
-          <Breadcrumb lessonId={lessonId} lesson={lesson} />
+          <Breadcrumb lessonId={currentLesson?._id} lesson={lesson} />
         </Flex>
       </VStack>
       <VideoPlayer videoUrl={currentLesson?.urlVideo || ""} />
@@ -114,7 +109,7 @@ const Watch: React.FC<WatchProps> = ({ lessonId }) => {
               {isOpen ? "Mostrar Menos" : "Mostrar Mais"}
             </Text>
           </Box>
-          <CommentsVideo lessonId={lessonId} lesson={lessons} refetchLesson={refetchLesson} />
+          <CommentsVideo lessonId={currentLesson?._id} lesson={lessons} refetchLesson={refetchLesson} />
         </VStack>
 
         <VStack align="flex-start" w="30%">

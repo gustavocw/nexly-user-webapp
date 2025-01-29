@@ -10,7 +10,7 @@ import { toaster } from "components/ui/toaster";
 import { useState } from "react";
 
 interface CommentsProps {
-  lessonId: string;
+  lessonId?: string;
   lesson?: Lesson[];
   refetchLesson: () => void;
 }

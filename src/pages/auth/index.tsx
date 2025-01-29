@@ -8,7 +8,7 @@ const Auth = () => {
   return (
     <HStack h="100vh" flex={1}>
       <Flex h="100%" w={{ base: "100%", md: "100%", lg: "50%" }}>
-        {!stepLogin ? <FormLogin /> : <>Recovery</>}
+        {!stepLogin ? <FormLogin /> : <FormLogin />}
       </Flex>
       <Stack
         bg="#131313"

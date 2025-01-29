@@ -20,7 +20,7 @@ const Form = () => {
   const { setStepLogin } = useAuthStore();
 
   return (
-    <Stack justify="space-between" alignItems="center" h="100%" width="100%">
+    <Stack justify="center" alignItems="center" h="100%" width="100%">
       <Image
         objectFit="contain"
         width="130px"
@@ -64,7 +64,11 @@ const Form = () => {
             isRequired
           />
           <HStack w="100%" justify="space-between">
-            <Link textDecoration="none" color="primary.50">
+            <Link
+              onClick={() => setStepLogin(true)}
+              textDecoration="none"
+              color="primary.50"
+            >
               Esqueceu a senha?
             </Link>
             <Flex>
@@ -89,16 +93,6 @@ const Form = () => {
           <Btn label="Entrar" onClick={handleSubmit(onSubmit)} />
         </VStack>
       </VStack>
-      <Flex py={10} gap={2}>
-        <Text.Base>Não possui um conta?</Text.Base>
-        <Link
-          onClick={() => setStepLogin(true)}
-          textDecoration="none"
-          color="primary.50"
-        >
-          Cadastre-se
-        </Link>
-      </Flex>
     </Stack>
   );
 };

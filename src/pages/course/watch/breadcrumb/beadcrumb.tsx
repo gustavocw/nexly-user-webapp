@@ -5,7 +5,7 @@ import {
 } from "components/ui/breadcrumb";
 
 interface BreadcrumbProps {
-  lessonId: string;
+  lessonId?: string;
   lesson?: Lesson[];
 }
 
