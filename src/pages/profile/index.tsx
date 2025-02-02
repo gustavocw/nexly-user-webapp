@@ -5,15 +5,25 @@ import { Avatar } from "components/ui/avatar";
 import FormProfile from "./formprofile/form";
 import { useProfileController } from "./controller";
 import FormAddress from "./formaddress/form";
+import { FileUploadRoot, FileUploadTrigger } from "components/ui/file-upload";
+import { SkeletonCircle } from "components/ui/skeleton";
+import { useUser } from "hooks/useUser";
 
 const Profile = () => {
   const {
-    control,
+    controlAdress,
+    controlProfile,
+    loadingImage,
+    mutateFile,
     handleProfileSubmit,
     onSubmitProfile,
     handleAddressSubmit,
     onSubmitAddress,
+    // updatingAddress,
+    // updatingProfile,
   } = useProfileController();
+  const { user } = useUser();
+
   return (
     <VStack w="100%">
       <VStack
@@ -23,7 +33,7 @@ const Profile = () => {
         m="auto"
         w={{ base: "98%", md: "60%" }}
       >
-        <TitlePage title="Bem vindo, Nome" />
+        <TitlePage title={`Bem vindo, ${user?.name}`} />
         <Flex
           justify="center"
           flexDirection={{ base: "column", md: "row" }}
@@ -32,13 +42,28 @@ const Profile = () => {
           width={{ base: "90%", md: "100%" }}
           mx={{ base: "auto", md: 0 }}
         >
-          <Avatar mx={{ base: "auto", md: 0 }} w="112px" h="112px" src="" />
+          <FileUploadRoot
+            onFileChange={(file) => mutateFile(file.acceptedFiles[0])}
+            w="100px"
+            borderRadius="full"
+          >
+            <FileUploadTrigger borderRadius="full" cursor="pointer">
+              <SkeletonCircle loading={loadingImage}>
+                <Avatar
+                  mx={{ base: "auto", md: 0 }}
+                  w="112px"
+                  h="112px"
+                  src=""
+                />
+              </SkeletonCircle>
+            </FileUploadTrigger>
+          </FileUploadRoot>
           <Input.Text
             boxShadow="0px 1px 3px 0px #0000004D, 0px 4px 8px 3px #00000026"
             bg="neutral.60"
             name="bio"
             border="none"
-            control={control}
+            control={controlProfile}
             onBlurSubmit={() => handleProfileSubmit(onSubmitProfile)()}
             onEnterSubmit={() => handleProfileSubmit(onSubmitProfile)()}
           />
@@ -46,12 +71,12 @@ const Profile = () => {
         <FormProfile
           handle={handleProfileSubmit}
           onSubmit={onSubmitProfile}
-          control={control}
+          control={controlProfile}
         />
         <FormAddress
           handle={handleAddressSubmit}
           onSubmit={onSubmitAddress}
-          control={control}
+          control={controlAdress}
         />
       </VStack>
     </VStack>

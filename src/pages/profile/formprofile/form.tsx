@@ -25,9 +25,10 @@ const FormProfile: React.FC<FormProps> = ({ control, handle, onSubmit }) => {
         flexDirection={{ base: "column", md: "row" }}
         w="100%"
         justify="space-around"
+        gap={2}
       >
-        <VStack align="flex-start" w="100%">
-          <Flex gap={4} w="100%" justify="space-between">
+        <VStack spaceY={3} align="flex-start" w="100%">
+          <Flex gap={2} w="100%" justify="space-between">
             <Input.Base
               name="name"
               maxLength={200}
@@ -54,7 +55,7 @@ const FormProfile: React.FC<FormProps> = ({ control, handle, onSubmit }) => {
             label="E-mail"
           />
         </VStack>
-        <VStack align="flex-start" w="100%">
+        <VStack  align="flex-start" spaceY={3} w="100%">
           <Input.Base
             name="phone"
             maxLength={200}
@@ -83,7 +84,7 @@ const FormProfile: React.FC<FormProps> = ({ control, handle, onSubmit }) => {
             </Icon>
           </Flex>
         </VStack>
-        <VStack align="flex-start" w="100%">
+        <VStack align="flex-start" spaceY={3} w="100%">
           <Select
             options={[
               { label: "Masculino", value: "m" },

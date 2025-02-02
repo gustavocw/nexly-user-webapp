@@ -18,7 +18,7 @@ import { Pagination } from "swiper/modules";
 const Home = () => {
   const { area } = useArea();
   const [boxWidth, setBoxWidth] = useState("40%");
-
+  
   useEffect(() => {
     const handleResize = () => {
       const { innerWidth } = window;
@@ -34,6 +34,7 @@ const Home = () => {
       window.removeEventListener("resize", handleResize);
     };
   }, []);
+  
 
   return (
     <Box h="100vh" w="100%">

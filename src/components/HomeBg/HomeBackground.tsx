@@ -44,8 +44,12 @@ const BackgroundHome: React.FC<BackgroundHomeProps> = ({
   }, []);
 
   const isVideo = (url?: string) => {
-    return url?.match(/\.(mp4|webm|ogg)$/i);
+    if (!url) return false;
+    const isFile = url.match(/\.(mp4|webm|ogg)$/i);
+    const isStreaming = /(?:youtube\.com|youtu\.be|vimeo\.com)/i.test(url);
+    return isFile || isStreaming;
   };
+  
 
   return isVideo(backgroundUrl) ? (
     <VStack

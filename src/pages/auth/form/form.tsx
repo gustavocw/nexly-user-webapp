@@ -16,6 +16,7 @@ const Form = () => {
     onSubmit,
     rememberMe,
     setRememberMe,
+    loadingLogin,
   } = useLoginController();
   const { setStepLogin } = useAuthStore();
 
@@ -30,7 +31,7 @@ const Form = () => {
       <VStack
         mb={40}
         spaceY={10}
-        w={{ base: "70%", md: "70%", lg: "50%" }}
+        w={{ base: "90%", md: "70%", lg: "60%" }}
         lineHeight={1}
       >
         <VStack w="100%">
@@ -90,7 +91,7 @@ const Form = () => {
               />
             </Flex>
           </HStack>
-          <Btn label="Entrar" onClick={handleSubmit(onSubmit)} />
+          <Btn isLoading={loadingLogin} label="Entrar" onClick={handleSubmit(onSubmit)} />
         </VStack>
       </VStack>
     </Stack>

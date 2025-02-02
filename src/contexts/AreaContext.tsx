@@ -1,4 +1,4 @@
-import { createContext, useContext, useState, useEffect } from "react";
+import { createContext, useState, useEffect } from "react";
 import { useQuery } from "@tanstack/react-query";
 import { getArea } from "services/area.services";
 import { useAuth } from "hooks/useAuth";
@@ -41,12 +41,4 @@ export function AreaProvider({ children }: { children: React.ReactNode }) {
       {children}
     </AreaContext.Provider>
   );
-}
-
-export function useArea() {
-  const context = useContext(AreaContext);
-  if (context === undefined) {
-    throw new Error("useArea must be used within an AreaProvider");
-  }
-  return context;
 }

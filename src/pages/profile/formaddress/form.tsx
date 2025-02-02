@@ -26,11 +26,12 @@ const FormAddress: React.FC<FormProps> = ({ control, handle, onSubmit }) => {
         w="100%"
         alignItems="flex-start"
         justify="space-around"
+        gap={2}
       >
         <VStack align="flex-start" w="100%">
           <Flex gap={4} w="100%" justify="space-between">
             <Input.Base
-              name="zipCode"
+              name="codeStreet"
               maxLength={200}
               control={control}
               onBlurSubmit={() => handle(onSubmit)()}
@@ -84,7 +85,7 @@ const FormAddress: React.FC<FormProps> = ({ control, handle, onSubmit }) => {
         </VStack>
         <VStack h="100%" w="100%">
           <Input.Base
-            name="neuborhood"
+            name="neighborhood"
             maxLength={200}
             control={control}
             onBlurSubmit={() => handle(onSubmit)()}
