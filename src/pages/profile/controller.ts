@@ -42,6 +42,9 @@ export const useProfileController = () => {
     },
   });
 
+  console.log(user);
+  
+
   useEffect(() => {
     if (user) {
       resetProfile({
@@ -50,8 +53,8 @@ export const useProfileController = () => {
         phone: user?.phone || "",
         cpf: user?.cpf || "",
         sex: user?.sex || "",
-        bio: "",
-        email: "",
+        bio: user?.bio || "",
+        email: user?.email || "",
       });
 
       if (user?.address) {

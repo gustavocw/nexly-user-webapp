@@ -9,26 +9,33 @@ import Btn from "components/button/button";
 import { useState, useEffect } from "react";
 import { useParams } from "react-router-dom";
 import VideoBackground from "components/videobg/videobg";
-import { useArea } from "hooks/useArea";
 import { useQuery } from "@tanstack/react-query";
-import { getCourse } from "services/course.services";
+import { getCourse, getLessons } from "services/course.services";
 import CardModule from "./card/card";
 import { Swiper, SwiperSlide } from "swiper/react";
 import "swiper/swiper-bundle.css";
 import { Pagination } from "swiper/modules";
+import useAuthStore from "stores/auth.store";
 
 const Course = () => {
   const [boxWidth, setBoxWidth] = useState("40%");
-  const {id} = useParams();
-  const { area } = useArea();
+  const { id } = useParams();
+  const { area } = useAuthStore();
 
   const { data: courses } = useQuery({
     queryKey: ["courses"],
     queryFn: () => {
-      return getCourse(id)
-    }
-  })
+      return getCourse(id);
+    },
+  });
 
+  const { data: lessons } = useQuery({
+    queryKey: ["lessons"],
+    queryFn: () => getLessons(courses[0]?.modules[0]?._id!),
+  });
+
+  console.log(lessons);
+  
   useEffect(() => {
     const handleResize = () => {
       const { innerWidth } = window;
@@ -47,7 +54,7 @@ const Course = () => {
 
   return (
     <Box h="100vh" w="100%">
-      <VideoBackground videoUrl={"https://www.youtube.com/watch?v=Ttl8Gg-P-Ao"}>
+      <VideoBackground videoUrl={lessons?.length ? lessons[0]?.urlVideo : "https://www.youtube.com/watch?v=Ttl8Gg-P-Ao"}>
         <Flex
           background="linear-gradient(0deg, #10121A 0%, rgba(16, 18, 26, 0) 100%)"
           justify="space-between"
@@ -76,6 +83,7 @@ const Course = () => {
                   gap={2}
                   alignItems="center"
                   w="100%"
+                  maxW="400px"
                   defaultValue={40}
                   min={0}
                   max={100}
@@ -106,21 +114,25 @@ const Course = () => {
         {courses?.map((course: any) =>
           course.modules?.map((module: any) => (
             <Swiper
-            slidesPerView={4}
-            centeredSlides={true}
-            spaceBetween={30}
-            grabCursor={true}
-            pagination={{
-              clickable: true,
-            }}
-            modules={[Pagination]}
-            width={100}
-            height={100}
-          >
-            <SwiperSlide key={course._id}>
-            <CardModule key={module._id} format={module.format} module={module} />
-            </SwiperSlide>
-          </Swiper>
+              slidesPerView={4}
+              centeredSlides={true}
+              spaceBetween={30}
+              grabCursor={true}
+              pagination={{
+                clickable: true,
+              }}
+              modules={[Pagination]}
+              width={100}
+              height={100}
+            >
+              <SwiperSlide key={course._id}>
+                <CardModule
+                  key={module._id}
+                  format={module.format}
+                  module={module}
+                />
+              </SwiperSlide>
+            </Swiper>
           ))
         )}
       </Box>

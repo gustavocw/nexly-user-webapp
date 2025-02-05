@@ -1,12 +1,18 @@
 import { http } from "./http/http";
-
 export async function uploadPhoto(file: File) {
-  const { data } = await http.post<any>("/student/login", file);
+  const formData = new FormData();
+  formData.append("file", file);
+  const { data } = await http.patch<any>("/student/profile", formData, {
+    headers: {
+      "Content-Type": "multipart/form-data",
+    },
+  });
+
   return data;
 }
 
 export async function updateProfile(params: User) {
-  const { data } = await http.post<any>("/student/profile", params);
+  const { data } = await http.put<any>("/student/profile", params);
   return data;
 }
 

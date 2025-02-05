@@ -9,14 +9,14 @@ import {
 import Btn from "components/button/button";
 import CardProduct from "./cards/cards";
 import { useState, useEffect } from "react";
-import { useArea } from "hooks/useArea";
 import { Swiper, SwiperSlide } from "swiper/react";
 import "swiper/swiper-bundle.css";
 import { Pagination } from "swiper/modules";
+import useAuthStore from "stores/auth.store";
 
 
 const Home = () => {
-  const { area } = useArea();
+  const { area } = useAuthStore();
   const [boxWidth, setBoxWidth] = useState("40%");
   
   useEffect(() => {
@@ -91,6 +91,7 @@ const Home = () => {
               w="260px"
               bgHover={area?.color}
               borderRadius="50px"
+              borderColor="#fff"
             />
           </VStack>
         </Flex>

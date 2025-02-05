@@ -1,18 +1,17 @@
-import { createContext, useState, useEffect } from "react";
+import { createContext, useEffect } from "react";
 import { useQuery } from "@tanstack/react-query";
 import { getArea } from "services/area.services";
 import { useAuth } from "hooks/useAuth";
+import useAuthStore from "stores/auth.store";
 
 interface AreaContextValue {
-  area: Area | null;
-  setArea: (area: Area) => void;
   loadingArea: boolean;
 }
 
 export const AreaContext = createContext({} as AreaContextValue);
 export function AreaProvider({ children }: { children: React.ReactNode }) {
   const { isLogged } = useAuth();
-  const [area, setArea] = useState<Area | null>(null);
+  const { setArea, area } = useAuthStore();
 
   const url = window.location.origin;
   const { data, isLoading, refetch } = useQuery({
@@ -37,7 +36,7 @@ export function AreaProvider({ children }: { children: React.ReactNode }) {
   }, [data, area]);
 
   return (
-    <AreaContext.Provider value={{ area, setArea, loadingArea: isLoading }}>
+    <AreaContext.Provider value={{ loadingArea: isLoading }}>
       {children}
     </AreaContext.Provider>
   );

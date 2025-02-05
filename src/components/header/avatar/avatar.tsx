@@ -7,16 +7,18 @@ import {
   MenuTrigger,
 } from "components/ui/menu";
 import { useAuth } from "hooks/useAuth";
+import { useUser } from "hooks/useUser";
 import { useNavigate } from "react-router-dom";
 
 const AvatarUser = () => {
   const navigate = useNavigate();
-  const {signout} = useAuth();
+  const { signout } = useAuth();
+  const { user } = useUser();
   return (
     <MenuRoot>
       <MenuTrigger asChild>
         <Box cursor="pointer">
-          <Avatar w="38px" h="38px" />
+          <Avatar src={user?.photo} w="38px" h="38px" />
         </Box>
       </MenuTrigger>
       <MenuContent bg="#00000099" gap="10px" padding="10px" borderRadius="12px">

@@ -3,11 +3,11 @@ import { FiSearch } from "react-icons/fi";
 import { IoNotificationsOutline } from "react-icons/io5";
 import AvatarUser from "./avatar/avatar";
 import { useNavigate } from "react-router-dom";
-import { useArea } from "hooks/useArea";
+import useAuthStore from "stores/auth.store";
 
 const Header = () => {
   const navigate = useNavigate();
-  const { area } = useArea();
+  const { area } = useAuthStore();
   return (
     <HStack
       w="100%"

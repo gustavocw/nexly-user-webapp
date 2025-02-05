@@ -50,10 +50,10 @@ const Profile = () => {
             <FileUploadTrigger borderRadius="full" cursor="pointer">
               <SkeletonCircle loading={loadingImage}>
                 <Avatar
+                  src={user?.photo}
                   mx={{ base: "auto", md: 0 }}
                   w="112px"
                   h="112px"
-                  src=""
                 />
               </SkeletonCircle>
             </FileUploadTrigger>
