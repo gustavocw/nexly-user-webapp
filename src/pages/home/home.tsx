@@ -106,10 +106,9 @@ const Home = () => {
             clickable: true,
           }}
           modules={[Pagination]}
-          width={100}
-          height={100}
+          style={{ width: "100%" }}
         >
-          <SwiperSlide key={course._id}>
+          <SwiperSlide  style={{ display: "flex", alignItems: "center", justifyContent: "center" }} key={course._id}>
             <CardProduct course={course} />
           </SwiperSlide>
         </Swiper>

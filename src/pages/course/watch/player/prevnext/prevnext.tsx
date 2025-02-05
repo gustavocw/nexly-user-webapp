@@ -3,10 +3,13 @@ import Btn from "components/button/button";
 import { SlLike } from "react-icons/sl";
 import { SlDislike } from "react-icons/sl";
 import { GoStar } from "react-icons/go";
+import { GoStarFill } from "react-icons/go";
 import { CiCircleChevRight } from "react-icons/ci";
 import { CiCircleChevLeft } from "react-icons/ci";
+import { useControllerVideo } from "./controller";
 
 interface PrevNextProps {
+  lesson?: Lesson | null;
   onNext: () => void;
   onPrev: () => void;
   hasNext: boolean;
@@ -17,6 +20,7 @@ interface PrevNextProps {
 }
 
 const PrevNext: React.FC<PrevNextProps> = ({
+  lesson,
   onNext,
   onPrev,
   hasNext,
@@ -24,6 +28,7 @@ const PrevNext: React.FC<PrevNextProps> = ({
   nextLessonName,
   prevLessonName,
 }) => {
+  const { mutateFavorite } = useControllerVideo();
   return (
     <HStack
       w="100%"
@@ -42,14 +47,35 @@ const PrevNext: React.FC<PrevNextProps> = ({
           <Icon cursor="pointer" color="neutral" fontSize="42px">
             <SlDislike />
           </Icon>
-          <Icon cursor="pointer" color="neutral" fontSize="42px">
-            <GoStar />
-          </Icon>
+          {lesson?.isFavorite ? (
+            <Icon
+              onClick={() => mutateFavorite(lesson?._id)}
+              cursor="pointer"
+              color="yellow.400"
+              fontSize="42px"
+            >
+              <GoStarFill />
+            </Icon>
+          ) : (
+            <Icon
+              onClick={() => mutateFavorite(lesson?._id)}
+              cursor="pointer"
+              color="neutral"
+              fontSize="42px"
+            >
+              <GoStar />
+            </Icon>
+          )}
         </Flex>
       </Flex>
       <Flex gap="32px" w="500px">
         {hasPrev && (
-          <Flex cursor="pointer" alignItems="center" gap="16px" onClick={onPrev}>
+          <Flex
+            cursor="pointer"
+            alignItems="center"
+            gap="16px"
+            onClick={onPrev}
+          >
             <Icon cursor="pointer" color="orange" fontSize="48px">
               <CiCircleChevLeft />
             </Icon>
@@ -65,7 +91,12 @@ const PrevNext: React.FC<PrevNextProps> = ({
         )}
         {hasPrev && <Separator orientation="vertical" h="40px" my="auto" />}
         {hasNext && (
-          <Flex cursor="pointer" alignItems="center" gap="16px" onClick={onNext}>
+          <Flex
+            cursor="pointer"
+            alignItems="center"
+            gap="16px"
+            onClick={onNext}
+          >
             <VStack gap={0} align="flex-end">
               <Text color="neutral.10" fontSize="12px">
                 Próximo

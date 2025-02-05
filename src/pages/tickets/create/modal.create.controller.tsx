@@ -4,11 +4,14 @@ import { zodResolver } from "@hookform/resolvers/zod";
 import { useState } from "react";
 import { useMutation } from "@tanstack/react-query";
 import { createTicket } from "services/ticket.services";
+import useAuthStore from "stores/auth.store";
+import { toaster } from "components/ui/toaster";
+import { useUser } from "hooks/useUser";
+import { formatSelect } from "utils/formatSelect";
 
 const createTicketSchema = z.object({
   name: z.string(),
-  number: z.string(),
-  category: z.string(),
+  category: z.union([z.string(), z.array(z.string())]),
   description: z.string(),
   priority: z.string(),
 });
@@ -16,7 +19,9 @@ const createTicketSchema = z.object({
 type CreateTicketFormData = z.infer<typeof createTicketSchema>;
 
 const useCreateTicketsController = () => {
+  const { area } = useAuthStore();
   const [isOpen, setIsOpen] = useState(false);
+  const { user } = useUser();
   const {
     control,
     handleSubmit,
@@ -27,29 +32,60 @@ const useCreateTicketsController = () => {
   } = useForm<CreateTicketFormData>({
     resolver: zodResolver(createTicketSchema),
     defaultValues: {
-      name: "test",
-      number: "123",
-      category: "af",
-      description: "af",
-      priority: "BAIXA",
+      name: "",
+      category: "",
+      description: "",
+      priority: "",
     },
   });
 
-  const { mutate: mutateTicket } = useMutation({
-    mutationFn: (data: NewTicket) => createTicket("67855cb3cef632d2739a8b48", data),
-    onSuccess: (data) => {
-      console.log(data);
+  const { mutate: mutateTicket, isPending: creatingTicket } = useMutation({
+    mutationFn: (data: NewTicket) =>
+      createTicket(area?._id, data),
+    onSuccess: () => {
+      setIsOpen(false);
+      reset();
+      toaster.create({
+        title: "Ticket criado com sucesso",
+        type: "success",
+      });
+    },
+    onError: (error: any) => {
+      toaster.create({
+        title: "Erro ao criar ticket",
+        description: error?.response?.data?.message,
+        type: "error",
+      });
     },
   });
 
   const onSubmit: SubmitHandler<CreateTicketFormData> = (data) => {
     console.log(data);
-    mutateTicket(data);
-    reset();
+    const payload = {
+      ...data,
+      number: user?.phone,
+      category: formatSelect(data.category),
+    };
+    console.log(payload);
+    mutateTicket(payload);
+
   };
+
+  const formValues = watch();
+
+  const isValid =
+    !!formValues.category &&
+    !!formValues.description &&
+    !!formValues.name &&
+    !!formValues.priority &&
+    !errors.description &&
+    !errors.name &&
+    !errors.priority;
 
   return {
     control,
+    isValid,
+    creatingTicket,
     handleSubmit,
     setIsOpen,
     isOpen,
@@ -58,6 +94,7 @@ const useCreateTicketsController = () => {
     reset,
     errors,
     watch,
+    user,
   };
 };
 

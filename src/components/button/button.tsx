@@ -22,6 +22,7 @@ interface BtnProps {
   iconRight?: JSX.Element;
   fontWeight?: string;
   type?: any;
+  disabled?: boolean;
 }
 
 const Btn = ({
@@ -30,6 +31,7 @@ const Btn = ({
   color,
   padding,
   bgHover,
+  disabled,
   type,
   w,
   h,
@@ -73,6 +75,7 @@ const Btn = ({
       _hover={{
         bg: isTransparent ? "neutral.40" : bgHover ?? "primary.50",
       }}
+      disabled={disabled}
     >
       {iconLeft && <Box color="neutral">{iconLeft}</Box>}
       <Text.Large

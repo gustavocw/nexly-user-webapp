@@ -3,6 +3,7 @@ import {
   BreadcrumbLink,
   BreadcrumbRoot,
 } from "components/ui/breadcrumb";
+import useAuthStore from "stores/auth.store";
 
 interface BreadcrumbProps {
   lessonId?: string;
@@ -13,12 +14,13 @@ interface BreadcrumbProps {
 const Breadcrumb: React.FC<BreadcrumbProps> = ({ lessonId, lesson, onSelectLesson }) => {
   const currentLessonIndex = lesson?.findIndex((lesson) => lesson._id === lessonId) ?? 0;
   const nextLessons = lesson?.slice(currentLessonIndex, currentLessonIndex + 3);
+  const {area} = useAuthStore();
 
   return (
     <BreadcrumbRoot>
       {nextLessons?.map((lesson, index) => (
         index === 0 ? (
-          <BreadcrumbCurrentLink key={lesson._id} color="orange">
+          <BreadcrumbCurrentLink key={lesson._id} color={area?.color}>
             {lesson.nameLesson}
           </BreadcrumbCurrentLink>
         ) : (

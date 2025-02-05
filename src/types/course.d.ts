@@ -36,6 +36,7 @@ interface Lesson {
   urlVideo: string;
   thumbnail: string;
   comments: Comment[];
+  isFavorite?: boolean;
 }
 
 interface Comment {

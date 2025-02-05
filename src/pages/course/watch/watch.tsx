@@ -1,10 +1,4 @@
-import {
-  Box,
-  Flex,
-  HStack,
-  Text,
-  VStack,
-} from "@chakra-ui/react";
+import { Box, Flex, HStack, Text, VStack } from "@chakra-ui/react";
 import TitlePage from "components/titlePage/titlePage";
 import Breadcrumb from "./breadcrumb/beadcrumb";
 import VideoPlayer from "./player/player";
@@ -22,7 +16,7 @@ const Watch = () => {
     queryKey: ["lessons"],
     queryFn: () => getLessons(id!),
   });
-  
+
   const [currentLessonIndex, setCurrentLessonIndex] = useState(0);
   const [isOpen, setIsOpen] = useState(false);
 
@@ -33,7 +27,7 @@ const Watch = () => {
     queryFn: () => getUniqueLesson(currentLesson?._id),
     enabled: !!currentLesson,
   });
-  
+
   const handleShow = () => {
     setIsOpen((prev) => !prev);
   };
@@ -55,9 +49,7 @@ const Watch = () => {
       ? lessons[currentLessonIndex + 1]
       : null;
   const prevLesson =
-    lessons && currentLessonIndex > 0
-      ? lessons[currentLessonIndex - 1]
-      : null;
+    lessons && currentLessonIndex > 0 ? lessons[currentLessonIndex - 1] : null;
 
   const truncateText = (text: string, maxLength: number) =>
     text.length > maxLength ? `${text.slice(0, maxLength)}...` : text;
@@ -67,11 +59,16 @@ const Watch = () => {
       <VStack py={5} gap={0} mx="auto" align="flex-start" w="90%">
         <TitlePage title={currentLesson?.nameLesson || "Aula"} />
         <Flex w="100%" pl={10}>
-          <Breadcrumb lessonId={currentLesson?._id} lesson={lessons} onSelectLesson={setCurrentLessonIndex} />
+          <Breadcrumb
+            lessonId={currentLesson?._id}
+            lesson={lessons}
+            onSelectLesson={setCurrentLessonIndex}
+          />
         </Flex>
       </VStack>
       <VideoPlayer videoUrl={currentLesson?.urlVideo || ""} />
       <PrevNext
+        lesson={currentLesson}
         onNext={handleNextLesson}
         onPrev={handlePrevLesson}
         hasNext={currentLessonIndex < (lessons?.length ?? 0) - 1}
@@ -96,19 +93,26 @@ const Watch = () => {
             <Text color="neutral.10">
               {isOpen
                 ? currentLesson?.description
-                : truncateText(currentLesson?.description || "", 100)} {/* Mostra truncado */}
+                : truncateText(currentLesson?.description || "", 100)}{" "}
             </Text>
-            <Text
-              onClick={handleShow}
-              cursor="pointer"
-              color="primary.50"
-              fontWeight="bold"
-              mt={2}
-            >
-              {isOpen ? "Mostrar Menos" : "Mostrar Mais"}
-            </Text>
+            {currentLesson?.description &&
+              currentLesson.description.length > 100 && (
+                <Text
+                  onClick={handleShow}
+                  cursor="pointer"
+                  color="primary.50"
+                  fontWeight="bold"
+                  mt={2}
+                >
+                  {isOpen ? "Mostrar Menos" : "Mostrar Mais"}
+                </Text>
+              )}
           </Box>
-          <CommentsVideo lessonId={currentLesson?._id} lesson={lesson} refetchLesson={refetchLesson} />
+          <CommentsVideo
+            lessonId={currentLesson?._id}
+            lesson={lesson}
+            refetchLesson={refetchLesson}
+          />
         </VStack>
 
         <VStack maxH="700px" overflowY="auto" align="flex-start" w="30%">

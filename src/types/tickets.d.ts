@@ -1,6 +1,6 @@
 interface NewTicket {
   name: string;
-  number: string;
+  number?: string;
   description: string;
   category: string;
   priority: string;

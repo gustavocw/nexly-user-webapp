@@ -18,7 +18,7 @@ import { GoDotFill } from "react-icons/go";
 import Input from "components/input/input";
 
 const CreateTicket = () => {
-  const { isOpen, setIsOpen, watch, reset, errors, control, setValue, handleSubmit, onSubmit } =
+  const { isValid, isOpen, setIsOpen, watch, reset, errors, control, setValue, handleSubmit, creatingTicket, onSubmit } =
     useCreateTicketsController();
 
   const bgPriority = watch("priority");
@@ -97,6 +97,8 @@ const CreateTicket = () => {
               onClick={() => handleSubmit(onSubmit)()}
               label="Salvar"
               w="200px"
+              isLoading={creatingTicket}
+              disabled={isValid}
             />
           </DialogFooter>
           <DialogCloseTrigger />

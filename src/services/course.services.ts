@@ -38,3 +38,10 @@ export async function favoriteVideo(lessonId?: string | null) {
   return data.data;
 }
 
+export async function getFavorites() {
+  const { data } = await http.get<any>(
+    `/course/favorite-lesson`,
+    {}
+  );
+  return data;
+}

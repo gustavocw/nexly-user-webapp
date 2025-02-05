@@ -9,11 +9,14 @@ import {
 import { useAuth } from "hooks/useAuth";
 import { useUser } from "hooks/useUser";
 import { useNavigate } from "react-router-dom";
+import useAuthStore from "stores/auth.store";
 
 const AvatarUser = () => {
   const navigate = useNavigate();
   const { signout } = useAuth();
   const { user } = useUser();
+  const { area } = useAuthStore();
+
   return (
     <MenuRoot>
       <MenuTrigger asChild>
@@ -24,7 +27,7 @@ const AvatarUser = () => {
       <MenuContent bg="#00000099" gap="10px" padding="10px" borderRadius="12px">
         <MenuItem
           fontSize="18px"
-          _hover={{ bg: "orange" }}
+          _hover={{ bg: area?.color }}
           color="neutral"
           borderRadius="8px"
           cursor="pointer"
@@ -37,7 +40,7 @@ const AvatarUser = () => {
         </MenuItem>
         {/* <MenuItem
           fontSize="18px"
-          _hover={{ bg: "orange" }}
+          _hover={{ bg: area?.color }}
           color="neutral"
           borderRadius="8px"
           cursor="pointer"
@@ -50,7 +53,7 @@ const AvatarUser = () => {
         </MenuItem> */}
         <MenuItem
           fontSize="18px"
-          _hover={{ bg: "orange" }}
+          _hover={{ bg: area?.color }}
           color="neutral"
           borderRadius="8px"
           cursor="pointer"
@@ -63,7 +66,7 @@ const AvatarUser = () => {
         </MenuItem>
         <MenuItem
           fontSize="18px"
-          _hover={{ bg: "orange" }}
+          _hover={{ bg: area?.color }}
           color="neutral"
           borderRadius="8px"
           cursor="pointer"
@@ -76,7 +79,7 @@ const AvatarUser = () => {
         </MenuItem>
         <MenuItem
           fontSize="18px"
-          _hover={{ bg: "orange" }}
+          _hover={{ bg: area?.color }}
           color="neutral"
           borderRadius="8px"
           cursor="pointer"
@@ -89,7 +92,7 @@ const AvatarUser = () => {
         </MenuItem>
         <MenuItem
           fontSize="18px"
-          _hover={{ bg: "orange" }}
+          _hover={{ bg: area?.color }}
           color="neutral"
           borderRadius="8px"
           cursor="pointer"
