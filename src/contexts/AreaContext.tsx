@@ -14,7 +14,7 @@ export function AreaProvider({ children }: { children: React.ReactNode }) {
   const { setArea, area } = useAuthStore();
 
   // const url = window.location.origin;
-  const url = "https://localhost:9000"
+  const url = "http://localhost:9000"
   const { data, isLoading, refetch } = useQuery({
     queryKey: ["area", url],
     queryFn: async () => {
