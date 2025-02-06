@@ -1,4 +1,4 @@
-import { Box, HStack, VStack } from "@chakra-ui/react";
+import { Box, Flex, HStack, VStack } from "@chakra-ui/react";
 import TitlePage from "components/titlePage/titlePage";
 import { SimpleGrid } from "@chakra-ui/react";
 import {
@@ -11,9 +11,11 @@ import { useNavigate } from "react-router-dom";
 const Certificates = () => {
   const navigate = useNavigate();
   return (
-    <VStack p={20} w="100%" align="flex-start">
+    <VStack py={20} px={{ base: 2, md: 20 }} w="100%" align={{ base: "center", md: "flex-start" }}>
+      <Flex w="100%" justify="flex-start">
       <TitlePage title="Selecione o curso desejado" />
-      <SimpleGrid columns={[2, null, 3]} gap="40px">
+      </Flex>
+      <SimpleGrid columns={{ base: 1, md: 2, lg: 3 }} gap="40px">
         <VStack
           onClick={() => navigate(`/certificate/${123}`)}
           h="180px"

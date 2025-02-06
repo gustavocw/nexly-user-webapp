@@ -91,7 +91,7 @@ const Form = () => {
               />
             </Flex>
           </HStack>
-          <Btn isLoading={loadingLogin} label="Entrar" onClick={handleSubmit(onSubmit)} />
+          <Btn w="100%" isLoading={loadingLogin} label="Entrar" onClick={handleSubmit(onSubmit)} />
         </VStack>
       </VStack>
     </Stack>

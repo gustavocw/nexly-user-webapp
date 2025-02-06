@@ -155,55 +155,6 @@ const Course = () => {
                     module={module}
                   />
                 </SwiperSlide>
-                <SwiperSlide key={course._id}>
-                  <CardModule
-                    key={module._id}
-                    format={module.format}
-                    module={module}
-                  />
-                </SwiperSlide>
-                <SwiperSlide key={course._id}>
-                  <CardModule
-                    key={module._id}
-                    format={module.format}
-                    module={module}
-                  />
-                </SwiperSlide>
-                <SwiperSlide key={course._id}>
-                  <CardModule
-                    key={module._id}
-                    format={module.format}
-                    module={module}
-                  />
-                </SwiperSlide>
-                <SwiperSlide key={course._id}>
-                  <CardModule
-                    key={module._id}
-                    format={module.format}
-                    module={module}
-                  />
-                </SwiperSlide>
-                <SwiperSlide key={course._id}>
-                  <CardModule
-                    key={module._id}
-                    format={module.format}
-                    module={module}
-                  />
-                </SwiperSlide>
-                <SwiperSlide key={course._id}>
-                  <CardModule
-                    key={module._id}
-                    format={module.format}
-                    module={module}
-                  />
-                </SwiperSlide>
-                <SwiperSlide key={course._id}>
-                  <CardModule
-                    key={module._id}
-                    format={module.format}
-                    module={module}
-                  />
-                </SwiperSlide>
               </>
             </Swiper>
           ))

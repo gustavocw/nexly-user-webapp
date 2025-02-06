@@ -1,4 +1,11 @@
-import { createListCollection, Flex, HStack, Text, VStack } from "@chakra-ui/react";
+import {
+  createListCollection,
+  Flex,
+  HStack,
+  Stack,
+  Text,
+  VStack,
+} from "@chakra-ui/react";
 import {
   SelectContent,
   SelectItem,
@@ -11,7 +18,6 @@ const TicketCard = () => {
     items: statusOptions,
   });
 
-
   return (
     <VStack
       p={6}
@@ -19,7 +25,8 @@ const TicketCard = () => {
       borderWidth="1px"
       borderColor="neutral.40"
       w="100%"
-      h="250px"
+      minH={{ base: "350px", md: "250px" }}
+      h={{ base: "auto", md: "250px" }}
       borderRadius="12px"
       align="flex-start"
       justify="space-between"
@@ -39,21 +46,33 @@ const TicketCard = () => {
           >
             <Text>Ticket #0sdsds</Text>
           </VStack>
-          <Text color="neutral">Problema relatado</Text>
+          <Text
+            w={{ base: "100%", md: "150px" }}
+            fontSize={{ base: "14px", md: "16px" }}
+            color="neutral"
+          >
+            Problema relatado
+          </Text>
         </Flex>
       </HStack>
-      <Flex w="100%" alignItems="center" justify="space-between" gap="10px">
+      <Stack
+        flexDirection={{ base: "column-reverse", md: "row" }}
+        w="100%"
+        alignItems={{ base: "flex-start", md: "center" }}
+        justify="space-between"
+        gap="10px"
+      >
         <Text fontSize="32px" color="neutral">
           Problema relatado
         </Text>
         <Text color="neutral">Há 2 dias</Text>
-      </Flex>
+      </Stack>
       <Text color="neutral">Descrição...</Text>
       <Flex gap="10px" w="100%">
         <Flex
           alignItems="center"
           justify="center"
-          w="120px"
+          w={{ base: "100%", md: "120px" }}
           borderRadius="8px"
           bg={getPriorityColor("BAIXA")}
         >
@@ -74,7 +93,7 @@ const TicketCard = () => {
             justifyContent="center"
             borderColor="neutral.40"
             cursor="pointer"
-            w="120px"
+            w={{ base: "100%", md: "120px" }}
           >
             <SelectValueText m={2} placeholder="Status" />
           </SelectTrigger>
@@ -124,4 +143,3 @@ const statusOptions = [
   { value: "open", label: "Em aberto" },
   { value: "closed", label: "Resolvido" },
 ];
-
