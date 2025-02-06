@@ -56,7 +56,7 @@ const PrevNext: React.FC<PrevNextProps> = ({
         <Icon
           cursor="pointer"
           color="neutral"
-          fontSize={{ base: "24px", md: "42px" }}
+          fontSize={{ base: "20px", md: "32px" }}
         >
           <SlLike />
         </Icon>
@@ -70,7 +70,7 @@ const PrevNext: React.FC<PrevNextProps> = ({
           <Icon
             cursor="pointer"
             color="neutral"
-            fontSize={{ base: "24px", md: "42px" }}
+            fontSize={{ base: "20px", md: "32px" }}
           >
             <SlDislike />
           </Icon>
@@ -79,7 +79,7 @@ const PrevNext: React.FC<PrevNextProps> = ({
               onClick={() => mutateFavorite(lesson?._id)}
               cursor="pointer"
               color="yellow.400"
-              fontSize={{ base: "24px", md: "42px" }}
+              fontSize={{ base: "20px", md: "32px" }}
             >
               <GoStarFill />
             </Icon>
@@ -88,7 +88,7 @@ const PrevNext: React.FC<PrevNextProps> = ({
               onClick={() => mutateFavorite(lesson?._id)}
               cursor="pointer"
               color="neutral"
-              fontSize={{ base: "24px", md: "42px" }}
+              fontSize={{ base: "20px", md: "32px" }}
             >
               <GoStar />
             </Icon>
