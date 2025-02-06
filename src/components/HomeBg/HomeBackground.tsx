@@ -49,7 +49,17 @@ const BackgroundHome: React.FC<BackgroundHomeProps> = ({
     const isStreaming = /(?:youtube\.com|youtu\.be|vimeo\.com)/i.test(url);
     return isFile || isStreaming;
   };
-  
+
+  const getResponsiveDimensions = () => {
+    const { innerWidth } = window;
+    if (innerWidth < 768) {
+      return { width: "140%", height: "100%" };
+    } else if (innerWidth < 992) {
+      return { width: "130%", height: "130%" };
+    } else {
+      return { width: "120%", height: "120%" };
+    }
+  };
 
   return isVideo(backgroundUrl) ? (
     <VStack
@@ -64,12 +74,11 @@ const BackgroundHome: React.FC<BackgroundHomeProps> = ({
         playing={true}
         muted={isMuted}
         loop={true}
-        width="120%"
-        height="120%"
+        width={getResponsiveDimensions().width}
+        height={getResponsiveDimensions().height}
         style={{
           position: "absolute",
           top: "-10%",
-          left: "-10%",
           pointerEvents: "none",
         }}
       />

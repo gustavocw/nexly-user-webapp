@@ -11,14 +11,13 @@ import CardProduct from "./cards/cards";
 import { useState, useEffect } from "react";
 import { Swiper, SwiperSlide } from "swiper/react";
 import "swiper/swiper-bundle.css";
-import { Pagination } from "swiper/modules";
 import useAuthStore from "stores/auth.store";
-
+import { FreeMode, Pagination } from "swiper/modules";
 
 const Home = () => {
   const { area } = useAuthStore();
   const [boxWidth, setBoxWidth] = useState("40%");
-  
+
   useEffect(() => {
     const handleResize = () => {
       const { innerWidth } = window;
@@ -34,7 +33,6 @@ const Home = () => {
       window.removeEventListener("resize", handleResize);
     };
   }, []);
-  
 
   return (
     <Box h="100vh" w="100%">
@@ -89,30 +87,47 @@ const Home = () => {
               label="Continuar de onde eu parei"
               bg={area?.color}
               w="260px"
-              bgHover={area?.color}
+              _hover={{ bg: area?.color }}
               borderRadius="50px"
               borderColor="#fff"
             />
           </VStack>
         </Flex>
       </BackgroundHome>
-      {area?.courses.map((course) => (
-        <Swiper
-          slidesPerView={4}
-          centeredSlides={true}
-          spaceBetween={30}
-          grabCursor={true}
-          pagination={{
-            clickable: true,
-          }}
-          modules={[Pagination]}
-          style={{ width: "100%" }}
-        >
-          <SwiperSlide  style={{ display: "flex", alignItems: "center", justifyContent: "center" }} key={course._id}>
-            <CardProduct course={course} />
-          </SwiperSlide>
-        </Swiper>
-      ))}
+      <Swiper
+        slidesPerView={2}
+        spaceBetween={80}
+        pagination={{ clickable: true }}
+        breakpoints={{
+          640: {
+            slidesPerView: 2,
+            spaceBetween: 80,
+          },
+          768: {
+            slidesPerView: 3,
+            spaceBetween: 25,
+          },
+          1024: {
+            slidesPerView: 4,
+            spaceBetween: 30,
+          },
+          1280: {
+            slidesPerView: 5,
+            spaceBetween: 40,
+          },
+        }}
+        freeMode={true}
+        modules={[FreeMode, Pagination]}
+        style={{ width: "90%" }}
+      >
+        {area?.courses.map((course) => (
+          <>
+            <SwiperSlide key={course._id}>
+              <CardProduct course={course} />
+            </SwiperSlide>
+          </>
+        ))}
+      </Swiper>
     </Box>
   );
 };

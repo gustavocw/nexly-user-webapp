@@ -11,7 +11,7 @@ export async function uploadPhoto(file: File) {
   return data;
 }
 
-export async function updateProfile(params: User) {
+export async function updateProfile(params: Partial<User>) {
   const { data } = await http.put<any>("/student/profile", params);
   return data;
 }

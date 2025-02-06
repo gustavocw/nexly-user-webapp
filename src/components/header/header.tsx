@@ -23,7 +23,7 @@ const Header = () => {
         onClick={() => navigate("/")}
         src={area?.logo ?? "/images/logo.png"}
         objectFit="contain"
-        w={area?.logo ? "200px" : "100px"}
+        w={area?.logo ? "100px50px" : "100px"}
         h={area?.logo ? "50px" : "25px"}
       />
       <Flex alignItems="center" gap="24px">

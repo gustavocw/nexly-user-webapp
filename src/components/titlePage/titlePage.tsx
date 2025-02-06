@@ -25,10 +25,10 @@ const TitlePage = ({ title, description, onClick, py }: TitlePageProps) => {
             }}
             cursor="pointer"
           >
-            <Icon mt="1px" fontSize="32px" color="neutral">
+            <Icon mt="1px" fontSize={{ base: "16px", md: "32px" }} color="neutral">
               <IoIosArrowBack />
             </Icon>
-            <Text.Medium fontSize="24px" fontWeight="medium" color="neutral">
+            <Text.Medium fontSize={{ base: "16px", md: "24px" }} fontWeight="medium" color="neutral">
               {title}
             </Text.Medium>
           </HStack>

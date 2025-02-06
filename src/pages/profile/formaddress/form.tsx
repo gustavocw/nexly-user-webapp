@@ -7,9 +7,11 @@ interface FormProps {
   control: any;
   handle: any;
   onSubmit: any;
+  fetchAddressByCEP: (cep: string) => void;
 }
 
-const FormAddress: React.FC<FormProps> = ({ control, handle, onSubmit }) => {
+const FormAddress: React.FC<FormProps> = ({ control, handle, onSubmit, fetchAddressByCEP }) => {
+
   return (
     <VStack
       align="flex-start"
@@ -34,8 +36,14 @@ const FormAddress: React.FC<FormProps> = ({ control, handle, onSubmit }) => {
               name="codeStreet"
               maxLength={200}
               control={control}
-              onBlurSubmit={() => handle(onSubmit)()}
-              onEnterSubmit={() => handle(onSubmit)()}
+              onBlurSubmit={(value: any) => {
+                fetchAddressByCEP(value)
+                handle(onSubmit)()
+              }}
+              onEnterSubmit={(value: any) => {
+                fetchAddressByCEP(value)
+                handle(onSubmit)()
+              }}
               label="CEP"
             />
             <Select

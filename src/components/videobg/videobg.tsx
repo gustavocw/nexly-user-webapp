@@ -43,6 +43,18 @@ const VideoBackground: React.FC<VideoBackgroundProps> = ({
     };
   }, []);
 
+  const getResponsiveDimensions = () => {
+    const { innerWidth } = window;
+    if (innerWidth < 768) {
+      return { width: "140%", height: "100%" };
+    } else if (innerWidth < 992) {
+      return { width: "130%", height: "130%" };
+    } else {
+      return { width: "120%", height: "120%" };
+    }
+  };
+
+
   return (
     <VStack
       w="100%"
@@ -56,12 +68,10 @@ const VideoBackground: React.FC<VideoBackgroundProps> = ({
         playing={true}
         muted={isMuted}
         loop={true}
-        width="120%"
-        height="120%"
+        width={getResponsiveDimensions().width}
+        height={getResponsiveDimensions().height}
         style={{
           position: "absolute",
-          top: "-10%",
-          left: "-10%",
           pointerEvents: "none",
         }}
       />

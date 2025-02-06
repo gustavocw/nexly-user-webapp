@@ -18,6 +18,7 @@ interface User {
 }
 
 interface Address {
+  neighborhood: string;
   _id?: string;
   codeStreet: string;
   street: string;

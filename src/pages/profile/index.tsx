@@ -19,8 +19,7 @@ const Profile = () => {
     onSubmitProfile,
     handleAddressSubmit,
     onSubmitAddress,
-    // updatingAddress,
-    // updatingProfile,
+    fetchAddressByCEP,
   } = useProfileController();
   const { user } = useUser();
 
@@ -77,6 +76,7 @@ const Profile = () => {
           handle={handleAddressSubmit}
           onSubmit={onSubmitAddress}
           control={controlAdress}
+          fetchAddressByCEP={fetchAddressByCEP}
         />
       </VStack>
     </VStack>

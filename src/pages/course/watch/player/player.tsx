@@ -55,6 +55,22 @@ const VideoPlayerView: React.FC<VideoPlayerViewProps> = ({ videoUrl }) => {
     return <IoVolumeHighOutline />;
   };
 
+  const getResponsiveHeight = () => {
+    const { innerWidth } = window;
+    if (innerWidth < 768) {
+      return "56.25vw";
+    } else if (innerWidth < 992) {
+      return "56.25vw";
+    } else {
+      return isFullscreen ? "100vh" : "80vh";
+    }
+  };
+
+  const isMobile = window.innerWidth < 768;
+
+  console.log(isMobile);
+  
+
   return (
     <Box
       position="relative"
@@ -105,7 +121,7 @@ const VideoPlayerView: React.FC<VideoPlayerViewProps> = ({ videoUrl }) => {
         onProgress={handleProgress}
         onDuration={handleDuration}
         width="100vw"
-        height={isFullscreen ? "100vh" : "80vh"}
+        height={getResponsiveHeight()}
         controls={false}
         config={{
           youtube: {
@@ -137,19 +153,19 @@ const VideoPlayerView: React.FC<VideoPlayerViewProps> = ({ videoUrl }) => {
             w="100%"
             justify="space-between"
             align="center"
-            mb={2}
+            mb={{ base: 0, md: 2 }}
           >
             <Flex align="center">
               <VStack
                 align="center"
                 onMouseEnter={() => {
-                  setTimeout(() => setShowVolumeSlider(true), 200);
+                  if (!isMobile) setTimeout(() => setShowVolumeSlider(true), 200);
                 }}
                 onMouseLeave={() => {
-                  setTimeout(() => setShowVolumeSlider(false), 300);
+                  if (!isMobile) setTimeout(() => setShowVolumeSlider(false), 300);
                 }}
               >
-                {showVolumeSlider && (
+                {!isMobile && showVolumeSlider && (
                   <>
                     <Slider
                       height="200px"
@@ -164,7 +180,7 @@ const VideoPlayerView: React.FC<VideoPlayerViewProps> = ({ videoUrl }) => {
                 )}
                 <Tooltip content={isMuted ? "Unmute" : "Mute"}>
                   <Icon
-                    fontSize="32px"
+                    fontSize={{ base: "24px", md: "32px" }}
                     color="neutral"
                     cursor="pointer"
                     onClick={toggleMute}
@@ -179,7 +195,7 @@ const VideoPlayerView: React.FC<VideoPlayerViewProps> = ({ videoUrl }) => {
               <Tooltip content="Settings">
                 <MenuRoot positioning={{ placement: "top-end" }}>
                   <MenuTrigger cursor="pointer" asChild>
-                    <Icon fontSize="32px" color="neutral">
+                    <Icon fontSize={{ base: "24px", md: "32px" }} color="neutral">
                       <FaCog />
                     </Icon>
                   </MenuTrigger>
@@ -236,7 +252,7 @@ const VideoPlayerView: React.FC<VideoPlayerViewProps> = ({ videoUrl }) => {
                 content={isFullscreen ? "Exit Fullscreen" : "Fullscreen"}
               >
                 <Icon
-                  fontSize="32px"
+                  fontSize={{ base: "24px", md: "32px" }}
                   color="neutral"
                   cursor="pointer"
                   onClick={toggleFullscreen}

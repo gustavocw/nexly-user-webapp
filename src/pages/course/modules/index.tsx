@@ -14,7 +14,7 @@ import { getCourse, getLessons } from "services/course.services";
 import CardModule from "./card/card";
 import { Swiper, SwiperSlide } from "swiper/react";
 import "swiper/swiper-bundle.css";
-import { Pagination } from "swiper/modules";
+import { FreeMode, Pagination } from "swiper/modules";
 import useAuthStore from "stores/auth.store";
 
 const Course = () => {
@@ -35,7 +35,7 @@ const Course = () => {
   });
 
   console.log(lessons);
-  
+
   useEffect(() => {
     const handleResize = () => {
       const { innerWidth } = window;
@@ -54,7 +54,13 @@ const Course = () => {
 
   return (
     <Box h="100vh" w="100%">
-      <VideoBackground videoUrl={lessons?.length ? lessons[0]?.urlVideo : "https://www.youtube.com/watch?v=Ttl8Gg-P-Ao"}>
+      <VideoBackground
+        videoUrl={
+          lessons?.length
+            ? lessons[0]?.urlVideo
+            : "https://www.youtube.com/watch?v=Ttl8Gg-P-Ao"
+        }
+      >
         <Flex
           background="linear-gradient(0deg, #10121A 0%, rgba(16, 18, 26, 0) 100%)"
           justify="space-between"
@@ -114,24 +120,89 @@ const Course = () => {
         {courses?.map((course: any) =>
           course.modules?.map((module: any) => (
             <Swiper
-              slidesPerView={4}
-              centeredSlides={true}
-              spaceBetween={30}
-              grabCursor={true}
-              pagination={{
-                clickable: true,
+              slidesPerView={2}
+              spaceBetween={120}
+              pagination={{ clickable: true }}
+              breakpoints={{
+                640: {
+                  slidesPerView: 2,
+                  spaceBetween: 120,
+                },
+                768: {
+                  slidesPerView: 3,
+                  spaceBetween: 25,
+                },
+                1024: {
+                  slidesPerView: 4,
+                  spaceBetween: 30,
+                },
+                1280: {
+                  slidesPerView: 5,
+                  spaceBetween: 40,
+                },
               }}
-              modules={[Pagination]}
-              width={100}
-              height={100}
+              freeMode={true}
+              modules={[FreeMode, Pagination]}
+              style={{ width: "100%" }}
             >
-              <SwiperSlide key={course._id}>
-                <CardModule
-                  key={module._id}
-                  format={module.format}
-                  module={module}
-                />
-              </SwiperSlide>
+              <>
+                <SwiperSlide key={course._id}>
+                  <CardModule
+                    key={module._id}
+                    format={module.format}
+                    module={module}
+                  />
+                </SwiperSlide>
+                <SwiperSlide key={course._id}>
+                  <CardModule
+                    key={module._id}
+                    format={module.format}
+                    module={module}
+                  />
+                </SwiperSlide>
+                <SwiperSlide key={course._id}>
+                  <CardModule
+                    key={module._id}
+                    format={module.format}
+                    module={module}
+                  />
+                </SwiperSlide>
+                <SwiperSlide key={course._id}>
+                  <CardModule
+                    key={module._id}
+                    format={module.format}
+                    module={module}
+                  />
+                </SwiperSlide>
+                <SwiperSlide key={course._id}>
+                  <CardModule
+                    key={module._id}
+                    format={module.format}
+                    module={module}
+                  />
+                </SwiperSlide>
+                <SwiperSlide key={course._id}>
+                  <CardModule
+                    key={module._id}
+                    format={module.format}
+                    module={module}
+                  />
+                </SwiperSlide>
+                <SwiperSlide key={course._id}>
+                  <CardModule
+                    key={module._id}
+                    format={module.format}
+                    module={module}
+                  />
+                </SwiperSlide>
+                <SwiperSlide key={course._id}>
+                  <CardModule
+                    key={module._id}
+                    format={module.format}
+                    module={module}
+                  />
+                </SwiperSlide>
+              </>
             </Swiper>
           ))
         )}

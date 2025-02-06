@@ -17,7 +17,7 @@ const Breadcrumb: React.FC<BreadcrumbProps> = ({ lessonId, lesson, onSelectLesso
   const {area} = useAuthStore();
 
   return (
-    <BreadcrumbRoot>
+    <BreadcrumbRoot w="100%">
       {nextLessons?.map((lesson, index) => (
         index === 0 ? (
           <BreadcrumbCurrentLink key={lesson._id} color={area?.color}>

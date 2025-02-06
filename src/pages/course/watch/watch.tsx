@@ -1,4 +1,4 @@
-import { Box, Flex, HStack, Text, VStack } from "@chakra-ui/react";
+import { Box, Flex, Stack, Text, VStack } from "@chakra-ui/react";
 import TitlePage from "components/titlePage/titlePage";
 import Breadcrumb from "./breadcrumb/beadcrumb";
 import VideoPlayer from "./player/player";
@@ -58,7 +58,7 @@ const Watch = () => {
     <VStack align="flex-start" py={20} w="100%">
       <VStack py={5} gap={0} mx="auto" align="flex-start" w="90%">
         <TitlePage title={currentLesson?.nameLesson || "Aula"} />
-        <Flex w="100%" pl={10}>
+        <Flex w="100%" pl={{ base: 2, md: 10 }}>
           <Breadcrumb
             lessonId={currentLesson?._id}
             lesson={lessons}
@@ -78,8 +78,15 @@ const Watch = () => {
         prevLessonName={prevLesson?.nameLesson}
       />
 
-      <HStack align="flex-start" px={20} py={10} gap="64px" w="100%">
-        <VStack gap="32px" w="70%">
+      <Stack
+        flexDirection={{ base: "column-reverse", md: "row" }}
+        align="flex-start"
+        px={{ base: 2, md: 20 }}
+        py={10}
+        gap="64px"
+        w="100%"
+      >
+        <VStack gap="32px" w={{ base: "100%", md: "70%" }}>
           <Box
             w="100%"
             bg="neutral.60"
@@ -114,15 +121,21 @@ const Watch = () => {
             refetchLesson={refetchLesson}
           />
         </VStack>
-
-        <VStack maxH="700px" overflowY="auto" align="flex-start" w="30%">
+        <Stack
+          flexDirection={{ base: "row", md: "column" }}
+          maxH={{ base: "200px", md: "700px" }}
+          overflowY={{ base: "", md: "auto" }}
+          align="flex-start"
+          w={{ base: "100%", md: "40%" }}
+          justify={{ base: "center", md: "flex-start" }}
+        >
           <LessonList
             lessons={lessons}
             currentLessonIndex={currentLessonIndex}
             onSelectLesson={(index: number) => setCurrentLessonIndex(index)}
           />
-        </VStack>
-      </HStack>
+        </Stack>
+      </Stack>
     </VStack>
   );
 };
