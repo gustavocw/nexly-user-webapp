@@ -10,16 +10,15 @@ interface AreaContextValue {
 
 export const AreaContext = createContext({} as AreaContextValue);
 export function AreaProvider({ children }: { children: React.ReactNode }) {
-  const { isLogged } = useAuth();
+  const { isLogged, signout } = useAuth();
   const { setArea, area } = useAuthStore();
 
   // const url = window.location.origin;
   const url = "http://localhost:9000"
-  const { data, isLoading, refetch } = useQuery({
+  const { data, isLoading } = useQuery({
     queryKey: ["area", url],
     queryFn: async () => {
       await getArea(url).then((res) => {
-        console.log(res);
         setArea(res[0]);
         return res[0];
       });
@@ -28,11 +27,11 @@ export function AreaProvider({ children }: { children: React.ReactNode }) {
   });
 
   useEffect(() => {
-    if (data && !area) {
+
+    if (data) {
       setArea(data[0]);
-    }
-    if (area === undefined) {
-      refetch();
+    } else {
+      signout()
     }
   }, [data, area]);
 

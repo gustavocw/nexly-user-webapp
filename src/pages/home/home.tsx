@@ -50,7 +50,8 @@ const Home = () => {
             gap="16px"
             align="flex-start"
             maxW={{ base: "100%", md: "100%", lg: boxWidth }}
-            p={{ base: 4, md: 20 }}
+            px={{ base: 4, md: 20 }}
+            py={{ base: 4, md: 12 }}
             color="#fff"
           >
             <Flex gap={2} w="60%">
@@ -61,7 +62,7 @@ const Home = () => {
                 Receba seu certificado após a conclusão das aulas
               </Text>
             </Flex>
-            <Flex gap={2} w="60%">
+            <Flex gap={2} w={{ base: "60%", md: "50%" }}>
               <ProgressRoot
                 display="flex"
                 gap={2}
@@ -76,14 +77,12 @@ const Home = () => {
                 <ProgressBar bg={area?.color} borderRadius="50px" w="100%" />
               </ProgressRoot>
             </Flex>
-            <Text fontSize={{ base: "16px", md: "20px", lg: "32px" }}>
+            <Text fontSize={{ base: "16px", md: "18px", lg: "28px" }}>
               {area?.title}
             </Text>
-            <Text fontSize="16px">
+            <Text maxW={{ base: "100%", md: "70%" }} fontSize="14px">
               Descubra o cosmos com 'Exploração Espacial 101'. Este curso
-              envolvente abrange astronomia, exoplanetas e muito mais. Perfeito
-              para iniciantes e amantes do espaço, oferece uma experiência única
-              através de imagens estelares, telescópios e naves espaciais.
+              envolvente abrange astronomia, exoplanetas e muito mais. Perfeito.
             </Text>
             <Btn
               label="Continuar de onde eu parei"
