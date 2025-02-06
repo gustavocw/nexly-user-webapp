@@ -105,7 +105,9 @@ const Course = () => {
                 label="Continuar de onde eu parei"
                 bg={area?.color}
                 w="260px"
-                bgHover="orange.700"
+                _hover={{
+                  bg: area?.color,
+                }}
                 borderRadius="50px"
               />
             </VStack>
