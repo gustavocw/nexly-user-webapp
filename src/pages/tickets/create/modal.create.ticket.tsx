@@ -24,10 +24,10 @@ const CreateTicket = () => {
   const bgPriority = watch("priority");
 
   return (
-    <HStack wrap="wrap" gap="4">
+    <HStack w="100%" justify={{ base: "flex-end" }} wrap="wrap" gap="4">
       <DialogRoot onOpenChange={(e) => setIsOpen(e.open)} open={isOpen} placement="center" motionPreset="slide-in-bottom">
         <DialogTrigger asChild>
-          <Btn onClick={() => setIsOpen(true)} iconLeft={<BiPlus />} label="Novo ticket" w="200px" />
+          <Btn onClick={() => setIsOpen(true)} iconLeft={<BiPlus />} label="Novo ticket" w={{ base: "100%", md: "200px", lg: "200px" }} />
         </DialogTrigger>
         <DialogContent color="neutral" bg="neutral.60" borderRadius="20px">
           <DialogHeader
@@ -52,7 +52,9 @@ const CreateTicket = () => {
               <HStack justify="center" w="100%">
                 <Btn
                   bg={bgPriority === "BAIXA" ? "neutral.40" : "transparent"}
-                  bgHover="neutral.60"
+                  _hover={{
+                    bg: "neutral.60",
+                  }}
                   iconLeft={<GoDotFill style={{ color: "#288C18" }} />}
                   w="32%"
                   label="Baixa"
@@ -67,7 +69,9 @@ const CreateTicket = () => {
                 />
                 <Btn
                   bg={bgPriority === "URGENTE" ? "neutral.40" : "transparent"}
-                  bgHover="neutral.60"
+                  _hover={{
+                    bg: "neutral.60",
+                  }}
                   iconLeft={<GoDotFill style={{ color: "#8C1D18" }} />}
                   w="32%"
                   label="Urgente"
@@ -87,7 +91,7 @@ const CreateTicket = () => {
           <DialogFooter p={4}>
             <DialogActionTrigger asChild>
               <Btn
-                onClick={reset}
+                onClick={() => reset}
                 bg="transparent"
                 label="Cancelar"
                 w="200px"

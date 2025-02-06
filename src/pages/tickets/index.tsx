@@ -1,7 +1,6 @@
 import {
-  Flex,
-  HStack,
   Separator,
+  Stack,
   Text,
   VStack
 } from "@chakra-ui/react";
@@ -18,17 +17,17 @@ const Tickets = () => {
         <ListIssues />
         <Separator borderColor="neutral.40" />
       </VStack>
-      <VStack py={3} align="flex-start" px={20} w={{ md: "100%", lg: "75%" }}>
+      <VStack py={3} align="flex-start" w={{ base: "90%", md: "100%", lg: "75%" }}>
         <Text color="neutral" fontSize="20px">
           Meus tickets
         </Text>
-        <HStack justify="space-between" py={2} align="flex-start" w="100%">
-          <Flex gap="10px">
+        <Stack flexDirection={{ base: "column", md: "row" }} justify="space-between" py={2} align="flex-start" w="100%">
+          <Stack w="100%" flexDirection={{ base: "column", md: "row" }} gap="10px">
             <SearchBar placeholder="Pesquisar ticket" />
-            <Btn bg="transparent" label="Não respondidos" w="200px" />
-          </Flex>
+            <Btn bg="transparent" label="Não respondidos" w={{ base: "100%", md: "200px", lg: "200px" }} />
+          </Stack>
           <CreateTicket />
-        </HStack>
+        </Stack>
         <VStack w="100%" align="flex-start">
           <TicketCard />
         </VStack>

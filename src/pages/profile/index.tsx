@@ -28,7 +28,7 @@ const Profile = () => {
       <VStack
         align="flex-start"
         gap="32px"
-        py={12}
+        py={{ base: 20, md: 12 }}
         m="auto"
         w={{ base: "98%", md: "60%" }}
       >
@@ -37,7 +37,7 @@ const Profile = () => {
           justify="center"
           flexDirection={{ base: "column", md: "row" }}
           gap="32px"
-          alignItems="flex-start"
+          alignItems={{ base: "center", md: "flex-start" }}
           width={{ base: "90%", md: "100%" }}
           mx={{ base: "auto", md: 0 }}
         >

@@ -15,7 +15,7 @@ const Favorites = () => {
   console.log(favorites);
   
   return (
-    <VStack p={20} w="100%" align="flex-start">
+    <VStack px={{ base: 2, md: 20 }} py={20} w="100%" align="flex-start">
       <TitlePage title="Favoritos" />
       {favorites && favorites.length > 0 ? (
         <SimpleGrid columns={[2, null, 3]} gap="40px">
@@ -67,7 +67,7 @@ const Favorites = () => {
           <GoStar />
         </Icon>
         <VStack gap="32px" lineHeight={1.5} w="100%">
-          <Text fontSize="24px" color="neutral">
+          <Text textAlign="center" fontSize="24px" color="neutral">
             Você ainda não possui nenhum favorito.
           </Text>
         </VStack>

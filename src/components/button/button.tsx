@@ -14,13 +14,15 @@ const Btn = ({
   iconLeft,
   iconRight,
   fontSize = "16px",
+  bg = "primary.50",
   ...buttonProps
 }: BtnProps) => {
-  const isTransparent = buttonProps.bg === "transparent";
+  const isTransparent = bg === "transparent";
 
   return (
     <Button
       {...buttonProps}
+      bg={bg}
       color={isTransparent ? "#111111" : buttonProps.color ?? "#fff"}
       textTransform="capitalize"
       display="flex"
@@ -28,14 +30,14 @@ const Btn = ({
       justifyContent="center"
       gap="8px"
       border={isTransparent ? "1px solid" : buttonProps.borderColor}
-      borderColor={buttonProps.borderColor ? buttonProps.borderColor : "gray.600"}
+      borderColor={buttonProps.borderColor ? buttonProps.borderColor : "neutral.40"}
       _hover={{
         bg: isTransparent ? "neutral.40" : buttonProps._hover?.bg ?? "primary.50",
       }}
     >
       {iconLeft && <Box color="neutral">{iconLeft}</Box>}
       <Text.Large
-        color={buttonProps.color || (buttonProps.bg === "transparent" ? "#111111" : "#ffffff")}
+        color={buttonProps.color || (bg === "transparent" ? "#111111" : "#ffffff")}
         fontWeight={buttonProps.fontWeight}
       >
         {isLoading ? (

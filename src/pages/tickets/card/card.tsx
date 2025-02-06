@@ -25,7 +25,7 @@ const TicketCard = () => {
       justify="space-between"
     >
       <HStack w="100%">
-        <Flex alignItems="center" gap="10px">
+        <Flex w="100%" alignItems="center" gap="10px">
           <VStack
             borderWidth="1px"
             borderColor="neutral.40"
@@ -33,7 +33,7 @@ const TicketCard = () => {
             color="neutral"
             alignItems="center"
             justify="center"
-            w="150px"
+            w={{ base: "100%", md: "150px" }}
             h="32px"
             align="flex-start"
           >

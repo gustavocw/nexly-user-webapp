@@ -12,14 +12,30 @@ const ListIssues = () => {
         Perguntas frequentes
       </Text>
       <Swiper
-        slidesPerView={3}
-        spaceBetween={30}
-        freeMode={true}
-        pagination={{
-          clickable: true,
+        slidesPerView={2}
+        spaceBetween={400}
+        pagination={{ clickable: true }}
+        breakpoints={{
+          640: {
+            slidesPerView: 2,
+            spaceBetween: 400,
+          },
+          768: {
+            slidesPerView: 3,
+            spaceBetween: 200,
+          },
+          1024: {
+            slidesPerView: 3,
+            spaceBetween: 200,
+          },
+          1280: {
+            slidesPerView: 5,
+            spaceBetween: 200,
+          },
         }}
+        freeMode={true}
         modules={[FreeMode, Pagination]}
-        style={{ width: "100%" }}
+        style={{ width: "90%" }}
       >
         {issuesList.map((ticket: any, index: number) => (
           <SwiperSlide style={{ display: "flex" }} key={index}>

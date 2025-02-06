@@ -14,7 +14,7 @@ const SearchBar: React.FC<SearchBarProps> = ({
 }) => {
   return (
     <InputGroup
-      maxWidth="250px"
+      maxWidth="100%"
       color="neutral"
       flex="1"
       startElement={
