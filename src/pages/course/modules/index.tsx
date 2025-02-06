@@ -14,14 +14,31 @@ import { getCourse, getLessons } from "services/course.services";
 import CardModule from "./card/card";
 import { Swiper, SwiperSlide } from "swiper/react";
 import "swiper/swiper-bundle.css";
-import { FreeMode, Pagination } from "swiper/modules";
+import { Navigation, Pagination } from "swiper/modules";
 import useAuthStore from "stores/auth.store";
 
 const Course = () => {
   const [boxWidth, setBoxWidth] = useState("40%");
   const { id } = useParams();
   const { area } = useAuthStore();
+  const [isDesktop, setIsDesktop] = useState(window.innerWidth >= 768);
 
+  useEffect(() => {
+    const handleResize = () => {
+      const { innerWidth } = window;
+      const calculatedWidth = Math.min(
+        40 + (100 - (innerWidth / 1920) * 100),
+        100
+      );
+      setBoxWidth(`${calculatedWidth}%`);
+      setIsDesktop(window.innerWidth >= 1024);
+    };
+    window.addEventListener("resize", handleResize);
+    handleResize();
+    return () => {
+      window.removeEventListener("resize", handleResize);
+    };
+  }, []);
   const { data: courses } = useQuery({
     queryKey: ["courses"],
     queryFn: () => {
@@ -143,8 +160,8 @@ const Course = () => {
                   spaceBetween: 40,
                 },
               }}
-              freeMode={true}
-              modules={[FreeMode, Pagination]}
+              modules={[Pagination, Navigation]}
+              navigation={isDesktop}
               style={{ width: "100%" }}
             >
               <>

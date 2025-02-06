@@ -2,8 +2,9 @@ import {
   Box,
   Flex,
   Text,
-  Icon, useBreakpointValue,
-  VStack
+  Icon,
+  useBreakpointValue,
+  VStack,
 } from "@chakra-ui/react";
 import { FaClock } from "react-icons/fa";
 import { truncateText } from "utils/truncate";
@@ -25,7 +26,7 @@ const LessonList: React.FC<LessonListProps> = ({
   const isMobile = useBreakpointValue({ base: true, md: false });
 
   return (
-    <VStack align="flex-start" py={5} >
+    <VStack h={{ base: "250px", md: "700px" }} align="flex-start" py={5}>
       {isMobile ? (
         <Swiper
           direction={"vertical"}

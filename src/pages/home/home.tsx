@@ -12,11 +12,12 @@ import { useState, useEffect } from "react";
 import { Swiper, SwiperSlide } from "swiper/react";
 import "swiper/swiper-bundle.css";
 import useAuthStore from "stores/auth.store";
-import { FreeMode, Pagination } from "swiper/modules";
+import { Navigation, Pagination } from "swiper/modules";
 
 const Home = () => {
   const { area } = useAuthStore();
   const [boxWidth, setBoxWidth] = useState("40%");
+  const [isDesktop, setIsDesktop] = useState(window.innerWidth >= 768);
 
   useEffect(() => {
     const handleResize = () => {
@@ -26,6 +27,7 @@ const Home = () => {
         100
       );
       setBoxWidth(`${calculatedWidth}%`);
+      setIsDesktop(window.innerWidth >= 1024);
     };
     window.addEventListener("resize", handleResize);
     handleResize();
@@ -116,8 +118,8 @@ const Home = () => {
             spaceBetween: 40,
           },
         }}
-        freeMode={true}
-        modules={[FreeMode, Pagination]}
+        modules={[Pagination, Navigation]}
+        navigation={isDesktop}
         style={{ width: "90%" }}
       >
         {area?.courses.map((course) => (

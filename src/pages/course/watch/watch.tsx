@@ -122,13 +122,16 @@ const Watch = () => {
           />
         </VStack>
         <Stack
-          flexDirection={{ base: "row", md: "column" }}
-          maxH={{ base: "200px", md: "700px" }}
+          flexDirection="column"
+          maxH={{ base: "220px", md: "700px" }}
           overflowY={{ base: "", md: "auto" }}
-          align="flex-start"
+          align="center"
           w={{ base: "100%", md: "40%" }}
           justify={{ base: "center", md: "flex-start" }}
         >
+            <Text display={{ base: "flex", md: "none" }} color="white" fontSize="14px" fontWeight="bold">
+              Próximas aulas
+            </Text>
           <LessonList
             lessons={lessons}
             currentLessonIndex={currentLessonIndex}
