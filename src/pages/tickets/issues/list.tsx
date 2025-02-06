@@ -21,16 +21,16 @@ const ListIssues = () => {
             spaceBetween: 400,
           },
           768: {
-            slidesPerView: 3,
-            spaceBetween: 200,
+            slidesPerView: 2,
+            spaceBetween: 40,
           },
           1024: {
             slidesPerView: 3,
-            spaceBetween: 200,
+            spaceBetween: 50,
           },
           1280: {
             slidesPerView: 5,
-            spaceBetween: 200,
+            spaceBetween: 50,
           },
         }}
         freeMode={true}
