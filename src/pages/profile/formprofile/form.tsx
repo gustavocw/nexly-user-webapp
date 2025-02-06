@@ -9,7 +9,7 @@ interface FormProps {
   onSubmit: any;
 }
 
-const FormProfile: React.FC<FormProps> = ({ control, handle, onSubmit }) => {
+const FormProfile: React.FC<FormProps> = ({ control }) => {
   return (
     <VStack
       align="flex-start"
@@ -34,35 +34,28 @@ const FormProfile: React.FC<FormProps> = ({ control, handle, onSubmit }) => {
               maxLength={200}
               control={control}
               label="Nome"
-              onBlurSubmit={() => handle(onSubmit)()}
-              onEnterSubmit={() => handle(onSubmit)()}
             />
             <Input.Base
               name="lastname"
               maxLength={200}
               control={control}
               label="Sobrenome"
-              onBlurSubmit={() => handle(onSubmit)()}
-              onEnterSubmit={() => handle(onSubmit)()}
             />
           </Flex>
           <Input.Base
             name="email"
             maxLength={200}
             control={control}
-            onBlurSubmit={() => handle(onSubmit)()}
-            onEnterSubmit={() => handle(onSubmit)()}
             label="E-mail"
           />
         </VStack>
-        <VStack  align="flex-start" spaceY={3} w="100%">
+        <VStack align="flex-start" spaceY={3} w="100%">
           <Input.Base
             name="phone"
             maxLength={200}
             control={control}
-            onBlurSubmit={() => handle(onSubmit)()}
-            onEnterSubmit={() => handle(onSubmit)()}
             label="Celular"
+            mask="(99) 99999-9999"
           />
           <Flex position="relative" w="100%">
             <Input.Base
@@ -93,8 +86,7 @@ const FormProfile: React.FC<FormProps> = ({ control, handle, onSubmit }) => {
             ]}
             control={control}
             label="Gênero"
-            name="gender"
-            onOptionSelect={() => handle(onSubmit)()}
+            name="sex"
           />
           <Input.Base
             name="cpf"

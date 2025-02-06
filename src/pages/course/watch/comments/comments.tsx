@@ -12,15 +12,25 @@ interface CommentsProps {
   refetchLesson: () => void;
 }
 
-const CommentsVideo: React.FC<CommentsProps> = ({ lessonId, lesson, refetchLesson }) => {
+const CommentsVideo: React.FC<CommentsProps> = ({
+  lessonId,
+  lesson,
+  refetchLesson,
+}) => {
   const {
     comment,
     setComment,
     handleSendComment,
-    handleReply
+    handleReply,
+    handleViewRepplies,
+    repplies,
+    viewingRepliesFor,
   } = useCommentsController(lessonId, refetchLesson);
 
-  const hasComments = lesson?.some(unique => unique.comments && unique.comments.some(comment => comment._id !== null));
+  const hasComments = lesson?.some(
+    (unique) =>
+      unique.comments && unique.comments.some((comment) => comment._id !== null)
+  );
 
   return (
     <VStack gap="32px" align="flex-start" w="100%">
@@ -57,7 +67,7 @@ const CommentsVideo: React.FC<CommentsProps> = ({ lessonId, lesson, refetchLesso
       <VStack align="flex-start" w="100%">
         {hasComments ? (
           lesson?.map((unique) =>
-            unique.comments?.map((comment) => (
+            unique.comments?.map((comment: any) => (
               <Flex key={comment._id} w="100%" gap="10px">
                 <Avatar src={comment.userPhoto} w="32px" h="32px" />
                 <Box w="100%">
@@ -67,29 +77,61 @@ const CommentsVideo: React.FC<CommentsProps> = ({ lessonId, lesson, refetchLesso
                   <Text fontSize="16px" color="neutral">
                     {comment.comment}
                   </Text>
-                  <Flex my={2} alignItems="center" gap="16px">
+                  <Flex
+                    onClick={() => handleReply(comment._id, comment.name)}
+                    my={2}
+                    alignItems="center"
+                    gap="16px"
+                  >
                     <Icon cursor="pointer" fontSize="20px" color="neutral">
                       <BiLike />
                     </Icon>
-                    <Text
-                      cursor="pointer"
-                      fontSize="16px"
-                      color="neutral"
-                      onClick={() => handleReply(comment.name)}
-                    >
+                    <Text cursor="pointer" fontSize="16px" color="neutral">
                       Responder
                     </Text>
                   </Flex>
-                  {comment.replies?.length > 0 && (
-                    <Flex cursor="pointer" gap="10px" alignItems="center">
+                  {comment.replies_count > 0 && (
+                    <Flex
+                      cursor="pointer"
+                      gap="10px"
+                      alignItems="center"
+                      onClick={() => handleViewRepplies(comment._id)}
+                    >
                       <Text fontSize="16px" color="primary.40">
-                        {comment.replies.length} Respostas
+                        {comment.replies_count} Respostas
                       </Text>
                       <Icon color="primary.40" fontSize="16px">
                         <IoIosArrowDown />
                       </Icon>
                     </Flex>
                   )}
+                  {viewingRepliesFor === comment._id &&
+                    Array.isArray(repplies) && (
+                      <Box
+                        mt="10px"
+                        bg="neutral.60"
+                        p="10px"
+                        borderRadius="md"
+                        overflowY="auto"
+                        maxH="200px"
+                      >
+                        {repplies.map((reply) => (
+                          <Flex key={reply._id} w="100%" gap="10px" mb="10px">
+                            <Avatar src={reply.userPhoto} w="32px" h="32px" />
+                            <Box w="100%">
+                              <Flex>
+                                <Text color="neutral.10">
+                                  {reply.username} • Há 12 horas
+                                </Text>
+                              </Flex>
+                              <Text fontSize="16px" color="neutral">
+                                {reply.content}
+                              </Text>
+                            </Box>
+                          </Flex>
+                        ))}
+                      </Box>
+                    )}
                 </Box>
               </Flex>
             ))

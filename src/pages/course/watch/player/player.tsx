@@ -68,9 +68,6 @@ const VideoPlayerView: React.FC<VideoPlayerViewProps> = ({ videoUrl }) => {
 
   const isMobile = window.innerWidth < 768;
 
-  console.log(isMobile);
-  
-
   return (
     <Box
       position="relative"

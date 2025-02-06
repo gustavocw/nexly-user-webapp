@@ -36,15 +36,9 @@ const FormAddress: React.FC<FormProps> = ({ control, handle, onSubmit, fetchAddr
               name="codeStreet"
               maxLength={200}
               control={control}
-              onBlurSubmit={(value: any) => {
-                fetchAddressByCEP(value)
-                handle(onSubmit)()
-              }}
-              onEnterSubmit={(value: any) => {
-                fetchAddressByCEP(value)
-                handle(onSubmit)()
-              }}
               label="CEP"
+              onBlurSubmit={(value: any) => fetchAddressByCEP(value)}
+              onEnterSubmit={(value: any) => fetchAddressByCEP(value)}
             />
             <Select
               options={stateOptions}
@@ -58,8 +52,6 @@ const FormAddress: React.FC<FormProps> = ({ control, handle, onSubmit, fetchAddr
             name="street"
             maxLength={200}
             control={control}
-            onBlurSubmit={() => handle(onSubmit)()}
-            onEnterSubmit={() => handle(onSubmit)()}
             label="Rua"
           />
         </VStack>
@@ -68,8 +60,6 @@ const FormAddress: React.FC<FormProps> = ({ control, handle, onSubmit, fetchAddr
             name="city"
             maxLength={200}
             control={control}
-            onBlurSubmit={() => handle(onSubmit)()}
-            onEnterSubmit={() => handle(onSubmit)()}
             label="Cidade"
           />
           <Flex gap={2} w="100%">
@@ -77,16 +67,12 @@ const FormAddress: React.FC<FormProps> = ({ control, handle, onSubmit, fetchAddr
               name="number"
               maxLength={200}
               control={control}
-              onBlurSubmit={() => handle(onSubmit)()}
-              onEnterSubmit={() => handle(onSubmit)()}
               label="Número"
             />
             <Input.Base
               name="complement"
               maxLength={200}
               control={control}
-              onBlurSubmit={() => handle(onSubmit)()}
-              onEnterSubmit={() => handle(onSubmit)()}
               label="Complemento"
             />
           </Flex>
@@ -96,8 +82,6 @@ const FormAddress: React.FC<FormProps> = ({ control, handle, onSubmit, fetchAddr
             name="neighborhood"
             maxLength={200}
             control={control}
-            onBlurSubmit={() => handle(onSubmit)()}
-            onEnterSubmit={() => handle(onSubmit)()}
             label="Bairro"
           />
         </VStack>

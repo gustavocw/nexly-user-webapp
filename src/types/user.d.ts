@@ -27,3 +27,10 @@ interface Address {
   city: string;
   uf: string;
 }
+
+interface Notification {
+  _id: string;
+  title: string;
+  content: string;
+  link: string;
+}

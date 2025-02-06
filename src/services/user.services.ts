@@ -16,7 +16,12 @@ export async function updateProfile(params: Partial<User>) {
   return data;
 }
 
-export async function updateAddress(params: Address, addreddId?: string) {
+export async function createAddress(params: Address) {
+  const { data } = await http.post<any>(`/student/address`, params);
+  return data;
+}
+
+export async function updateAddress(params: Partial<Address>, addreddId?: string) {
   const { data } = await http.post<any>(`/student/address/${addreddId}`, params);
   return data;
 }
@@ -28,7 +33,10 @@ export async function getMe() {
 
 export async function getAddress() {
   const { data } = await http.get<any>("/student/profile", {});
-  console.log(data);
+  return data;
+}
 
+export async function getNotifications() {
+  const { data } = await http.get<any>("/student/notifications", {});
   return data;
 }

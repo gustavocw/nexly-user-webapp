@@ -1,13 +1,22 @@
 import { Flex, HStack, Icon, Image } from "@chakra-ui/react";
 import { FiSearch } from "react-icons/fi";
-import { IoNotificationsOutline } from "react-icons/io5";
 import AvatarUser from "./avatar/avatar";
 import { useNavigate } from "react-router-dom";
 import useAuthStore from "stores/auth.store";
+import Notifications from "./notifications";
+import { useQuery } from "@tanstack/react-query";
+import { getNotifications } from "services/user.services";
 
 const Header = () => {
   const navigate = useNavigate();
   const { area } = useAuthStore();
+
+  const { data: notifications } = useQuery({
+    queryKey: ["notifications"],
+    queryFn: () => getNotifications(),
+  });
+  console.log(notifications);
+  
   return (
     <HStack
       w="100%"
@@ -30,9 +39,7 @@ const Header = () => {
         <Icon cursor="pointer" fontSize="24px" color="neutral">
           <FiSearch />
         </Icon>
-        <Icon cursor="pointer" fontSize="24px" color="neutral">
-          <IoNotificationsOutline />
-        </Icon>
+        <Notifications notifications={notifications} />
         <AvatarUser />
       </Flex>
     </HStack>

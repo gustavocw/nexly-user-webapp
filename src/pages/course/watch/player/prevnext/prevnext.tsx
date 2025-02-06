@@ -124,14 +124,12 @@ const PrevNext: React.FC<PrevNextProps> = ({
             </Text>
           </VStack>
         </Flex>
-        {hasPrev && (
-          <Separator
-            orientation="vertical"
-            h={{ base: "20px", md: "40px" }}
-            my="auto"
-          />
-        )}
-        {hasNext && (
+        <Separator
+          orientation="vertical"
+          h={{ base: "20px", md: "40px" }}
+          my="auto"
+        />
+        {hasNext ? (
           <Flex
             cursor="pointer"
             alignItems="center"
@@ -148,6 +146,29 @@ const PrevNext: React.FC<PrevNextProps> = ({
             </VStack>
             <Icon
               cursor="pointer"
+              color="orange"
+              fontSize={{ base: "32px", md: "48px" }}
+            >
+              <CiCircleChevRight />
+            </Icon>
+          </Flex>
+        ) : (
+          <Flex
+            cursor="default"
+            alignItems="center"
+            gap={{ base: "8px", md: "16px" }}
+            opacity={0.5}
+          >
+            <VStack gap={0} align="flex-end">
+              <Text color="neutral.10" fontSize={{ base: "14px", md: "12px" }}>
+                Próximo
+              </Text>
+              <Text color="neutral" fontSize={{ base: "15px", md: "16px" }}>
+                Nenhum
+              </Text>
+            </VStack>
+            <Icon
+              cursor="default"
               color="orange"
               fontSize={{ base: "32px", md: "48px" }}
             >

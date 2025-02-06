@@ -18,7 +18,6 @@ const ProgressPlayer: React.FC<ProgressPlayerProps> = ({
   duration,
   onValueChange,
 }) => {
-  // Calcula a porcentagem de progresso apenas se `duration` for maior que 0
   const progressPercent = duration > 0 ? (currentTime / duration) * 100 : 0;
 
   const formatTime = (seconds: number) => {
@@ -39,7 +38,7 @@ const ProgressPlayer: React.FC<ProgressPlayerProps> = ({
   return (
     <ProgressRoot
       value={progressPercent}
-      max={100}
+      max={101}
       w="100%"
       onClick={handleProgressClick}
     >

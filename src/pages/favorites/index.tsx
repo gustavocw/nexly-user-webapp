@@ -63,7 +63,7 @@ const Favorites = () => {
         gap="20px"
         boxShadow="0px 1px 3px 0px #0000004D, 0px 4px 8px 3px #00000026"
       >
-        <Icon fontSize="58px" color="neutral">
+        <Icon fontSize="38px" color="neutral">
           <GoStar />
         </Icon>
         <VStack gap="32px" lineHeight={1.5} w="100%">

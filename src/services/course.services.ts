@@ -33,6 +33,18 @@ export async function commentLesson(lessonId?: string | null, commentContent?: s
   return data.data;
 }
 
+export async function repplyComment(commentId?: string | null, content?: string) {
+  const { data } = await http.post(`/course/response-comment/${commentId}`, {
+    content
+  });
+  return data.data;
+}
+
+export async function getRepplies(commentId?: string | null) {
+  const { data } = await http.get(`/course/comment/${commentId}`, {});
+  return data;
+}
+
 export async function favoriteVideo(lessonId?: string | null) {
   const { data } = await http.post(`/course/favorite-lesson/${lessonId}`, {});
   return data.data;

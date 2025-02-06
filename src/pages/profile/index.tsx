@@ -8,6 +8,7 @@ import FormAddress from "./formaddress/form";
 import { FileUploadRoot, FileUploadTrigger } from "components/ui/file-upload";
 import { SkeletonCircle } from "components/ui/skeleton";
 import { useUser } from "hooks/useUser";
+import Btn from "components/button/button";
 
 const Profile = () => {
   const {
@@ -20,6 +21,9 @@ const Profile = () => {
     handleAddressSubmit,
     onSubmitAddress,
     fetchAddressByCEP,
+    updatingProfile,
+    updatingAddress,
+    creatingAddress,
   } = useProfileController();
   const { user } = useUser();
 
@@ -63,8 +67,6 @@ const Profile = () => {
             name="bio"
             border="none"
             control={controlProfile}
-            onBlurSubmit={() => handleProfileSubmit(onSubmitProfile)()}
-            onEnterSubmit={() => handleProfileSubmit(onSubmitProfile)()}
           />
         </Flex>
         <FormProfile
@@ -79,6 +81,14 @@ const Profile = () => {
           fetchAddressByCEP={fetchAddressByCEP}
         />
       </VStack>
+      <Flex w="60%" justify="flex-end">
+        <Btn
+          w="200px"
+          label="Salvar"
+          onClick={() => handleProfileSubmit(onSubmitProfile)()}
+          isLoading={updatingProfile || updatingAddress || creatingAddress}
+        />
+      </Flex>
     </VStack>
   );
 };

@@ -27,11 +27,11 @@ export function AreaProvider({ children }: { children: React.ReactNode }) {
   });
 
   useEffect(() => {
-
+    if (!area) {
+      signout()
+    }
     if (data) {
       setArea(data[0]);
-    } else {
-      signout()
     }
   }, [data, area]);
 
