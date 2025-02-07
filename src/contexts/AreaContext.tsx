@@ -10,7 +10,7 @@ interface AreaContextValue {
 
 export const AreaContext = createContext({} as AreaContextValue);
 export function AreaProvider({ children }: { children: React.ReactNode }) {
-  const { isLogged, signout } = useAuth();
+  const { isLogged } = useAuth();
   const { setArea, area } = useAuthStore();
 
   const rawUrl = window.location.origin;
@@ -27,9 +27,6 @@ export function AreaProvider({ children }: { children: React.ReactNode }) {
   });
   
   useEffect(() => {
-    if (!area) {
-      signout()
-    }
     if (data) {
       setArea(data[0]);
     }
