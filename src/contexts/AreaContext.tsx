@@ -12,10 +12,8 @@ export const AreaContext = createContext({} as AreaContextValue);
 export function AreaProvider({ children }: { children: React.ReactNode }) {
   const { isLogged } = useAuth();
   const { setArea, area } = useAuthStore();
-
   const rawUrl = window.location.hostname;
-  console.log(rawUrl);
-  
+
   const { data, isLoading } = useQuery({
     queryKey: ["area", rawUrl],
     queryFn: async () => {
@@ -28,7 +26,7 @@ export function AreaProvider({ children }: { children: React.ReactNode }) {
   
   
   useEffect(() => {
-    if (data) {
+    if (data?.length) {
       setArea(data[0]);
     }
   }, [data, area]);
