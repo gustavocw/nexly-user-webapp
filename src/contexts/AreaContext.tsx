@@ -13,19 +13,19 @@ export function AreaProvider({ children }: { children: React.ReactNode }) {
   const { isLogged, signout } = useAuth();
   const { setArea, area } = useAuthStore();
 
-  // const url = window.location.origin;
-  const url = "http://localhost:9000"
+  const rawUrl = window.location.origin;
+  const url = rawUrl.replace(/^https?:\/\//, "");
+  console.log(url);
   const { data, isLoading } = useQuery({
     queryKey: ["area", url],
     queryFn: async () => {
-      await getArea(url).then((res) => {
-        setArea(res[0]);
-        return res[0];
-      });
+      const res = await getArea(url);
+      setArea(res[0]);
+      return res[0];
     },
     enabled: !area && !!isLogged,
   });
-
+  
   useEffect(() => {
     if (!area) {
       signout()
