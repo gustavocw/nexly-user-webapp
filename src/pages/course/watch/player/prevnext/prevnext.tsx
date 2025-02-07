@@ -14,6 +14,7 @@ import { GoStarFill } from "react-icons/go";
 import { CiCircleChevRight } from "react-icons/ci";
 import { CiCircleChevLeft } from "react-icons/ci";
 import { useControllerVideo } from "./controller";
+import useAuthStore from "stores/auth.store";
 
 interface PrevNextProps {
   lesson?: Lesson | null;
@@ -36,6 +37,7 @@ const PrevNext: React.FC<PrevNextProps> = ({
   prevLessonName,
 }) => {
   const { mutateFavorite } = useControllerVideo();
+  const { area } = useAuthStore();
   return (
     <Stack
       w="100%"
@@ -110,7 +112,7 @@ const PrevNext: React.FC<PrevNextProps> = ({
         >
           <Icon
             cursor={hasPrev ? "pointer" : "default"}
-            color="orange"
+            color={area?.color}
             fontSize={{ base: "32px", md: "48px" }}
           >
             <CiCircleChevLeft />
@@ -146,7 +148,7 @@ const PrevNext: React.FC<PrevNextProps> = ({
             </VStack>
             <Icon
               cursor="pointer"
-              color="orange"
+              color={area?.color}
               fontSize={{ base: "32px", md: "48px" }}
             >
               <CiCircleChevRight />
@@ -169,7 +171,7 @@ const PrevNext: React.FC<PrevNextProps> = ({
             </VStack>
             <Icon
               cursor="default"
-              color="orange"
+              color={area?.color}
               fontSize={{ base: "32px", md: "48px" }}
             >
               <CiCircleChevRight />

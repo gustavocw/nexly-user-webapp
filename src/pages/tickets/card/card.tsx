@@ -13,7 +13,8 @@ import {
   SelectTrigger,
   SelectValueText,
 } from "components/ui/select";
-const TicketCard = () => {
+
+const TicketCard = ({ ticket }: { ticket: Ticket }) => {
   const collection = createListCollection({
     items: statusOptions,
   });
@@ -40,18 +41,18 @@ const TicketCard = () => {
             color="neutral"
             alignItems="center"
             justify="center"
-            w={{ base: "100%", md: "150px" }}
+            w={{ base: "100%", md: "200px" }}
             h="32px"
             align="flex-start"
           >
-            <Text>Ticket #0sdsds</Text>
+            <Text>Ticket #{ticket.number}</Text>
           </VStack>
           <Text
-            w={{ base: "100%", md: "150px" }}
+            w={{ base: "100%", md: "200px" }}
             fontSize={{ base: "14px", md: "16px" }}
             color="neutral"
           >
-            Problema relatado
+            {ticket.category}
           </Text>
         </Flex>
       </HStack>
@@ -63,21 +64,23 @@ const TicketCard = () => {
         gap="10px"
       >
         <Text fontSize="32px" color="neutral">
-          Problema relatado
+          {ticket.name}
         </Text>
-        <Text color="neutral">Há 2 dias</Text>
+        <Text color="neutral">
+          {new Date(ticket.createdAt).toLocaleDateString()}
+        </Text>
       </Stack>
-      <Text color="neutral">Descrição...</Text>
+      <Text color="neutral">{ticket.description}</Text>
       <Flex gap="10px" w="100%">
         <Flex
           alignItems="center"
           justify="center"
           w={{ base: "100%", md: "120px" }}
           borderRadius="8px"
-          bg={getPriorityColor("BAIXA")}
+          bg={getPriorityColor(ticket.priority)}
         >
           <Text color="primary.95" fontSize="14px">
-            Baixa
+            {ticket.priority}
           </Text>
         </Flex>
         <SelectRoot
@@ -86,7 +89,7 @@ const TicketCard = () => {
           }}
           color="neutral"
           collection={collection}
-          defaultValue={["open"]}
+          defaultValue={[ticket.status]}
         >
           <SelectTrigger
             display="flex"
@@ -106,7 +109,7 @@ const TicketCard = () => {
           >
             {statusOptions?.map((status) => (
               <SelectItem
-                defaultValue="open"
+                defaultValue={ticket.status}
                 cursor="pointer"
                 _hover={{
                   bg: "neutral.70",
@@ -129,6 +132,8 @@ export default TicketCard;
 function getPriorityColor(priority: string): string {
   switch (priority) {
     case "ALTA":
+      return "error.90";
+    case "URGENTE":
       return "error.90";
     case "MEDIA":
       return "info.90";

@@ -22,13 +22,11 @@ export function UserProvider({ children }: { children: React.ReactNode }) {
     queryFn: async () => {
       return getMe();
     },
-    enabled: !!isLogged,
+    enabled: isLogged,
   });
 
-  console.log(user);
-
   useEffect(() => {
-    if (user === undefined) {
+    if (user === undefined && !!isLogged) {
       refetchUser();
     }
   }, [user]);

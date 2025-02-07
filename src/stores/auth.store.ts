@@ -7,6 +7,7 @@ interface AuthState {
   password: string | null;
   rememberMe: string;
   area?: Area | null;
+  areaLogin?: Area | null;
 }
 
 interface AuthActions {
@@ -15,6 +16,7 @@ interface AuthActions {
   setPassword: (password: AuthState["password"]) => void;
   setRememberMe: (rememberMe: string) => void;
   setArea: (area: AuthState["area"]) => void;
+  setAreaLogin: (areaLogin: AuthState["areaLogin"]) => void;
 }
 
 const useAuthStore = create<AuthState & AuthActions>()(
@@ -30,6 +32,7 @@ const useAuthStore = create<AuthState & AuthActions>()(
       setPassword: (password) => set({ password }),
       setRememberMe: (rememberMe) => set({ rememberMe }),
       setArea: (area) => set({ area }),
+      setAreaLogin: (areaLogin) => set({ areaLogin }),
     }),
     {
       name: "auth-storage",
@@ -39,8 +42,8 @@ const useAuthStore = create<AuthState & AuthActions>()(
         email: state.rememberMe === "true" ? state.email : null,
         password: state.rememberMe === "true" ? state.password : null,
         rememberMe: state.rememberMe,
-        area: state.area, // Persistindo a área
-      }),
+        area: state.area,
+        areaLogin: state.areaLogin,}),
     }
   )
 );

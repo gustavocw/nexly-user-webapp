@@ -1,10 +1,11 @@
-import { Box, Flex, Icon, Input, Text, VStack } from "@chakra-ui/react";
+import { Box, Flex, Icon, Input, Spinner, Text, VStack } from "@chakra-ui/react";
 import { Avatar } from "components/ui/avatar";
 import { PiChats } from "react-icons/pi";
 import { BiLike } from "react-icons/bi";
 import { IoIosArrowDown } from "react-icons/io";
 import { IoMdSend } from "react-icons/io";
 import { useCommentsController } from "./controller";
+import useAuthStore from "stores/auth.store";
 
 interface CommentsProps {
   lessonId?: string;
@@ -25,13 +26,15 @@ const CommentsVideo: React.FC<CommentsProps> = ({
     handleViewRepplies,
     repplies,
     viewingRepliesFor,
+    loadingReplies,
   } = useCommentsController(lessonId, refetchLesson);
-
+  const { area } = useAuthStore();
   const hasComments = lesson?.some(
     (unique) =>
       unique.comments && unique.comments.some((comment) => comment._id !== null)
   );
-
+  console.log(lesson);
+  
   return (
     <VStack gap="32px" align="flex-start" w="100%">
       <Flex gap="10px" alignItems="center">
@@ -90,19 +93,22 @@ const CommentsVideo: React.FC<CommentsProps> = ({
                       Responder
                     </Text>
                   </Flex>
-                  {comment.replies_count > 0 && (
+                  {comment.responses_count > 0 && (
                     <Flex
                       cursor="pointer"
                       gap="10px"
                       alignItems="center"
-                      onClick={() => handleViewRepplies(comment._id)}
+                      onClick={() => handleViewRepplies(comment?._id)}
                     >
-                      <Text fontSize="16px" color="primary.40">
-                        {comment.replies_count} Respostas
+                      <Text fontSize="16px" color={area?.color}>
+                        {comment.responses_count} Respostas
                       </Text>
-                      <Icon color="primary.40" fontSize="16px">
+                      <Icon color={area?.color} fontSize="16px">
                         <IoIosArrowDown />
                       </Icon>
+                      {loadingReplies && viewingRepliesFor === comment._id && (
+                        <Spinner size="sm" color={area?.color} />
+                      )}
                     </Flex>
                   )}
                   {viewingRepliesFor === comment._id &&

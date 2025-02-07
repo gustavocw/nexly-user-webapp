@@ -4,7 +4,6 @@ import { zodResolver } from "@hookform/resolvers/zod";
 import { useState } from "react";
 import { useMutation } from "@tanstack/react-query";
 import { createTicket } from "services/ticket.services";
-import useAuthStore from "stores/auth.store";
 import { toaster } from "components/ui/toaster";
 import { useUser } from "hooks/useUser";
 import { formatSelect } from "utils/formatSelect";
@@ -19,8 +18,9 @@ const createTicketSchema = z.object({
 type CreateTicketFormData = z.infer<typeof createTicketSchema>;
 
 const useCreateTicketsController = () => {
-  const { area } = useAuthStore();
   const [isOpen, setIsOpen] = useState(false);
+  const [courseId, setCourseId] = useState("");
+
   const { user } = useUser();
   const {
     control,
@@ -41,7 +41,7 @@ const useCreateTicketsController = () => {
 
   const { mutate: mutateTicket, isPending: creatingTicket } = useMutation({
     mutationFn: (data: NewTicket) =>
-      createTicket(area?._id, data),
+      createTicket(courseId, data),
     onSuccess: () => {
       setIsOpen(false);
       reset();
@@ -72,7 +72,7 @@ const useCreateTicketsController = () => {
   };
 
   const formValues = watch();
-
+  
   const isValid =
     !!formValues.category &&
     !!formValues.description &&
@@ -94,6 +94,7 @@ const useCreateTicketsController = () => {
     reset,
     errors,
     watch,
+    setCourseId,
     user,
   };
 };

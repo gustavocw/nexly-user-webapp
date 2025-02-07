@@ -16,18 +16,47 @@ import Select from "components/select/select";
 import useCreateTicketsController from "./modal.create.controller";
 import { GoDotFill } from "react-icons/go";
 import Input from "components/input/input";
+import useAuthStore from "stores/auth.store";
 
 const CreateTicket = () => {
-  const { isValid, isOpen, setIsOpen, watch, reset, errors, control, setValue, handleSubmit, creatingTicket, onSubmit } =
-    useCreateTicketsController();
-
+  const { area } = useAuthStore();
+  const {
+    isValid,
+    isOpen,
+    setIsOpen,
+    watch,
+    reset,
+    errors,
+    control,
+    setValue,
+    handleSubmit,
+    setCourseId,
+    creatingTicket,
+    onSubmit,
+  } = useCreateTicketsController();
   const bgPriority = watch("priority");
-
+  const courseList =
+    area?.courses
+      ?.filter((course) => course?._id)
+      .map((course) => ({
+        label: course?.name,
+        value: course?._id as string,
+      })) || [];
   return (
     <HStack w="100%" justify={{ base: "flex-end" }} wrap="wrap" gap="4">
-      <DialogRoot onOpenChange={(e) => setIsOpen(e.open)} open={isOpen} placement="center" motionPreset="slide-in-bottom">
+      <DialogRoot
+        onOpenChange={(e) => setIsOpen(e.open)}
+        open={isOpen}
+        placement="center"
+        motionPreset="slide-in-bottom"
+      >
         <DialogTrigger asChild>
-          <Btn onClick={() => setIsOpen(true)} iconLeft={<BiPlus />} label="Novo ticket" w={{ base: "100%", md: "200px", lg: "200px" }} />
+          <Btn
+            onClick={() => setIsOpen(true)}
+            iconLeft={<BiPlus />}
+            label="Novo ticket"
+            w={{ base: "100%", md: "200px", lg: "200px" }}
+          />
         </DialogTrigger>
         <DialogContent color="neutral" bg="neutral.60" borderRadius="20px">
           <DialogHeader
@@ -42,6 +71,21 @@ const CreateTicket = () => {
           </DialogHeader>
           <DialogBody py="20px" px="32px">
             <VStack spaceY={4} w="100%">
+              <Input.Base
+                maxLength={200}
+                label="Título do problema"
+                control={control}
+                name="name"
+                placeholder="Informe o problema problema"
+                errorText={errors.name?.message}
+              />
+              <Select
+                name="course"
+                control={control}
+                options={courseList}
+                label="Curso"
+                onOptionSelect={(value) => setCourseId(value)}
+              />
               <Select
                 name="category"
                 control={control}
@@ -102,7 +146,7 @@ const CreateTicket = () => {
               label="Salvar"
               w="200px"
               isLoading={creatingTicket}
-              disabled={isValid}
+              disabled={!isValid}
             />
           </DialogFooter>
           <DialogCloseTrigger />

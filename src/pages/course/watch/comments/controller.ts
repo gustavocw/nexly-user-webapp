@@ -9,9 +9,9 @@ export const useCommentsController = (lessonId: string | undefined, refetchLesso
   const [viewingRepliesFor, setViewingRepliesFor] = useState<string | null>(null);
 
   const { data: repplies = [], refetch: refetchReplies, isLoading: loadingReplies } = useQuery({
-    queryKey: ["repplies", replyToCommentId],
-    queryFn: () => getRepplies(replyToCommentId).then(data => data.response),
-    enabled: false,
+    queryKey: ["repplies", viewingRepliesFor],
+    queryFn: () => getRepplies(viewingRepliesFor).then(data => data.response),
+    enabled: !!viewingRepliesFor,
   });
   
   const handleViewRepplies = (commentId: string) => {
@@ -48,7 +48,6 @@ export const useCommentsController = (lessonId: string | undefined, refetchLesso
       setComment("");
     },
   });
-
 
   const handleSendComment = (event: React.KeyboardEvent | React.MouseEvent) => {
     if (

@@ -18,7 +18,7 @@ const Form = () => {
     setRememberMe,
     loadingLogin,
   } = useLoginController();
-  const { setStepLogin } = useAuthStore();
+  const { setStepLogin, areaLogin } = useAuthStore();
 
   return (
     <Stack justify="center" alignItems="center" h="100%" width="100%">
@@ -26,7 +26,7 @@ const Form = () => {
         objectFit="contain"
         width="130px"
         h="100px"
-        src="images/logo.png"
+        src={areaLogin ? areaLogin.logo : "images/logo.png"}
       />
       <VStack
         mb={40}
@@ -34,21 +34,21 @@ const Form = () => {
         w={{ base: "90%", md: "70%", lg: "60%" }}
         lineHeight={1}
       >
-        <VStack w="100%">
+        <Flex gap={2} justify="center" alignItems="center" w="100%">
           <Text.Base
             textWrap="nowrap"
             fontSize={{ base: "16px", md: "22px", lg: "28px" }}
           >
-            Bem vindo de volta a
+            Bem vindo a
           </Text.Base>
           <Text.Base
             textWrap="nowrap"
             fontSize={{ base: "16px", md: "22px", lg: "28px" }}
-            color="primary.50"
+            color={areaLogin ? areaLogin?.color : "primary.50"}
           >
-            Nexly members!
+            {areaLogin?.title}
           </Text.Base>
-        </VStack>
+        </Flex>
         <VStack w="100%" spaceY={5}>
           <Input.Base
             control={control}
@@ -68,7 +68,7 @@ const Form = () => {
             <Link
               onClick={() => setStepLogin(true)}
               textDecoration="none"
-              color="primary.50"
+              color={areaLogin ? areaLogin?.color : "primary.50"}
             >
               Esqueceu a senha?
             </Link>
@@ -91,7 +91,16 @@ const Form = () => {
               />
             </Flex>
           </HStack>
-          <Btn w="100%" isLoading={loadingLogin} label="Entrar" onClick={handleSubmit(onSubmit)} />
+          <Btn
+            bg={areaLogin ? areaLogin?.color : "primary.50"}
+            _hover={{
+              bg: areaLogin ? areaLogin?.color : "primary.50"
+            }}
+            w="100%"
+            isLoading={loadingLogin}
+            label="Entrar"
+            onClick={handleSubmit(onSubmit)}
+          />
         </VStack>
       </VStack>
     </Stack>
