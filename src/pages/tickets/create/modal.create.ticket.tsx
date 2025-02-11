@@ -16,10 +16,8 @@ import Select from "components/select/select";
 import useCreateTicketsController from "./modal.create.controller";
 import { GoDotFill } from "react-icons/go";
 import Input from "components/input/input";
-import useAuthStore from "stores/auth.store";
 
 const CreateTicket = () => {
-  const { area } = useAuthStore();
   const {
     isValid,
     isOpen,
@@ -30,18 +28,11 @@ const CreateTicket = () => {
     control,
     setValue,
     handleSubmit,
-    setCourseId,
     creatingTicket,
     onSubmit,
   } = useCreateTicketsController();
   const bgPriority = watch("priority");
-  const courseList =
-    area?.courses
-      ?.filter((course) => course?._id)
-      .map((course) => ({
-        label: course?.name,
-        value: course?._id as string,
-      })) || [];
+
   return (
     <HStack w="100%" justify={{ base: "flex-end" }} wrap="wrap" gap="4">
       <DialogRoot
@@ -78,13 +69,6 @@ const CreateTicket = () => {
                 name="name"
                 placeholder="Informe o problema problema"
                 errorText={errors.name?.message}
-              />
-              <Select
-                name="course"
-                control={control}
-                options={courseList}
-                label="Curso"
-                onOptionSelect={(value) => setCourseId(value)}
               />
               <Select
                 name="category"

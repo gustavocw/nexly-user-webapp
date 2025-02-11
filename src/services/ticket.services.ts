@@ -1,16 +1,16 @@
 import { http } from "./http/http";
 
-export async function getTickets(search?: string) {
-  const { data } = await http.get<{data: Ticket[]}>(`/tickets`, {
+export async function getTickets(areaId?: string, search?: string) {
+  const { data } = await http.get<{data: Ticket[]}>(`/tickets/${areaId}`, {
     params: { search },
   });
   return data.data;
 }
 
 export async function createTicket(
-  courseId?: string | null,
+  areaId?: string | null,
   params?: NewTicket
 ) {
-  const { data } = await http.post(`/tickets/${courseId}`, params);
+  const { data } = await http.post(`/tickets/${areaId}`, params);
   return data;
 }

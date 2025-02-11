@@ -7,6 +7,7 @@ import { createTicket } from "services/ticket.services";
 import { toaster } from "components/ui/toaster";
 import { useUser } from "hooks/useUser";
 import { formatSelect } from "utils/formatSelect";
+import useAuthStore from "stores/auth.store";
 
 const createTicketSchema = z.object({
   name: z.string(),
@@ -19,7 +20,7 @@ type CreateTicketFormData = z.infer<typeof createTicketSchema>;
 
 const useCreateTicketsController = () => {
   const [isOpen, setIsOpen] = useState(false);
-  const [courseId, setCourseId] = useState("");
+  const { area } = useAuthStore();
 
   const { user } = useUser();
   const {
@@ -40,8 +41,7 @@ const useCreateTicketsController = () => {
   });
 
   const { mutate: mutateTicket, isPending: creatingTicket } = useMutation({
-    mutationFn: (data: NewTicket) =>
-      createTicket(courseId, data),
+    mutationFn: (data: NewTicket) => createTicket(area?._id, data),
     onSuccess: () => {
       setIsOpen(false);
       reset();
@@ -60,19 +60,21 @@ const useCreateTicketsController = () => {
   });
 
   const onSubmit: SubmitHandler<CreateTicketFormData> = (data) => {
-    console.log(data);
+    const generateRandomNumber = () => {
+      return Math.floor(1000000000 + Math.random() * 9000000000).toString();
+    };
+
     const payload = {
       ...data,
-      number: user?.phone,
+      number: generateRandomNumber(),
       category: formatSelect(data.category),
     };
     console.log(payload);
     mutateTicket(payload);
-
   };
 
   const formValues = watch();
-  
+
   const isValid =
     !!formValues.category &&
     !!formValues.description &&
@@ -94,7 +96,6 @@ const useCreateTicketsController = () => {
     reset,
     errors,
     watch,
-    setCourseId,
     user,
   };
 };

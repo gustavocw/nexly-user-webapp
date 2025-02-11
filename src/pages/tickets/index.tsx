@@ -8,9 +8,11 @@ import { useQuery } from "@tanstack/react-query";
 import { getTickets } from "services/ticket.services";
 import { useState, useMemo } from "react";
 import { debounce } from "lodash";
+import useAuthStore from "stores/auth.store";
 
 const Tickets = () => {
   const [search, setSearch] = useState("");
+  const { area } = useAuthStore();
 
   const debouncedSearch = useMemo(
     () => debounce((value: string) => setSearch(value), 500),
@@ -18,8 +20,8 @@ const Tickets = () => {
   );
 
   const { data: tickets } = useQuery({
-    queryKey: ["tickets", search],
-    queryFn: () => getTickets(search),
+    queryKey: ["tickets", search, area?._id],
+    queryFn: () => getTickets(area?._id, search),
   });
 
   return (
