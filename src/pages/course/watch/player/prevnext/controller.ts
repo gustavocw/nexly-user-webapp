@@ -1,11 +1,24 @@
-import { useMutation } from '@tanstack/react-query';
-import { favoriteVideo } from 'services/course.services';
+import { useMutation } from "@tanstack/react-query";
+import { favoriteVideo, likeVideo } from "services/course.services";
 
-export function useControllerVideo() {
+interface UseControllerVideoProps {
+  refetchLesson: () => void;
+}
 
+export function useControllerVideo({ refetchLesson }: UseControllerVideoProps) {
   const { mutate: mutateFavorite } = useMutation({
     mutationFn: (lessonId?: string) => favoriteVideo(lessonId),
-  })
+    onSuccess: () => {
+      refetchLesson();
+    },
+  });
 
-  return { mutateFavorite };
+  const { mutate: mutateLike } = useMutation({
+    mutationFn: (params: any) => likeVideo(params?.lessonId, params?.type),
+    onSuccess: () => {
+      refetchLesson();
+    },
+  });
+
+  return { mutateFavorite, mutateLike };
 }

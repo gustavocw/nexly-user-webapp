@@ -55,5 +55,12 @@ export async function getFavorites() {
     `/course/favorite-lesson`,
     {}
   );
-  return data;
+  return data.data.data;
+}
+
+export async function likeVideo(lessonId?: string | null, type?: string) {
+  const { data } = await http.post(`/course/lesson/like/${lessonId}`, {
+    type
+  });
+  return data.data;
 }

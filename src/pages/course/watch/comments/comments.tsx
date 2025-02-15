@@ -33,7 +33,6 @@ const CommentsVideo: React.FC<CommentsProps> = ({
     (unique) =>
       unique.comments && unique.comments.some((comment) => comment._id !== null)
   );
-  console.log(lesson);
   
   return (
     <VStack gap="32px" align="flex-start" w="100%">

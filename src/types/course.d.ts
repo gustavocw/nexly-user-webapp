@@ -36,8 +36,19 @@ interface Lesson {
   urlVideo: string;
   thumbnail: string;
   comments: Comment[];
-  isFavorite?: boolean;
+  favoriteLesson?: boolean;
+  likeLesson?: LikeLesson[]
 }
+
+interface LikeLesson {
+  _id: string;
+  lessonId: string;
+  userId: string;
+  type: "like" | "deslike";
+  createdAt: string;
+  updatedAt: string;
+}
+
 
 interface Comment {
   _id: string;

@@ -20,8 +20,12 @@ interface PrevNextProps {
   lesson?: Lesson | null;
   onNext: () => void;
   onPrev: () => void;
+  refetchLesson: () => void;
   hasNext: boolean;
   hasPrev: boolean;
+  lessonFav: boolean;
+  hasLike: boolean;
+  hasDislike: boolean;
   currentLessonName: string;
   nextLessonName?: string;
   prevLessonName?: string;
@@ -32,12 +36,20 @@ const PrevNext: React.FC<PrevNextProps> = ({
   onNext,
   onPrev,
   hasNext,
+  lessonFav,
   hasPrev,
+  hasLike,
+  hasDislike,
   nextLessonName,
   prevLessonName,
+  refetchLesson,
 }) => {
-  const { mutateFavorite } = useControllerVideo();
+  const { mutateFavorite, mutateLike } = useControllerVideo({ refetchLesson });
   const { area } = useAuthStore();
+
+  console.log(lesson);
+  
+
   return (
     <Stack
       w="100%"
@@ -57,26 +69,42 @@ const PrevNext: React.FC<PrevNextProps> = ({
       >
         <Icon
           cursor="pointer"
-          color="neutral"
+          color={hasLike ? area?.color : "neutral"}
           fontSize={{ base: "20px", md: "32px" }}
+          onClick={() => {
+            mutateLike({
+              lessonId: lesson?._id,
+              type: "like",
+            });
+          }}
         >
           <SlLike />
         </Icon>
+
         <Btn
           fontSize={{ base: "14px", md: "16px" }}
           w={{ base: "200px", md: "240px" }}
           bg="transparent"
           label="Marcar como concluído"
         />
+
         <Flex gap={{ base: "16px", md: "32px" }}>
           <Icon
             cursor="pointer"
-            color="neutral"
+            color={hasDislike ? area?.color : "neutral"}
             fontSize={{ base: "20px", md: "32px" }}
+            onClick={() => {
+              mutateLike({
+                lessonId: lesson?._id,
+                type: "deslike",
+              });
+            }}
           >
             <SlDislike />
           </Icon>
-          {lesson?.isFavorite ? (
+
+          {/* Ícone de Favorito */}
+          {lessonFav === true ? (
             <Icon
               onClick={() => mutateFavorite(lesson?._id)}
               cursor="pointer"
@@ -97,6 +125,7 @@ const PrevNext: React.FC<PrevNextProps> = ({
           )}
         </Flex>
       </Flex>
+
       <Flex
         gap={{ base: "16px", md: "32px" }}
         w="auto"
@@ -143,7 +172,7 @@ const PrevNext: React.FC<PrevNextProps> = ({
                 Próximo
               </Text>
               <Text color="neutral" fontSize={{ base: "15px", md: "16px" }}>
-                {nextLessonName || "Nome do video"}
+                {nextLessonName || "Nome do vídeo"}
               </Text>
             </VStack>
             <Icon

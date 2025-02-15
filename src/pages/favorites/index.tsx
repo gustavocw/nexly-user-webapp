@@ -12,8 +12,6 @@ const Favorites = () => {
     queryFn: () => getFavorites(),
   })
 
-  console.log(favorites);
-  
   return (
     <VStack px={{ base: 2, md: 20 }} py={20} w="100%" align="flex-start">
       <TitlePage title="Favoritos" />
@@ -22,13 +20,14 @@ const Favorites = () => {
           {favorites.map((favorite: any) => (
             <Box
               key={favorite?._id}
-              bgImage={`url(${favorite.image})`}
+              bgImage={`url(${favorite.thumbnail})`}
               bgSize="cover"
               bgRepeat="no-repeat"
               position="relative"
               cursor="pointer"
               w="320px"
               h="160px"
+              borderRadius="8px"
             >
               <Flex
                 px={2}
@@ -49,7 +48,7 @@ const Favorites = () => {
                 position="absolute"
                 justify="space-between"
               >
-                <Text color="neutral">{favorite.title}</Text>
+                <Text color="neutral">{favorite.nameLesson}</Text>
                 <Text color="neutral">{favorite.duration}</Text>
               </Flex>
             </Box>

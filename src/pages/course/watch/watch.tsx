@@ -28,6 +28,15 @@ const Watch = () => {
     enabled: !!currentLesson,
   });
 
+  const isFavorite = lesson?.some((res) => res.favoriteLesson) || false;
+  const hasLike =
+  lesson?.flatMap((l) => l.likeLesson || []).some((like) => like.type === "like") || false;
+
+const hasDislike =
+  lesson?.flatMap((l) => l.likeLesson || []).some((like) => like.type === "deslike") || false;
+
+  console.log(isFavorite);
+
   const handleShow = () => {
     setIsOpen((prev) => !prev);
   };
@@ -54,6 +63,8 @@ const Watch = () => {
   const truncateText = (text: string, maxLength: number) =>
     text.length > maxLength ? `${text.slice(0, maxLength)}...` : text;
 
+  console.log(lesson);
+
   return (
     <VStack align="flex-start" py={20} w="100%">
       <VStack py={5} gap={0} mx="auto" align="flex-start" w="90%">
@@ -68,6 +79,10 @@ const Watch = () => {
       </VStack>
       <VideoPlayer videoUrl={currentLesson?.urlVideo || ""} />
       <PrevNext
+        hasLike={hasLike}
+        hasDislike={hasDislike}
+        refetchLesson={refetchLesson}
+        lessonFav={isFavorite}
         lesson={currentLesson}
         onNext={handleNextLesson}
         onPrev={handlePrevLesson}
@@ -125,13 +140,19 @@ const Watch = () => {
           flexDirection="column"
           maxH={{ base: "220px", md: "700px" }}
           overflowY={{ base: "", md: "auto" }}
+          overflowX="hidden"
           align="center"
           w={{ base: "100%", md: "40%" }}
           justify={{ base: "center", md: "flex-start" }}
         >
-            <Text display={{ base: "flex", md: "none" }} color="white" fontSize="14px" fontWeight="bold">
-              Próximas aulas
-            </Text>
+          <Text
+            display={{ base: "flex", md: "none" }}
+            color="white"
+            fontSize="14px"
+            fontWeight="bold"
+          >
+            Próximas aulas
+          </Text>
           <LessonList
             lessons={lessons}
             currentLessonIndex={currentLessonIndex}
