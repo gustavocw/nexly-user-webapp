@@ -12,6 +12,9 @@ const Favorites = () => {
     queryFn: () => getFavorites(),
   })
 
+  console.log(favorites);
+  
+
   return (
     <VStack px={{ base: 2, md: 20 }} py={20} w="100%" align="flex-start">
       <TitlePage title="Favoritos" />

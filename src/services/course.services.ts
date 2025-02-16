@@ -55,7 +55,7 @@ export async function getFavorites() {
     `/course/favorite-lesson`,
     {}
   );
-  return data.data.data;
+  return data.data;
 }
 
 export async function likeVideo(lessonId?: string | null, type?: string) {

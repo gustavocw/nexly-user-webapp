@@ -15,7 +15,6 @@ const Header = () => {
     queryKey: ["notifications"],
     queryFn: () => getNotifications(),
   });
-  console.log(notifications);
   
   return (
     <HStack
