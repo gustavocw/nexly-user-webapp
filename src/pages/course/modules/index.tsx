@@ -1,11 +1,4 @@
-import { Text, VStack, Icon, Flex, Box } from "@chakra-ui/react";
-import { FaCircleExclamation } from "react-icons/fa6";
-import {
-  ProgressBar,
-  ProgressRoot,
-  ProgressValueText,
-} from "components/ui/progress";
-import Btn from "components/button/button";
+import { Text, VStack, Flex, Box } from "@chakra-ui/react";
 import { useState, useEffect } from "react";
 import { useParams } from "react-router-dom";
 import VideoBackground from "components/videobg/videobg";
@@ -15,12 +8,10 @@ import CardModule from "./card/card";
 import { Swiper, SwiperSlide } from "swiper/react";
 import "swiper/swiper-bundle.css";
 import { Navigation, Pagination } from "swiper/modules";
-import useAuthStore from "stores/auth.store";
 
 const Course = () => {
   const [boxWidth, setBoxWidth] = useState("40%");
   const { id } = useParams();
-  const { area } = useAuthStore();
   const [isDesktop, setIsDesktop] = useState(window.innerWidth >= 768);
 
   useEffect(() => {
@@ -91,49 +82,17 @@ const Course = () => {
               maxW={{ base: "100%", md: "100%", lg: boxWidth }}
               p={{ base: 4, md: 10 }}
             >
-              <Flex gap={2} w="100%">
-                <Icon color={area?.color}>
-                  <FaCircleExclamation />
-                </Icon>
-                <Text whiteSpace="nowrap" fontSize="14px" fontWeight="bold">
-                  {course.name}
-                </Text>
-              </Flex>
-              <Flex gap={2} w="100%">
-                <ProgressRoot
-                  colorPalette={area?.color}
-                  display="flex"
-                  gap={2}
-                  alignItems="center"
-                  w="100%"
-                  maxW="400px"
-                  defaultValue={40}
-                  min={0}
-                  max={100}
-                  orientation="horizontal"
-                >
-                  <ProgressValueText>40%</ProgressValueText>
-                  <ProgressBar bg="#00000066" borderRadius="50px" w="100%" />
-                </ProgressRoot>
-              </Flex>
-              <Text fontSize={{ base: "16px", md: "20px", lg: "32px" }}></Text>
+              <Text whiteSpace="nowrap" fontSize="22px" fontWeight="400">
+                {course.name}
+              </Text>
               <Text fontSize="16px">{course.description}</Text>
-              <Btn
-                label="Continuar de onde eu parei"
-                bg={area?.color}
-                w="260px"
-                _hover={{
-                  bg: area?.color,
-                }}
-                borderRadius="50px"
-              />
             </VStack>
           ))}
         </Flex>
       </VideoBackground>
       <Box
         w="100%"
-        px={10}
+        px={{ base: 4, md: 10 }}
         background="linear-gradient(180deg, #10121A 0%, rgba(16, 18, 26, 0) 100%)"
       >
         {courses?.map((course: any) =>

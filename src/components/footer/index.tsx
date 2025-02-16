@@ -3,10 +3,12 @@ import { useNavigate, useLocation } from "react-router-dom";
 import { RiNotification3Fill } from "react-icons/ri";
 import { GoHomeFill } from "react-icons/go";
 import { Avatar } from "components/ui/avatar";
+import { useUser } from "hooks/useUser";
 
-const BottomNav = ({ user }: { user?: { photo?: string } }) => {
+const BottomNav = () => {
   const navigate = useNavigate();
   const location = useLocation();
+  const {user} = useUser();
 
   const navItems = [
     { name: "Início", path: "/", icon: GoHomeFill },
@@ -48,7 +50,7 @@ const BottomNav = ({ user }: { user?: { photo?: string } }) => {
 
       <VStack
         cursor="pointer"
-        onClick={() => navigate("/perfil")}
+        onClick={() => navigate("/profile")}
         transition="0.2s"
         _hover={{ opacity: 0.8 }}
       >

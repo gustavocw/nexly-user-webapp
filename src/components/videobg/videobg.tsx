@@ -25,10 +25,7 @@ const VideoBackground: React.FC<VideoBackgroundProps> = ({
   useEffect(() => {
     const handleResize = () => {
       const { innerWidth, innerHeight } = window;
-      const proportionalHeight = Math.max(
-        innerHeight * (innerWidth / 1920),
-        300
-      );
+      const proportionalHeight = Math.max(innerHeight * (innerWidth / 1920), 510);
       setDimensions({
         width: innerWidth,
         height: proportionalHeight,
@@ -46,14 +43,13 @@ const VideoBackground: React.FC<VideoBackgroundProps> = ({
   const getResponsiveDimensions = () => {
     const { innerWidth } = window;
     if (innerWidth < 768) {
-      return { width: "140%", height: "100%" };
+      return { width: "300%", height: "100%", minHeight: "510px" };
     } else if (innerWidth < 992) {
       return { width: "130%", height: "130%" };
     } else {
       return { width: "120%", height: "120%" };
     }
   };
-
 
   return (
     <VStack
@@ -80,7 +76,6 @@ const VideoBackground: React.FC<VideoBackgroundProps> = ({
         zIndex="1"
         w="100%"
         h="100%"
-        display={{ base: "none", md: "none", lg: "flex" }}
         justifyContent="flex-end"
         alignItems="flex-start"
         color="white"
@@ -88,12 +83,12 @@ const VideoBackground: React.FC<VideoBackgroundProps> = ({
         {children}
         <Icon
           mx={10}
-          my={20}
+          my={{ base: 5, md: 20 }}
           alignSelf="flex-end"
           justifySelf="flex-end"
           color="#fff"
           position="absolute"
-          fontSize="34px"
+          fontSize={{ base: "26px", md: "34px" }}
           cursor="pointer"
           onClick={toggleMute}
         >

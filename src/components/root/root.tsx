@@ -4,8 +4,6 @@ import Header from "components/header/header";
 import BottomNav from "components/footer";
 
 export const Root = ({ children }: { children: React.ReactNode }) => {
-  const isMobile = window.innerWidth < 768;
-
   return (
     <Flex
       fontFamily="Raleway"
