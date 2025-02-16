@@ -1,20 +1,26 @@
 import React from "react";
-import { Box } from "@chakra-ui/react";
+import { Box, Flex } from "@chakra-ui/react";
 import Header from "components/header/header";
+import BottomNav from "components/footer";
 
 export const Root = ({ children }: { children: React.ReactNode }) => {
+  const isMobile = window.innerWidth < 768;
 
   return (
-    <Box fontFamily="Raleway" w="100%" height="100vh">
+    <Flex
+      fontFamily="Raleway"
+      w="100%"
+      minHeight="100vh"
+      flexDirection="column"
+      overflow="hidden"
+    >
       <Header />
-      <Box
-        flex="1"
-        transition="margin-left 0.2s ease"
-        overflowY="auto"
-        minHeight="100vh"
-      >
+      <Box pb={28} zIndex={0} flex="1" overflowY="auto">
         {children}
       </Box>
-    </Box>
+      <Box display={{ base: "flex", md: "none", lg: "none" }} w="100%" position="fixed" bottom="0">
+        <BottomNav />
+      </Box>
+    </Flex>
   );
 };

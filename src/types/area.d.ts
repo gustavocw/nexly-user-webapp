@@ -18,5 +18,6 @@ interface Area {
   logo: string;
   courses: Course[];
   createdAt: string;
+  type?: string;
   isActive?: boolean;
 }

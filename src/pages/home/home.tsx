@@ -95,6 +95,9 @@ const Home = () => {
           </VStack>
         </Flex>
       </BackgroundHome>
+      <Flex px={1} w="90%" mx="auto">
+      <Text color="neutral" fontSize="20px">Meus produtos</Text>
+      </Flex>
       <Swiper
         slidesPerView={2}
         spaceBetween={80}

@@ -25,10 +25,7 @@ const BackgroundHome: React.FC<BackgroundHomeProps> = ({
   useEffect(() => {
     const handleResize = () => {
       const { innerWidth, innerHeight } = window;
-      const proportionalHeight = Math.max(
-        innerHeight * (innerWidth / 1920),
-        300
-      );
+      const proportionalHeight = Math.max(innerHeight * (innerWidth / 1920), 510);
       setDimensions({
         width: innerWidth,
         height: proportionalHeight,
@@ -53,7 +50,7 @@ const BackgroundHome: React.FC<BackgroundHomeProps> = ({
   const getResponsiveDimensions = () => {
     const { innerWidth } = window;
     if (innerWidth < 768) {
-      return { width: "140%", height: "100%" };
+      return { width: "300%", height: "100%", minHeight: "510px" };
     } else if (innerWidth < 992) {
       return { width: "130%", height: "130%" };
     } else {
@@ -78,7 +75,10 @@ const BackgroundHome: React.FC<BackgroundHomeProps> = ({
         height={getResponsiveDimensions().height}
         style={{
           position: "absolute",
-          top: "-10%",
+          top: "0",
+          left: "50%",
+          transform: "translateX(-50%)",
+          minHeight: getResponsiveDimensions().minHeight || "100%",
           pointerEvents: "none",
         }}
       />
@@ -87,7 +87,6 @@ const BackgroundHome: React.FC<BackgroundHomeProps> = ({
         zIndex="1"
         w="100%"
         h="100%"
-        display={{ base: "none", md: "none", lg: "flex" }}
         justifyContent="flex-end"
         alignItems="flex-start"
         color="white"
@@ -95,12 +94,12 @@ const BackgroundHome: React.FC<BackgroundHomeProps> = ({
         {children}
         <Icon
           mx={10}
-          my={20}
+          my={{ base: 5, md: 20 }}
           alignSelf="flex-end"
           justifySelf="flex-end"
           color="#fff"
           position="absolute"
-          fontSize="34px"
+          fontSize={{ base: "26px", md: "34px" }}
           cursor="pointer"
           onClick={toggleMute}
         >
