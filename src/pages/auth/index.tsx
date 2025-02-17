@@ -1,7 +1,8 @@
 import { HStack, Image, Stack, Box, Flex } from "@chakra-ui/react";
 import { useEffect, useState } from "react";
 import FormLogin from "./form/form";
-import useAuthStore from "stores/auth.store";
+import { useQuery } from "@tanstack/react-query";
+import { getAreaLogin } from "services/area.services";
 
 const getEmbedUrl = (url: string): string | null => {
   try {
@@ -21,7 +22,15 @@ const getEmbedUrl = (url: string): string | null => {
 };
 
 const Auth: React.FC = () => {
-  const { areaLogin } = useAuthStore();
+  const rawUrl = window.location.hostname;
+  const url = rawUrl === "localhost" ? "costaweb.dev.br" : rawUrl;
+  const { data: areaLogin } = useQuery({
+    queryKey: ["area-login", url],
+    queryFn: async () => {
+      const data = await getAreaLogin(url);
+      return data;
+    },
+  });
   const videoUrl = areaLogin?.background
     ? getEmbedUrl(areaLogin.background)
     : null;
