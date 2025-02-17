@@ -13,7 +13,7 @@ export const Root = ({ children }: { children: React.ReactNode }) => {
       overflow="hidden"
     >
       <Header />
-      <Box pb={28} zIndex={0} flex="1" overflowY="auto">
+      <Box h="100vh" overflowY="auto" zIndex={0} flex="1">
         {children}
       </Box>
       <Box display={{ base: "flex", md: "none", lg: "none" }} w="100%" position="fixed" bottom="0">
