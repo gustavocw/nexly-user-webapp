@@ -15,7 +15,7 @@ const Header = () => {
     queryKey: ["notifications"],
     queryFn: () => getNotifications(),
   });
-  
+
   return (
     <HStack
       w="100%"
@@ -38,8 +38,10 @@ const Header = () => {
         <Icon cursor="pointer" fontSize="24px" color="neutral">
           <FiSearch />
         </Icon>
-        <Notifications notifications={notifications} />
-        <AvatarUser />
+        <Flex alignItems="center" gap={{ base: 4, md: 6 }} display={{ base: "none", md: "flex" }}>
+          <Notifications notifications={notifications} />
+          <AvatarUser />
+        </Flex>
       </Flex>
     </HStack>
   );

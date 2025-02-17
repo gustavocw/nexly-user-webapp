@@ -82,8 +82,8 @@ const VideoBackground: React.FC<VideoBackgroundProps> = ({
       >
         {children}
         <Icon
-          mx={10}
-          my={{ base: 5, md: 20 }}
+          mx={{ base: 5, md: 10 }}
+          my={{ base: 2, md: 20 }}
           alignSelf="flex-end"
           justifySelf="flex-end"
           color="#fff"
