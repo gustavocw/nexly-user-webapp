@@ -11,7 +11,7 @@ interface AuthContextValue {
 
 export const AuthContext = createContext({} as AuthContextValue);
 export function AuthProvider({ children }: { children: React.ReactNode }) {
-  const { setEmail, setPassword, email, password, rememberMe } = useAuthStore();
+  const { email, password, rememberMe, setArea } = useAuthStore();
 
   const [isLogged, setIsLogged] = useState<boolean>(() => {
     const storedAccessToken = localStorage.getItem(
@@ -27,9 +27,15 @@ export function AuthProvider({ children }: { children: React.ReactNode }) {
   }, []);
 
   const signout = useCallback(async () => {
-    localStorage.removeItem(localStorageKeys.ACCESS_TOKEN);
+    Object.keys(localStorage).forEach((key) => {
+        if (!["rememberMe", "email", "password"].includes(key)) {
+            localStorage.removeItem(key);
+        }
+    });
     setIsLogged(false);
-  }, [setEmail, setPassword]);
+    setArea(null)
+}, [setIsLogged]);
+;
 
   useEffect(() => {
     const pathname = location.pathname;

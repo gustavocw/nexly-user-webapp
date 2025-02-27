@@ -2,7 +2,7 @@ import { useForm, SubmitHandler } from "react-hook-form";
 import { z } from "zod";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { useState } from "react";
-import { useMutation } from "@tanstack/react-query";
+import { useMutation, useQueryClient } from "@tanstack/react-query";
 import { createTicket } from "services/ticket.services";
 import { toaster } from "components/ui/toaster";
 import { useUser } from "hooks/useUser";
@@ -21,6 +21,7 @@ type CreateTicketFormData = z.infer<typeof createTicketSchema>;
 const useCreateTicketsController = () => {
   const [isOpen, setIsOpen] = useState(false);
   const { area } = useAuthStore();
+  const queryClient = useQueryClient()
 
   const { user } = useUser();
   const {
@@ -49,6 +50,7 @@ const useCreateTicketsController = () => {
         title: "Ticket criado com sucesso",
         type: "success",
       });
+      queryClient.invalidateQueries({ queryKey: ["tickets"] })
     },
     onError: (error: any) => {
       toaster.create({

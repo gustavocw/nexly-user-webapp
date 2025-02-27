@@ -1,11 +1,9 @@
-import { createContext, useEffect } from "react";
+import { createContext } from "react";
 import { useQuery } from "@tanstack/react-query";
-import { getArea, getAreaLogin } from "services/area.services";
+import { getAreaLogin } from "services/area.services";
 import { useAuth } from "hooks/useAuth";
-import useAuthStore from "stores/auth.store";
 
 interface AreaContextValue {
-  loadingArea: boolean;
   areaLogin?: Area;
   loadingLogin: boolean;
 }
@@ -13,7 +11,6 @@ interface AreaContextValue {
 export const AreaContext = createContext({} as AreaContextValue);
 export function AreaProvider({ children }: { children: React.ReactNode }) {
   const { isLogged } = useAuth();
-  const { setArea, area } = useAuthStore();
   
   const rawUrl = window.location.hostname;
   const url = rawUrl === "localhost" ? "costaweb.dev.br" : rawUrl;
@@ -23,30 +20,12 @@ export function AreaProvider({ children }: { children: React.ReactNode }) {
     queryFn: async () => {
       return await getAreaLogin(url);
     },
-    enabled: !area && !isLogged,
+    enabled: !isLogged,
   });
 
-
-  const { data, isLoading } = useQuery({
-    queryKey: ["area", url],
-    queryFn: async () => {
-      const res = await getArea(url);
-      setArea(res[0]);
-      console.log(res);
-      return res[0];
-    },
-    enabled: !area && !!isLogged,
-  });
-  
-  
-  useEffect(() => {
-    if (data?.length) {
-      setArea(data[0]);
-    }
-  }, [data, area]);
 
   return (
-    <AreaContext.Provider value={{ loadingArea: isLoading, areaLogin, loadingLogin }}>
+    <AreaContext.Provider value={{  areaLogin, loadingLogin }}>
       {children}
     </AreaContext.Provider>
   );

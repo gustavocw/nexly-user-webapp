@@ -13,11 +13,27 @@ import { Swiper, SwiperSlide } from "swiper/react";
 import "swiper/swiper-bundle.css";
 import useAuthStore from "stores/auth.store";
 import { Navigation, Pagination } from "swiper/modules";
+import { useQuery } from "@tanstack/react-query";
+import { getArea } from "services/area.services";
+import { useAuth } from "hooks/useAuth";
 
 const Home = () => {
-  const { area } = useAuthStore();
+  const { isLogged } = useAuth();
+  const { area: areaStored, setArea } = useAuthStore();
   const [boxWidth, setBoxWidth] = useState("40%");
   const [isDesktop, setIsDesktop] = useState(window.innerWidth >= 768);
+  const rawUrl = window.location.hostname;
+  const url = rawUrl === "localhost" ? "costaweb.dev.br" : rawUrl;
+  
+  const { data: area } = useQuery({
+    queryKey: ["area", url],
+    queryFn: async () => {
+      const res = await getArea(url);
+      setArea(res);
+      return res
+    },
+    enabled: !areaStored && !!isLogged,
+  });
 
   useEffect(() => {
     const handleResize = () => {
@@ -96,7 +112,9 @@ const Home = () => {
         </Flex>
       </BackgroundHome>
       <Flex px={1} w="90%" mx="auto">
-      <Text color="neutral" fontSize="20px">Meus produtos</Text>
+        <Text color="neutral" fontSize="20px">
+          Meus produtos
+        </Text>
       </Flex>
       <Swiper
         slidesPerView={2}
