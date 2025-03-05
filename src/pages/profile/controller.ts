@@ -1,4 +1,4 @@
-import { useMutation } from "@tanstack/react-query";
+import { useMutation, useQueryClient } from "@tanstack/react-query";
 import { useUser } from "hooks/useUser";
 import { useForm, SubmitHandler } from "react-hook-form";
 import {
@@ -16,6 +16,7 @@ import { formatSelect } from "utils/formatSelect";
 export const useProfileController = () => {
   const { user } = useUser();
   const unmask = useUnmask();
+  const queryClient = useQueryClient();
 
   const {
     register: registerProfile,
@@ -81,6 +82,9 @@ export const useProfileController = () => {
 
   const { mutate: mutateFile, isPending: loadingImage } = useMutation({
     mutationFn: (file: any) => uploadPhoto(file),
+    onSuccess: () =>  {
+      queryClient.invalidateQueries({ queryKey: "me" })
+    }
   });
 
   const { mutate: mutateProfile, isPending: updatingProfile } = useMutation({

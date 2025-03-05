@@ -53,7 +53,8 @@ const CardLessons: React.FC<CardLessonsProps> = ({ lessons, format }) => {
             <Flex px={2} py="30px" align="flex-start" w="100%">
               <Gestures>
                 <Box
-                  {...style}
+                  width={{ base: style.width, md: style.width }}
+                  height={{ base: style.height, md: style.height }}
                   borderRadius="4px"
                   bgImage={`url(${lesson.thumbnail})`}
                   bgSize="cover"

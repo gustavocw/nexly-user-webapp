@@ -4,7 +4,7 @@ import { useParams } from "react-router-dom";
 import VideoBackground from "components/videobg/videobg";
 import { useQuery } from "@tanstack/react-query";
 import { getCourse, getLessons } from "services/course.services";
-import CardModule from "./card/card";
+import CardModule from "./CardModules/card";
 import { Swiper, SwiperSlide } from "swiper/react";
 import "swiper/swiper-bundle.css";
 import { Navigation, Pagination } from "swiper/modules";
@@ -42,8 +42,6 @@ const Course = () => {
     queryFn: () => getLessons(courses[0]?.modules[0]?._id!),
   });
 
-  console.log(lessons);
-
   useEffect(() => {
     const handleResize = () => {
       const { innerWidth } = window;
@@ -59,6 +57,9 @@ const Course = () => {
       window.removeEventListener("resize", handleResize);
     };
   }, []);
+
+  console.log(courses);
+  
 
   return (
     <Box h="100vh" w="100%">

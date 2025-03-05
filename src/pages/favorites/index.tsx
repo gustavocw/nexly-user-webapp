@@ -5,15 +5,15 @@ import { GoStarFill } from "react-icons/go";
 import { useQuery } from "@tanstack/react-query";
 import { getFavorites } from "services/course.services";
 import { GoStar } from "react-icons/go";
+import useAuthStore from "stores/auth.store";
 
 const Favorites = () => {
+  const { area } = useAuthStore();
+
   const {data: favorites} = useQuery({
     queryKey: ["favorites"],
-    queryFn: () => getFavorites(),
+    queryFn: () => getFavorites(area?._id),
   })
-
-  console.log(favorites);
-  
 
   return (
     <VStack px={{ base: 2, md: 20 }} py={20} w="100%" align="flex-start">

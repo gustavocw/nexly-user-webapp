@@ -21,14 +21,14 @@ const defaultStyle = formatStyles.VERTICAL_RECT;
 
 const CardModule: React.FC<CardModuleProps> = ({ module, format }) => {
   const style = formatStyles[format] || defaultStyle;
-
   const navigate = useNavigate();
 
   return (
     <VStack py={10} align="flex-start" w="100%">
       <Gestures>
         <Box
-          {...style}
+          width={{ base: style.width, md: style.width }}
+          height={{ base: style.height, md: style.height }}
           borderRadius="4px"
           bgImage={`url(${module.thumbnail})`}
           bgSize="cover"
@@ -36,8 +36,6 @@ const CardModule: React.FC<CardModuleProps> = ({ module, format }) => {
           bgPos="center"
           position="relative"
           cursor="pointer"
-          w={{ base: "188px", md: defaultStyle.width }}
-          h={{ base: "280px", md: defaultStyle.height }}
           onClick={() =>
             navigate(`/watch/${module?._id}`, {
               state: { course: module },

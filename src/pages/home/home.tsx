@@ -15,11 +15,9 @@ import useAuthStore from "stores/auth.store";
 import { Navigation, Pagination } from "swiper/modules";
 import { useQuery } from "@tanstack/react-query";
 import { getArea } from "services/area.services";
-import { useAuth } from "hooks/useAuth";
 
 const Home = () => {
-  const { isLogged } = useAuth();
-  const { area: areaStored, setArea } = useAuthStore();
+  const { setArea } = useAuthStore();
   const [boxWidth, setBoxWidth] = useState("40%");
   const [isDesktop, setIsDesktop] = useState(window.innerWidth >= 768);
   const rawUrl = window.location.hostname;
@@ -32,7 +30,6 @@ const Home = () => {
       setArea(res);
       return res
     },
-    enabled: !areaStored && !!isLogged,
   });
 
   useEffect(() => {

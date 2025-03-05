@@ -50,9 +50,9 @@ export async function favoriteVideo(lessonId?: string | null) {
   return data.data;
 }
 
-export async function getFavorites() {
+export async function getFavorites(memberAreaId?: string | null) {
   const { data } = await http.get<any>(
-    `/course/favorite-lesson`,
+    `/course/favorite-lesson/${memberAreaId}`,
     {}
   );
   return data.data;
