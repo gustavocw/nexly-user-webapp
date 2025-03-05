@@ -50,7 +50,7 @@ const Home = () => {
   }, []);
 
   return (
-    <Box h="100vh" w="100%">
+    <Box h="100%"  pb={{ base: 20, md: 0 }} w="100%">
       <BackgroundHome backgroundUrl={area?.background}>
         <Flex
           bg="linear-gradient(0deg, #1F1D22 0%, rgba(16, 18, 26, 0) 100%)"
@@ -71,7 +71,7 @@ const Home = () => {
               <Icon color={area?.color}>
                 <FaCircleExclamation />
               </Icon>
-              <Text whiteSpace="nowrap" fontSize="14px" fontWeight="bold">
+              <Text fontSize="14px" fontWeight="bold">
                 Receba seu certificado após a conclusão das aulas
               </Text>
             </Flex>
@@ -137,11 +137,11 @@ const Home = () => {
         }}
         modules={[Pagination, Navigation]}
         navigation={isDesktop}
-        style={{ width: "90%" }}
+        style={{ width: "90%"}}
       >
         {area?.courses.map((course) => (
           <>
-            <SwiperSlide key={course._id}>
+            <SwiperSlide  key={course._id}>
               <CardProduct course={course} />
             </SwiperSlide>
           </>

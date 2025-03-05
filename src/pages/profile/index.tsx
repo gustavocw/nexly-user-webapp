@@ -9,6 +9,7 @@ import { FileUploadRoot, FileUploadTrigger } from "components/ui/file-upload";
 import { SkeletonCircle } from "components/ui/skeleton";
 import { useUser } from "hooks/useUser";
 import Btn from "components/button/button";
+import { useAuth } from "hooks/useAuth";
 
 const Profile = () => {
   const {
@@ -26,9 +27,10 @@ const Profile = () => {
     creatingAddress,
   } = useProfileController();
   const { user } = useUser();
+  const { signout } = useAuth();
 
   return (
-    <VStack w="100%">
+    <VStack h="100vh" w="100%">
       <VStack
         align="flex-start"
         gap="32px"
@@ -80,6 +82,25 @@ const Profile = () => {
           control={controlAdress}
           fetchAddressByCEP={fetchAddressByCEP}
         />
+        <VStack
+          display={{ base: "flex", md: "none" }}
+          w="100%"
+          justify="center"
+        >
+          <Btn
+            w="200px"
+            label="Salvar"
+            onClick={() => handleProfileSubmit(onSubmitProfile)()}
+            isLoading={updatingProfile || updatingAddress || creatingAddress}
+          />
+          <Btn
+            w="200px"
+            label="Sair"
+            bg="transparent"
+            onClick={() => signout()}
+            isLoading={updatingProfile || updatingAddress || creatingAddress}
+          />
+        </VStack>
       </VStack>
       <Flex w="60%" justify="flex-end">
         <Btn

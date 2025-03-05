@@ -12,12 +12,14 @@ export const GlobalStyles: React.FC<{ color?: string }> = ({ color = "#7809C2" }
       background-color: #1F1D22;
       height: 100%;
       width: 100%;
+      overflow: auto;
     }
     #root {
       height: 100%;
       width: 100%;
     }
 
+    /* Estilização padrão da scrollbar */
     *::-webkit-scrollbar {
       height: 3px;
       width: 3px;
@@ -26,26 +28,21 @@ export const GlobalStyles: React.FC<{ color?: string }> = ({ color = "#7809C2" }
       border-radius: 5px;
       background-color: #2E2A34;
     }
-
-    *::-webkit-scrollbar-track:hover {
-      background-color: #2E2A34;
-    }
-
-    *::-webkit-scrollbar-track:active {
-      background-color: #2E2A34;
-    }
-
     *::-webkit-scrollbar-thumb {
       border-radius: 5px;
       background-color: ${color};
     }
 
-    *::-webkit-scrollbar-thumb:hover {
-      background-color: ${color};
-    }
-
-    *::-webkit-scrollbar-thumb:active {
-      background-color: ${color};
+    /* Tornar a scrollbar invisível em dispositivos móveis */
+    @media (max-width: 768px) {
+      * {
+        scrollbar-width: none; /* Firefox */
+      }
+      *::-webkit-scrollbar {
+        display: none; /* Chrome, Safari e Edge */
+        width: 0;
+        height: 0;
+      }
     }
     `}
   </style>

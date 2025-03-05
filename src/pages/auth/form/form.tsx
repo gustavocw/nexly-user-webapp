@@ -34,7 +34,7 @@ const Form = () => {
         w={{ base: "90%", md: "70%", lg: "60%" }}
         lineHeight={1}
       >
-        <Flex gap={2} justify="center" alignItems="center" w="100%">
+        <Flex flexWrap="wrap" gap={2} justify="center" alignItems="center" w="100%">
           <Text.Base
             textWrap="nowrap"
             fontSize={{ base: "16px", md: "22px", lg: "28px" }}

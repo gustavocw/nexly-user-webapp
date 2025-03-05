@@ -81,9 +81,11 @@ const Course = () => {
               gap="16px"
               align="flex-start"
               maxW={{ base: "100%", md: "100%", lg: boxWidth }}
+              h={{ base: "200px", md: "auto" }}
+              overflowY="auto"
               p={{ base: 4, md: 10 }}
             >
-              <Text whiteSpace="nowrap" fontSize="22px" fontWeight="400">
+              <Text whiteSpace="nowrap" fontSize={{ base: "16px", md: "22px" }} fontWeight="400">
                 {course.name}
               </Text>
               <Text fontSize="16px">{course.description}</Text>
