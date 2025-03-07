@@ -1,7 +1,11 @@
 import { Box, Text, VStack, Icon } from "@chakra-ui/react";
 import Gestures from "components/motion/gesture";
 import { useNavigate } from "react-router-dom";
-import { MdOutlineVideoLibrary, MdOutlineCollectionsBookmark } from "react-icons/md";
+import {
+  MdOutlineVideoLibrary,
+  MdOutlineCollectionsBookmark,
+} from "react-icons/md";
+import useCourseStore from "stores/course.store";
 
 interface CardProductProps {
   course: Course | any;
@@ -10,8 +14,12 @@ interface CardProductProps {
 const defaultStyle = { width: "208px", height: "310px" };
 
 const CardProduct: React.FC<CardProductProps> = ({ course }) => {
+  const { setCourseId } = useCourseStore();
   const navigate = useNavigate();
-  const courseIcon = course.type === "video" ? MdOutlineVideoLibrary : MdOutlineCollectionsBookmark;
+  const courseIcon =
+    course.type === "video"
+      ? MdOutlineVideoLibrary
+      : MdOutlineCollectionsBookmark;
 
   return (
     <VStack py={10} align="flex-start" w="100%">
@@ -27,11 +35,12 @@ const CardProduct: React.FC<CardProductProps> = ({ course }) => {
           cursor="pointer"
           w={{ base: "188px", md: defaultStyle.width }}
           h={{ base: "280px", md: defaultStyle.height }}
-          onClick={() =>
+          onClick={() => {
+            setCourseId(course?._id);
             navigate(`/course/${course?._id}`, {
               state: { course: course },
-            })
-          }
+            });
+          }}
           mx={2}
         >
           <Icon

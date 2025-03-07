@@ -45,7 +45,7 @@ const Certificates = () => {
                   <ProgressValueText color="neutral" fontSize="16px">
                     40%
                   </ProgressValueText>
-                  <ProgressBar bg="#1A1A1A" borderRadius="10px" flex="1" />
+                  <ProgressBar bg={area?.color} borderRadius="10px" flex="1" />
                 </HStack>
               </ProgressRoot>
             </VStack>

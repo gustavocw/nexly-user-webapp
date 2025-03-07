@@ -12,6 +12,7 @@ interface Area {
   _id: string;
   domain: string;
   color: string;
+  description: string;
   title: string;
   background: string;
   icon: string;

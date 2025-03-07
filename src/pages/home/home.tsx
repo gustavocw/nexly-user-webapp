@@ -94,8 +94,7 @@ const Home = () => {
               {area?.title}
             </Text>
             <Text maxW={{ base: "100%", md: "70%" }} fontSize="14px">
-              Descubra o cosmos com 'Exploração Espacial 101'. Este curso
-              envolvente abrange astronomia, exoplanetas e muito mais. Perfeito.
+              {area?.description}
             </Text>
             <Btn
               label="Continuar de onde eu parei"

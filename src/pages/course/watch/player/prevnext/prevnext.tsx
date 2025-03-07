@@ -1,11 +1,4 @@
-import {
-  Flex,
-  Icon,
-  Separator,
-  Stack,
-  Text,
-  VStack,
-} from "@chakra-ui/react";
+import { Flex, Icon, Separator, Stack, Text, VStack } from "@chakra-ui/react";
 import Btn from "components/button/button";
 import { SlLike } from "react-icons/sl";
 import { SlDislike } from "react-icons/sl";
@@ -15,6 +8,9 @@ import { CiCircleChevRight } from "react-icons/ci";
 import { CiCircleChevLeft } from "react-icons/ci";
 import { useControllerVideo } from "./controller";
 import useAuthStore from "stores/auth.store";
+import { useMutation } from "@tanstack/react-query";
+import { saveProgress } from "services/course.services";
+import useCourseStore from "stores/course.store";
 
 interface PrevNextProps {
   lesson?: Lesson | null;
@@ -46,9 +42,17 @@ const PrevNext: React.FC<PrevNextProps> = ({
 }) => {
   const { mutateFavorite, mutateLike } = useControllerVideo({ refetchLesson });
   const { area } = useAuthStore();
+  const { courseId } = useCourseStore();
 
-  console.log(lesson);
-  
+  const { mutate: markProgress } = useMutation({
+    mutationKey: ["markProgress"],
+    mutationFn: () => saveProgress(lesson?._id, courseId),
+  });
+
+  // const {data} = useQuery({
+  //   queryKey: ["lesson", lesson?._id],
+  //   queryFn: () => http.get(`/member/progress/${courseId}`,),
+  // })
 
   return (
     <Stack
@@ -86,6 +90,7 @@ const PrevNext: React.FC<PrevNextProps> = ({
           w={{ base: "200px", md: "240px" }}
           bg="transparent"
           label="Marcar como concluído"
+          onClick={() => markProgress()}
         />
 
         <Flex gap={{ base: "16px", md: "32px" }}>

@@ -18,24 +18,26 @@ export async function getLessons(moduleId?: string | null) {
 }
 
 export async function getUniqueLesson(lessonId?: string | null) {
-  const { data } = await http.get<Lesson[]>(
-    `/course/lesson/${lessonId}`,
-    {}
-  );
+  const { data } = await http.get<Lesson[]>(`/course/lesson/${lessonId}`, {});
   return data;
 }
 
-
-export async function commentLesson(lessonId?: string | null, commentContent?: string) {
+export async function commentLesson(
+  lessonId?: string | null,
+  commentContent?: string
+) {
   const { data } = await http.post(`/course/lesson-comment/${lessonId}`, {
-    commentContent
+    commentContent,
   });
   return data.data;
 }
 
-export async function repplyComment(commentId?: string | null, content?: string) {
+export async function repplyComment(
+  commentId?: string | null,
+  content?: string
+) {
   const { data } = await http.post(`/course/response-comment/${commentId}`, {
-    content
+    content,
   });
   return data.data;
 }
@@ -60,7 +62,18 @@ export async function getFavorites(memberAreaId?: string | null) {
 
 export async function likeVideo(lessonId?: string | null, type?: string) {
   const { data } = await http.post(`/course/lesson/like/${lessonId}`, {
-    type
+    type,
   });
+  return data.data;
+}
+
+export async function saveProgress(
+  lessonId?: string | null,
+  courseId?: string | null
+) {
+  const { data } = await http.post(
+    `/member/save-progress/${lessonId}/${courseId}`,
+    {}
+  );
   return data.data;
 }
