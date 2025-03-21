@@ -12,6 +12,7 @@ import Favorites from "pages/favorites";
 import Certificates from "pages/certificates";
 import Certificate from "pages/certificates/unique";
 import Tickets from "pages/tickets";
+import Chat from "pages/tickets/chat/chat";
 
 const LayoutWithRoot: React.FC = () => (
   <Root>
@@ -34,6 +35,7 @@ const AppRoutes: React.FC = () => {
             <Route path="/tickets" element={<Tickets />} />
             <Route path="/certificates" element={<Certificates />} />
             <Route path="/certificate/:id" element={<Certificate />} />
+            <Route path="/chat/:id" element={<Chat />} />
           </Route>
         </Route>
       </Routes>

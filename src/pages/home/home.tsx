@@ -15,20 +15,32 @@ import useAuthStore from "stores/auth.store";
 import { Navigation, Pagination } from "swiper/modules";
 import { useQuery } from "@tanstack/react-query";
 import { getArea } from "services/area.services";
+import { returnProgress } from "services/course.services";
+import { useNavigate } from "react-router-dom";
 
 const Home = () => {
-  const { setArea } = useAuthStore();
+  const { setArea, area: storedArea } = useAuthStore();
   const [boxWidth, setBoxWidth] = useState("40%");
   const [isDesktop, setIsDesktop] = useState(window.innerWidth >= 768);
   const rawUrl = window.location.hostname;
   const url = rawUrl === "localhost" ? "costaweb.dev.br" : rawUrl;
-  
+  const navigate = useNavigate();
+
+  const { data: progress, refetch } = useQuery({
+    queryKey: ["progress"],
+    queryFn: async () => {
+      const result = returnProgress(storedArea?.courses[0]?._id);
+      return result;
+    },
+  });
+
   const { data: area } = useQuery({
     queryKey: ["area", url],
     queryFn: async () => {
       const res = await getArea(url);
       setArea(res);
-      return res
+      refetch();
+      return res;
     },
   });
 
@@ -50,7 +62,7 @@ const Home = () => {
   }, []);
 
   return (
-    <Box h="100%"  pb={{ base: 20, md: 0 }} w="100%">
+    <Box h="100%" pb={{ base: 20, md: 0 }} w="100%">
       <BackgroundHome backgroundUrl={area?.background}>
         <Flex
           bg="linear-gradient(0deg, #1F1D22 0%, rgba(16, 18, 26, 0) 100%)"
@@ -75,35 +87,44 @@ const Home = () => {
                 Receba seu certificado após a conclusão das aulas
               </Text>
             </Flex>
-            <Flex gap={2} w={{ base: "60%", md: "50%" }}>
-              <ProgressRoot
-                display="flex"
-                gap={2}
-                alignItems="center"
-                w="100%"
-                defaultValue={40}
-                min={0}
-                max={100}
-                orientation="horizontal"
-              >
-                <ProgressValueText>40%</ProgressValueText>
-                <ProgressBar bg={area?.color} borderRadius="50px" w="100%" />
-              </ProgressRoot>
-            </Flex>
+            {progress?.length > 0 && progress[0]?.percent_progress > 0 && (
+              <Flex gap={2} w={{ base: "60%", md: "50%" }}>
+                <ProgressRoot
+                  display="flex"
+                  gap={2}
+                  alignItems="center"
+                  w="100%"
+                  defaultValue={progress[0]?.percent_progress}
+                  min={0}
+                  max={100}
+                  orientation="horizontal"
+                >
+                  <ProgressValueText>
+                    {progress[0]?.percent_progress}%
+                  </ProgressValueText>
+                  <ProgressBar bg={area?.color} borderRadius="50px" w="100%" />
+                </ProgressRoot>
+              </Flex>
+            )}
             <Text fontSize={{ base: "16px", md: "18px", lg: "28px" }}>
               {area?.title}
             </Text>
             <Text maxW={{ base: "100%", md: "70%" }} fontSize="14px">
               {area?.description}
             </Text>
-            <Btn
-              label="Continuar de onde eu parei"
-              bg={area?.color}
-              w="260px"
-              _hover={{ bg: area?.color }}
-              borderRadius="50px"
-              borderColor="#fff"
-            />
+            {progress?.length > 0 && progress[0]?.percent_progress > 0 && (
+              <Btn
+                label="Continuar de onde eu parei"
+                bg={area?.color}
+                w="260px"
+                _hover={{ bg: area?.color }}
+                borderRadius="50px"
+                borderColor="#fff"
+                onClick={() => {
+                  navigate(`watch/${progress[0]?.idLesson}`);
+                }}
+              />
+            )}
           </VStack>
         </Flex>
       </BackgroundHome>
@@ -136,11 +157,11 @@ const Home = () => {
         }}
         modules={[Pagination, Navigation]}
         navigation={isDesktop}
-        style={{ width: "90%"}}
+        style={{ width: "90%" }}
       >
         {area?.courses.map((course) => (
           <>
-            <SwiperSlide  key={course._id}>
+            <SwiperSlide key={course._id}>
               <CardProduct course={course} />
             </SwiperSlide>
           </>

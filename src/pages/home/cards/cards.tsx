@@ -1,4 +1,4 @@
-import { Box, Text, VStack, Icon } from "@chakra-ui/react";
+import { Box, Text, VStack, Icon, Link, Flex } from "@chakra-ui/react";
 import Gestures from "components/motion/gesture";
 import { useNavigate } from "react-router-dom";
 import {
@@ -67,6 +67,18 @@ const CardProduct: React.FC<CardProductProps> = ({ course }) => {
             <Text fontSize="sm">{course.name}</Text>
           </Box>
         </Box>
+        <Flex justify="space-between" align="center" w="100%">
+          {!course.ticket?.replied && (
+            <Link
+              color="primary.50"
+              fontSize="sm"
+              onClick={() => navigate(`/chat/${course.ticket._id}`)}
+              ml="auto"
+            >
+              Ver respostas
+            </Link>
+          )}
+        </Flex>
       </Gestures>
     </VStack>
   );

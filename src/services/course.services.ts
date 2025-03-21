@@ -77,3 +77,14 @@ export async function saveProgress(
   );
   return data.data;
 }
+
+export async function returnProgress(
+  courseId?: string | null
+) {
+  const { data } = await http.get(
+    `/member/progress/${courseId}`,
+    {}
+  );
+  return data;
+}
+

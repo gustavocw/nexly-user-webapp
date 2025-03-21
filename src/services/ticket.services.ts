@@ -14,3 +14,8 @@ export async function createTicket(
   const { data } = await http.post(`/tickets/${areaId}`, params);
   return data;
 }
+
+export async function getTicketMessages(roomId?: string) {
+  const { data } = await http.get<any>(`/tickets/message/${roomId}`);
+  return data;
+}

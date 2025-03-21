@@ -13,6 +13,7 @@ import {
   SelectTrigger,
   SelectValueText,
 } from "components/ui/select";
+import { Link } from 'react-router-dom';
 
 const TicketCard = ({ ticket }: { ticket: Ticket }) => {
   const collection = createListCollection({
@@ -71,12 +72,13 @@ const TicketCard = ({ ticket }: { ticket: Ticket }) => {
         </Text>
       </Stack>
       <Text color="neutral">{ticket.description}</Text>
-      <Flex gap="10px" w="100%">
-        <Flex
+      <Flex gap="10px" w="100%" align="center">
+      <Flex
           alignItems="center"
           justify="center"
           w={{ base: "100%", md: "120px" }}
           borderRadius="8px"
+          p="10px"
           bg={getPriorityColor(ticket.priority)}
         >
           <Text color="primary.95" fontSize="14px">
@@ -122,6 +124,22 @@ const TicketCard = ({ ticket }: { ticket: Ticket }) => {
             ))}
           </SelectContent>
         </SelectRoot>
+        {!ticket?.room && (
+          <Link 
+            to={`/chat/${ticket._id}`} 
+            state={{ room: ticket.room }}
+          >
+            <Text
+              color="primary.50"
+              fontSize="14px"
+              textDecoration="underline"
+              cursor="pointer"
+              whiteSpace="nowrap"
+            >
+              Ver respostas
+            </Text>
+          </Link>
+        )}
       </Flex>
     </VStack>
   );

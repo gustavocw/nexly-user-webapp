@@ -19,23 +19,26 @@ const Watch = () => {
 
   const [currentLessonIndex, setCurrentLessonIndex] = useState(0);
   const [isOpen, setIsOpen] = useState(false);
+  const { data: lesson, refetch: refetchLesson } = useQuery({
+    queryKey: ["uniqueLesson", id],
+    queryFn: () => getUniqueLesson(id),
+    enabled: !!id,
+  });
+
 
   const currentLesson = lessons ? lessons[currentLessonIndex] : null;
 
-  const { data: lesson, refetch: refetchLesson } = useQuery({
-    queryKey: ["uniqueLesson", currentLesson?._id],
-    queryFn: () => getUniqueLesson(currentLesson?._id),
-    enabled: !!currentLesson,
-  });
 
   const isFavorite = lesson?.some((res) => res.favoriteLesson) || false;
   const hasLike =
-  lesson?.flatMap((l) => l.likeLesson || []).some((like) => like.type === "like") || false;
+    lesson
+      ?.flatMap((l) => l.likeLesson || [])
+      .some((like) => like.type === "like") || false;
 
-const hasDislike =
-  lesson?.flatMap((l) => l.likeLesson || []).some((like) => like.type === "deslike") || false;
-
-  console.log(isFavorite);
+  const hasDislike =
+    lesson
+      ?.flatMap((l) => l.likeLesson || [])
+      .some((like) => like.type === "deslike") || false;
 
   const handleShow = () => {
     setIsOpen((prev) => !prev);
@@ -62,8 +65,6 @@ const hasDislike =
 
   const truncateText = (text: string, maxLength: number) =>
     text.length > maxLength ? `${text.slice(0, maxLength)}...` : text;
-
-  console.log(lesson);
 
   return (
     <VStack align="flex-start" py={20} w="100%">
