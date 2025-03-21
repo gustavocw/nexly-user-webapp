@@ -20,6 +20,26 @@ const TicketCard = ({ ticket }: { ticket: Ticket }) => {
     items: statusOptions,
   });
 
+  const RomDummy = {
+    "_id": "67ddb6de611c70f40bb9bc8e",
+    "nameRoom": "Não consigo usar o curso",
+    "createdAt": "2025-03-21T18:58:38.487Z",
+    "updatedAt": "2025-03-21T18:58:38.487Z",
+    "messageCount": 5,
+    "user": {
+        "email": "sas2@gmail.com",
+        "name": "USER COSTA",
+        "studentId": "67c0cbdc1066e91ff1c489cd",
+        "photo": "https://opt-nexly-members-student.s3.us-east-1.amazonaws.com/84118118a39e28bd29bc568abbea7885%20-%20OPT%20icon%20laranja%20png.png"
+    },
+    "ticket": {
+        "name": "Não consigo usar o curso",
+        "number": "2985024548",
+        "category": "erro_sistema",
+        "priority": "URGENTE"
+    }
+  }
+
   return (
     <VStack
       p={6}
@@ -127,12 +147,12 @@ const TicketCard = ({ ticket }: { ticket: Ticket }) => {
         {!ticket?.room && (
           <Link 
             to={`/chat/${ticket._id}`} 
-            state={{ room: ticket.room }}
+            state={{ room: RomDummy }}
           >
             <Text
               color="primary.50"
               fontSize="14px"
-              textDecoration="underline"
+              textDecoration="none"
               cursor="pointer"
               whiteSpace="nowrap"
             >

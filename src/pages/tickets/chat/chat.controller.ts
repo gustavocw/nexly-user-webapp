@@ -115,7 +115,10 @@ export const useChatController = (selectedRoom: Room) => {
       }
     };
 
-    setMessages((prev) => [...prev, newMessage]);
+    setMessages((prev) => {
+      const newMessages = [...prev, newMessage];
+      return newMessages;
+    });
     setInput("");
 
     if (socketRef.current && socketRef.current.readyState === WebSocket.OPEN) {

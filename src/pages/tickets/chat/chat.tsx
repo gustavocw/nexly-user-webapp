@@ -18,12 +18,12 @@ import Divider from "components/divider/divider";
 import SendIcon from "@mui/icons-material/Send";
 import { useChatController } from "./chat.controller";
 import React, { useEffect, useRef } from "react";
-import { useLocation, Navigate } from 'react-router-dom';
+import { useLocation, Navigate, useNavigate } from 'react-router-dom';
 
 const Chat: React.FC = () => {
   const { state } = useLocation();
+  const navigate = useNavigate();
   const room = state?.room;
-  
   
   if (!room) {
     return <Navigate to="/tickets" replace />;
@@ -43,6 +43,7 @@ const Chat: React.FC = () => {
 
   const handleDisconnect = () => {
     disconnect();
+    navigate('/tickets');
   };
 
   const messagesContainerRef = useRef<HTMLDivElement>(null);
@@ -54,7 +55,7 @@ const Chat: React.FC = () => {
       messagesContainerRef.current.scrollTop =
         messagesContainerRef.current.scrollHeight;
     }
-  }, []);
+  }, [groupedMessages]);
 
   function getPriorityColor(priority: string): string {
     switch (priority) {
@@ -72,13 +73,22 @@ const Chat: React.FC = () => {
   }
 
   return (
-    <VStack position="relative" w="100%" h="100%" flex={1} align="flex-start">
+    <VStack 
+      w="100%" 
+      h="100vh" 
+      bg="neutral.60"
+      position="fixed"
+      top={0}
+      left={0}
+      zIndex={999}
+      pt={20}
+    >
       <HStack
         borderBottom="1px solid"
         borderColor="neutral.40"
         p="32px"
         h="100px"
-        w="calc(100vw - 650px)"
+        w="100%"
         justify="space-between"
         flexShrink={0}
       >
@@ -162,13 +172,13 @@ const Chat: React.FC = () => {
 
       <VStack
         px={10}
-        w="calc(100vw - 650px)"
+        w="100%"
         ref={messagesContainerRef}
         flex={1}
         pt={10}
         pb={40}
         overflowY="auto"
-        maxH="calc(100vh - 100px)"
+        maxH="calc(100vh - 220px)"
       >
         {Object.keys(groupedMessages).map((date) => (
           <React.Fragment key={date}>
@@ -235,16 +245,15 @@ const Chat: React.FC = () => {
         ))}
       </VStack>
       <Flex
-        position="absolute"
+        position="fixed"
         alignItems="center"
         bottom="0"
         zIndex={999}
-        w="calc(100vw - 650px)"
+        w="100%"
         borderTopWidth="1px"
         borderColor="neutral.40"
         h="120px"
         bg="neutral.60"
-        flexShrink={0}
       >
         <Textarea
           borderRadius="0"
